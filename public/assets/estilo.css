@@ -1,0 +1,160 @@
+body {
+  font-size: 12px;
+  letter-spacing: .5px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.col-md-4 > .card > .card-body > img{
+  height: 35vh;
+}
+
+.col-md-6 > .card > .card-body > img{
+  height: 35vh;
+}
+.menu {
+  font-size: 1.10rem;
+}
+
+.bd-verde {
+  color: #00923e;
+  border-bottom: 3px solid #00923e !important;
+}
+
+.bd-azul {
+  color: #008582;
+  border-bottom: 3px solid #008582 !important;
+}
+
+.bg-verde {
+  background-color: #00923e;
+}
+
+.bg-azul {
+  background-color: #019e9c;
+}
+
+.bg-verde-azul {
+  background-color: #00926e;
+}
+
+.bg-verde-dark{
+  background-color: #0E2507;
+}
+
+.green-letter {
+  color: #00923e;
+}
+
+.image-carousel {
+  max-height: 411px;
+}
+
+a, a:hover, a:active, a:visited {
+  text-decoration: none !important;
+}
+
+.noticia {
+  border: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px !important;
+}
+
+.avatar-img-small{
+  width: 60px;
+  height: 60px;
+}
+
+.img-noticia{
+  width: 90%;
+}
+
+
+.logo{
+  color: black;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #00923e;
+  text-decoration: none;
+}
+
+.scale-active{
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.scale-active:hover{
+  transform: scale(1.03);
+}
+
+.c-link, .c-link:hover, .c-link:active, .c-link:visited{
+  text-decoration: none;
+}
+
+.c-link-white {
+  color: white;
+
+}
+
+.c-link-white:hover{
+  color: black;
+  
+}
+
+.menu-link {
+  color: white;
+}
+
+.menu-link:hover {
+  color: white;
+  background-color: #005f28;
+}
+
+.c-link-yellow{
+  color: #ffc107;
+
+}
+
+.c-link-yellow:hover{
+  color: black;
+}
+
+.card-title {
+  text-transform: uppercase;
+}
+
+.texto-noticia {
+  font-size: 1.15rem;
+  line-height: 1.6
+}
+
+.image-size-spotlight{
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  width: 100%; 
+  height: 60vh;
+  filter:brightness(70%);
+}
+
+.image-size-spotlight:hover{
+  filter:brightness(45%);
+}
+
+.z-100{
+  z-index: 100;
+}
+
+.z-1000{
+  z-index: 100;
+
+}
+
+.advertising{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,134 @@
+body{
+  font-size: 15px
+}
+
+.nav-link{
+  padding: unset;
+}
+
+.menu {
+  font-size: 1.15em;
+}
+
+.bd-verde {
+  color: #00923e;
+  border-bottom: 3px solid #00923e !important;
+}
+
+.bg-verde {
+  background-color: #00923e;
+}
+
+.bg-azul {
+  background-color: #019e9c;
+}
+
+.bg-verde-azul {
+  background-color: #00926e;
+}
+
+.green-letter {
+  color: #00923e;
+}
+
+.image-carousel {
+  max-height: 411px;
+}
+
+.conteudo {
+  font-size: 10px;
+}
+
+.noticia {
+  border: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px !important;
+}
+
+.card.noticia{
+  width: 18rem;
+}
+
+.image-size-card{
+  width: 18rem; 
+  height: 30vh;
+}
+
+.image-size-spotlight{
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  width: 100%; 
+  height: 50vh;
+  filter:brightness(70%);
+}
+
+.image-size-spotlight:hover{
+  filter:brightness(45%);
+}
+
+.card-text{
+  display: flex;
+  justify-content: center !important;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+.noticia-color{
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+  color: #424242
+}
+
+.noticia-color:hover{
+  color: blue
+}
+
+.no-border{
+  border: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: 0px !important;
+}
+
+.card-title{
+  text-transform: uppercase;
+}
+
+.scale-active{
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.scale-active:hover{
+  transform: scale(1.05);
+}
+
+.apply-font{
+  font-family: "brandon-grotesque",sans-serif;
+}
+
+.destaque{
+  font-family: "brandon-grotesque",sans-serif;
+  color: #424242
+}
+
+.destaque-descricao{
+  font-family: "brandon-grotesque",sans-serif;
+  color: #424242
+}
+
+.categoria{
+  font-size: 1.5rem
+}
