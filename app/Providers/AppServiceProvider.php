@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Componentes
         Blade::component('shared.components.header', 'header');
         Blade::component('shared.components.menu.index', 'menu');
         Blade::component('shared.components.menu.linkMenu', 'linkMenu');
@@ -26,6 +27,13 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('shared.components.advertising', 'advertising');
         Blade::component('shared.components.category.index', 'category');
         Blade::component('shared.components.footer', 'footer');
+        Blade::component('shared.components.author', 'author');
+        Blade::component('shared.components.newsText', 'newsText');
+        Blade::component('shared.components.newsTitle', 'newsTitle');
+        Blade::component('shared.components.newsPhoto', 'newsPhoto');
+        Blade::component('shared.components.socialLink', 'socialLink');   
+        // Containers
+        Blade::component('shared.container.news', 'news');
         Blade::component('shared.container.main', 'main');
     }
 
