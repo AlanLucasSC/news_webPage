@@ -19,17 +19,17 @@
                     <!-- Redes sociais -->
                     <div class="d-inline-block">
                         @socialLink([
-                            'url' => '' , 
+                            'url' => '#' , 
                             'icon' => 'fa-facebook'
                             ])
                         @endsocialLink
                         @socialLink([
-                            'url' => '' , 
+                            'url' => '#' , 
                             'icon' => 'fa-instagram'
                             ])
                         @endsocialLink
                         @socialLink([
-                            'url' => '' , 
+                            'url' => '#' , 
                             'icon' => 'fa-twitter'
                             ])
                         @endsocialLink

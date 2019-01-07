@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('shared.components.newsPhoto', 'newsPhoto');
         Blade::component('shared.components.socialLink', 'socialLink');   
         // Containers
-        Blade::component('shared.container.news', 'news');
+        Blade::component('shared.container.news', 'showNews');
         Blade::component('shared.container.main', 'main');
     }
 
