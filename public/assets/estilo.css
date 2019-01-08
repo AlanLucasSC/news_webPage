@@ -2,6 +2,7 @@ body {
   font-size: 12px;
   letter-spacing: .5px;
   font-family: 'Raleway', sans-serif;
+  min-height: 100vh;
 }
 
 .col-md-4 > .card > .card-body > img{
