@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource("news","newcontroller");
+Route::resource("commments","commentcontroller");
+Route::resource("images","imagecontroller");
+

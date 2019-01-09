@@ -35,6 +35,14 @@ class AppServiceProvider extends ServiceProvider
         // Containers
         Blade::component('shared.container.news', 'showNews');
         Blade::component('shared.container.main', 'main');
+
+        Route::resourceVerbs([
+            'create'    => 'criar',
+            'store'     => 'guardar',
+            'edit'      => 'editar',
+            'update'    => 'atualizar',
+            'destroy'   => 'deletar'
+        ]);
     }
 
     /**
