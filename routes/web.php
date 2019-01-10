@@ -11,17 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('index');
+Route::get('/', 'IndexController@index')->name('index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource("news","newcontroller"); // $this->middleware('auth')->except(['index','show']);
-Route::resource("commments","commentcontroller");
-Route::resource("images","imagecontroller");
 Route::resources([
     'advertising' => 'PhotoController',
     'category' => 'PostController',

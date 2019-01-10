@@ -8,4 +8,9 @@ class News extends Model
 {
     //
     protected $table = 'news';
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
 }

@@ -31,23 +31,24 @@
         @header 
             <!-- Authentication Links -->
             @guest
+                <a class="nav-link" href="{{ route('login') }}"> Login </a>
                 <a class="nav-link" href="{{ route('index') }}"> Início </a>
             @else
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                        document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
             @endguest
             <a class="text-muted" href="./PageNoticia.html">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3">
@@ -57,8 +58,21 @@
             </a>
         @endheader
         @menu 
-            @linkMenu(['route' => 'login']) Login @endlinkMenu
-            @linkMenu(['route' => 'login']) Página inicial @endlinkMenu
+
+            <!-- 
+                
+                foreach($category as $categories)
+                    linkMenu(['route' => "category->name"]) 
+                        $category->name 
+                    
+                    endlinkMenu
+                endforeach
+
+            -->
+
+            
+
+            @linkMenu(['route' => 'index']) Página inicial @endlinkMenu
             @linkMenu(['route' => 'login']) Mato Grosso do Sul @endlinkMenu
             @linkMenu(['route' => 'login']) Economia @endlinkMenu
             @linkMenu(['route' => 'login']) Politica @endlinkMenu
