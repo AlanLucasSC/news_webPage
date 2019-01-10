@@ -22,3 +22,5 @@ Route::resources([
     'image' => 'PostController',
     'news' => 'PostController',
 ]);
+
+Route::get('/{name}','categoryController@show')->name('category');
