@@ -12,15 +12,18 @@
 */
 
 Route::get('/', 'IndexController@index')->name('index');
+Route::get('/markdown/1', function () {
+    return view('markdown');
+});
 
 Auth::routes();
 
 Route::resources([
-    'advertising' => 'PhotoController',
-    'category' => 'PostController',
-    'comment' => 'PostController',
-    'image' => 'PostController',
-    'news' => 'PostController',
+    'advertising' => 'AdvertisingController',
+    'category' => 'CategoryController',
+    'comment' => 'CommentController',
+    'image' => 'ImageController',
+    'news' => 'NewsController',
 ]);
 
-Route::get('/{name}','categoryController@show')->name('category');
+Route::get('/{name}','CategoryController@show')->name('category');

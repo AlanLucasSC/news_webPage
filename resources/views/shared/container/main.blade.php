@@ -13,7 +13,7 @@
         <title>NaMidiaMS</title>
 
         <!-- Bootstrap core CSS -->
-        <link href="./assets/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/bootstrap.min.css" rel="stylesheet">
 
         <!-- Font Google -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:500|Roboto+Condensed" rel="stylesheet">
@@ -22,9 +22,25 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
 
         <!-- Custom styles for this template -->
-        <link href="./assets/fonts.css" rel="stylesheet">
-        <link href="./assets/blog.css" rel="stylesheet">
-        <link href="./assets/estilo.css" rel="stylesheet">
+        <link href="/assets/fonts.css" rel="stylesheet">
+        <link href="/assets/blog.css" rel="stylesheet">
+        <link href="/assets/estilo.css" rel="stylesheet">
+        <link href="/assets/github-markdown-css.css" rel="stylesheet">
+        <style>
+            .markdown-body {
+                box-sizing: border-box;
+                min-width: 200px;
+                max-width: 980px;
+                margin: 0 auto;
+                padding: 45px;
+            }
+
+            @media (max-width: 767px) {
+                .markdown-body {
+                    padding: 15px;
+                }
+            }
+        </style>
         
     </head>
     <body>
@@ -50,7 +66,7 @@
                     </form>
                 </div>
             @endguest
-            <a class="text-muted" href="./PageNoticia.html">
+            <a class="text-muted" href="/PageNoticia.html">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-3">
                     <circle cx="10.5" cy="10.5" r="7.5"></circle>
                     <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
