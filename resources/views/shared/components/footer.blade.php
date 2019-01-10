@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-4">
                 <p>
-                    <a href="./PageNoticia.html" class="text-warning">Voltar ao topo</a>
+                    <a href="#" class="text-warning">Voltar ao topo</a>
                 </p>
             </div>
             <div class="col-md-4">

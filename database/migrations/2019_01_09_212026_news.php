@@ -23,6 +23,7 @@ class News extends Migration
             $table->string('title');
             $table->string('subtitle');
             $table->longText('text');
+            $table->string('status');
 
             $table->timestamps();
 

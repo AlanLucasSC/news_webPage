@@ -12,7 +12,8 @@
 */
 
 Route::get('/', 'IndexController@index')->name('index');
-Route::get('/markdown/1', function () {
+Route::get('/home', 'NewsController@index');
+Route::get('/markdown', function () {
     return view('markdown');
 });
 
@@ -26,4 +27,4 @@ Route::resources([
     'news' => 'NewsController',
 ]);
 
-Route::get('/{name}','CategoryController@show')->name('category');
+Route::get('/{name}/{page}','CategoryController@show')->name('category');

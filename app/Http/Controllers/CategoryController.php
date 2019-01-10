@@ -55,7 +55,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $page)
     {
         $category = Category::find($id);
         $news = $category->posts()->where('category_id', $id)->get(); 

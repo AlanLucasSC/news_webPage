@@ -21,29 +21,29 @@
                         @socialLink([
                             'url' => '#' , 
                             'icon' => 'fa-facebook'
-                            ])
+                        ])
                         @endsocialLink
                         @socialLink([
-                            'url' => '#' , 
+                            'url' => '#', 
                             'icon' => 'fa-instagram'
-                            ])
+                        ])
                         @endsocialLink
                         @socialLink([
-                            'url' => '#' , 
+                            'url' => '#', 
                             'icon' => 'fa-twitter'
-                            ])
+                        ])
                         @endsocialLink
                     </div> <!-- ./ Redes sociais-->
 
                     @newsPhoto([
-                        'url' => {{ $urlPhoto }}
+                        'url' => {{ $urlPhoto }},
                         'source' => {{ $source }}
-                        ])
+                    ])
                     @endnewsPhoto
 
                     @newsText([
                         'text' => {{ $text }}
-                        ])
+                    ])
                     @endnewsText
                 </div>
                 <div class="col-lg-2">
@@ -53,11 +53,10 @@
             </div>
         
             @author([ 
-                'url' => {{ $urlAuthor }}
-                'author' => {{ $author }}
+                'url' => {{ $urlAuthor }},
+                'author' => {{ $author }},
                 'description' => {{ $authorDescription }}
-                ])
-
+            ])
             @endauthor
             
         </div><!-- ./ corpo noticia-->

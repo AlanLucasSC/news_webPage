@@ -159,3 +159,33 @@ a, a:hover, a:active, a:visited {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+div:focus, textarea:focus, input:focus{
+  outline: none;
+}
+
+@media (min-width: 768px) {
+  .w-md-50{
+    width: 50% !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .w-md-50{
+    width: 100% !important;
+  }
+}
+
+.button-save{
+  border-radius: 10px 10px 10px 10px;
+  text-transform: uppercase;
+  border: none;
+  font-size: .8rem;
+  letter-spacing: 1px;
+}
+
+.button-save:hover{
+  background-color: white !important;
+  color: #343a40 !important;
+  cursor: pointer;
+}
