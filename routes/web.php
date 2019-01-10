@@ -22,4 +22,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource("news","newcontroller"); // $this->middleware('auth')->except(['index','show']);
 Route::resource("commments","commentcontroller");
 Route::resource("images","imagecontroller");
-
+Route::resources([
+    'advertising' => 'PhotoController',
+    'category' => 'PostController',
+    'comment' => 'PostController',
+    'image' => 'PostController',
+    'news' => 'PostController',
+]);
