@@ -18,8 +18,8 @@ class Comments extends Migration
             $table->unsignedInteger('news_id');
             $table->string('text');
             $table->string('author')->nullable();
-
             $table->foreign('news_id')->references('id')->on('news');
+            $table->timestamp('created_at');
         });
     }
 

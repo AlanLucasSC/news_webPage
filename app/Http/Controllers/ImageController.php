@@ -6,6 +6,17 @@ use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
+
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['show','index']);
+    }
+
     /**
      * Display a listing of the resource.
      *
