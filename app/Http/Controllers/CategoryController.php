@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\Category;
+use App\Category;
 
 class CategoryController extends Controller
 {
@@ -55,10 +55,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $page)
+    public function show($id, $name, $page = 0)
     {
-        $category = Category::find($id);
-        $news = $category->posts()->where('category_id', $id)->get(); 
+        $news = Category::find($id)->news();
         return view('categoria', ['news' => $news]);   
     }
 

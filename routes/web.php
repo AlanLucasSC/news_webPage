@@ -13,6 +13,7 @@
 
 Route::get('/', 'IndexController@index')->name('index');
 Route::get('/home', 'NewsController@index');
+
 Route::get('/markdown', function () {
     return view('markdown');
 });
@@ -27,4 +28,4 @@ Route::resources([
     'news' => 'NewsController',
 ]);
 
-Route::get('/{name}/{page}','CategoryController@show')->name('category');
+Route::get('/categorias/{id}/{name}/{page?}','CategoryController@show')->name('category');

@@ -89,6 +89,7 @@
             'name' => 'propaganda1.gif'
         ]) @endadvertising
     </div>
+    
     <!-- news by category -->
     <div class="container">
         <div class="row">

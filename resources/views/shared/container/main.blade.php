@@ -70,23 +70,19 @@
             </a>
         @endheader
         @menu 
+            @linkMenu(['route' => 'index']) Página inicial @endlinkMenu
 
-            
-                
-            @foreach($category as $categories)
-                @linkMenu(['route' => "category->name"]) 
-                    $category->name 
+            @foreach (  App\Category::all() as $category )
+                @linkMenu([
+                        'route' => 'category', 
+                        'id' => "$category->id",
+                        'name' => "$category->name"
+                    ])
+
+                    {{ $category->name }}
                 @endlinkMenu
             @endforeach
-
-            
-
-            @linkMenu(['route' => 'index']) Página inicial @endlinkMenu
-            @linkMenu(['route' => 'login']) Mato Grosso do Sul @endlinkMenu
-            @linkMenu(['route' => 'login']) Economia @endlinkMenu
-            @linkMenu(['route' => 'login']) Politica @endlinkMenu
-            @linkMenu(['route' => 'login']) Esporte @endlinkMenu
-            @linkMenu(['route' => 'login']) Cultura @endlinkMenu
+        
         @endmenu
         {{ $slot }}
         @footer 
