@@ -73,10 +73,7 @@
         @menu
 
             @linkMenu([
-                'route' => 'index',
-                'id' => '',
-                'name' => '',
-                'page' => '' 
+                'route' => 'index'
                 ])
                 Página inicial 
             @endlinkMenu

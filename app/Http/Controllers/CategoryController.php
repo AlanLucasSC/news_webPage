@@ -61,7 +61,7 @@ class CategoryController extends Controller
      */
     public function show($id, $name, $page = 0)
     {
-        $category = Category::find($id)->category();
+        $category = Category::find($id)->news();
         return view('categoria', ['category' => $category]);   
     }
 
