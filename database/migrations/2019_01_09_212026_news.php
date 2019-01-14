@@ -17,19 +17,19 @@ class News extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id');
-            $table->unsignedInteger('image_id');
+            $table->unsignedInteger('file_id');
             $table->date('date');
             $table->time('time');
             $table->string('title');
             $table->string('subtitle');
-            $table->longText('text');
-            $table->string('status');
+            $table->longText('text')->nullable();
+            $table->string('status')->default('INACTIVE');
 
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('image_id')->references('id')->on('images');
+            $table->foreign('file_id')->references('id')->on('files');
         });
     }
 

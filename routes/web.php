@@ -18,13 +18,15 @@ Route::get('/markdown', function () {
     return view('markdown');
 });
 
+Route::get('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
+
 Auth::routes();
 
 Route::resources([
     'advertising' => 'AdvertisingController',
     'category' => 'CategoryController',
     'comment' => 'CommentController',
-    'image' => 'ImageController',
+    'file' => 'FileController',
     'news' => 'NewsController',
 ]);
 

@@ -176,6 +176,10 @@ div:focus, textarea:focus, input:focus{
   }
 }
 
+.w-80{
+  width: 80% !important;
+}
+
 .button-save{
   border-radius: 10px 10px 10px 10px;
   text-transform: uppercase;
@@ -188,4 +192,22 @@ div:focus, textarea:focus, input:focus{
   background-color: white !important;
   color: #343a40 !important;
   cursor: pointer;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #85888C; 
+  border-radius: 2px;
 }
