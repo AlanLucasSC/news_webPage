@@ -16,6 +16,34 @@ body {
   font-size: 1.10rem;
 }
 
+.menu:after {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 12%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background: #019e9c;
+  -webkit-clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
+}
+
+.menu:before {
+  content: " ";
+  position: absolute;
+  display: block;
+  width: 15%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: #ffffff;
+  -webkit-clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 74% 100%, 0 100%);
+}
+
 .bd-verde {
   color: #00923e;
   border-bottom: 3px solid #00923e !important;

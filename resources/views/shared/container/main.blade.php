@@ -82,14 +82,12 @@
             @endlinkMenu
 
             @guest
-                
             
                 @foreach (  App\Category::all() as $category )
                     @linkMenu([
                             'route' => 'category', 
                             'id' => "$category->id",
                             'name' => "$category->name",
-                            'page' => ''
                         ])
 
                         {{ $category->name }}
@@ -100,9 +98,6 @@
 
                 @linkMenu(['route' => 'category.index','','',''])
                     Lista de categorias
-                @endlinkMenu
-                @linkMenu(['route' => 'category.create','','',''])
-                    Adicionar categoria
                 @endlinkMenu
                 @linkMenu(['route' => 'news.create','','',''])
                     Listar noticias
