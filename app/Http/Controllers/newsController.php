@@ -111,8 +111,8 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showLatest($id,$quantity){
-        $news = News::all($id)->orderBy('updated_at');
+    public function showLatest($id, $quantity){
+        $news = News::all($id)->orderBy('updated_at','desc');
         $latestNews = $news->slice($quantity);
         return view('leitura');
     }
