@@ -12,6 +12,7 @@ body {
 .col-md-6 > .card > .card-body > img{
   height: 35vh;
 }
+
 .menu {
   font-size: 1.10rem;
 }
@@ -135,6 +136,7 @@ a, a:hover, a:active, a:visited {
 
 .menu-link {
   color: white;
+  padding: 10px 0px 10px 0px;
 }
 
 .menu-link:hover {
