@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Comments extends Migration
+class NewsFiles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class Comments extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('news_files', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('news_id');
-            $table->string('text');
-            $table->string('author')->nullable();
-            $table->foreign('news_id')->references('id')->on('news');
+            $table->unsignedInteger('file_id');
+
             $table->timestamps();
+
+            $table->foreign('news_id')->references('id')->on('news');
+            $table->foreign('file_id')->references('id')->on('files');
         });
     }
 
@@ -30,7 +32,6 @@ class Comments extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('comments');
+        Schema::dropIfExists('news_files');
     }
 }

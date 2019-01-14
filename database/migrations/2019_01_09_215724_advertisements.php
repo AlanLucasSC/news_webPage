@@ -15,12 +15,12 @@ class Advertisements extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('image_id');
+            $table->unsignedInteger('file_id');
             $table->string('url');
             
-            $table->timestamp('created_at');
+            $table->timestamps();
 
-            $table->foreign('image_id')->references('id')->on('images');
+            $table->foreign('file_id')->references('id')->on('files');
         });
     }
 

@@ -17,7 +17,7 @@ class News extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id');
-            $table->unsignedInteger('image_id')->nullable();
+            $table->unsignedInteger('file_id');
             $table->date('date');
             $table->time('time');
             $table->string('title');
@@ -25,11 +25,11 @@ class News extends Migration
             $table->longText('text')->nullable();
             $table->string('status')->default('INACTIVE');
 
-            $table->timestamp('created_at');
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('image_id')->references('id')->on('images');
+            $table->foreign('file_id')->references('id')->on('files');
         });
     }
 

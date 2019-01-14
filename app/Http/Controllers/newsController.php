@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use DB;
+use Validator;
 use App\Category;
+use App\News;
+use App\File;
 
 class NewsController extends Controller
 {
@@ -45,9 +49,49 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $validation = Validator::make($request->all(), [
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        if($validation->passes()){
+            if(isset($request->title) && isset($request->category) && isset($request->subtitle)){
+                $image = $request->file('image');
+                $originalName = $image->getClientOriginalName();
+                $originalName = pathinfo($originalName, PATHINFO_FILENAME);
+                $extension = $image->getClientOriginalExtension();
+                $new_name = rand() . '.' . $extension;
+                $image->move(public_path('files'), $new_name);
+
+                $image = new File;
+                $image->name = $new_name;
+                $image->originalName = $originalName;
+                $image->type = 'IMAGE';
+                $image->save();
+
+                $news = new News;
+                $news->user_id = Auth::user()->id;
+                $news->category_id = $request->category;
+                $news->title = $request->title;
+                $news->subtitle = $request->subtitle;
+                $news->file_id = $image->id;
+                $news->date = date("Y-m-d");
+                $news->time = date("H:i:s");
+                $news->save();
+
+                return redirect()->route('news.edit', $news->id);
+            } else {
+                return response()->json([
+                    'massage' => 'Faltou inserir informações em algum local.',
+                    'class_name' => 'alert-danger'
+                ]);
+            }
+        } 
+        
+        return response()->json([
+            'massage' => $validation->errors()->all(),
+            'uploaded_file' => '',
+            'class_name' => 'alert-danger'
+        ]);
     }
 
     /**
@@ -56,9 +100,7 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
     }
 
     /**
@@ -67,9 +109,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id){
+        $categories = Category::all();
+        return view('markdown', compact('categories', 'id'));
     }
 
     /**

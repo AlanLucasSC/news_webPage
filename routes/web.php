@@ -25,7 +25,7 @@ Route::resources([
     'advertising' => 'AdvertisingController',
     'category' => 'CategoryController',
     'comment' => 'CommentController',
-    'image' => 'ImageController',
+    'file' => 'FileController',
     'news' => 'NewsController',
 ]);
 

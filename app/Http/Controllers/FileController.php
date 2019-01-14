@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Validator;
-use App\Image;
+use App\File;
+use App\News_Files;
 
-class ImageController extends Controller
+class FileController extends Controller
 {
 
     /**
@@ -48,30 +49,45 @@ class ImageController extends Controller
     public function store(Request $request)
     {
         $validation = Validator::make($request->all(), [
-            'newImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'file' => 'required|mimes:jpeg,png,jpg,gif,mp4|max:2048',
         ]);
         if($validation->passes()){
-            $image = $request->file('newImage');
-            $originalName = $image->getClientOriginalName();
+            $file = $request->file('file');
+            $originalName = $file->getClientOriginalName();
             $originalName = pathinfo($originalName, PATHINFO_FILENAME);
-            $new_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $new_name);
+            $extension = $file->getClientOriginalExtension();
+            $new_name = rand() . '.' . $extension;
+            $file->move(public_path('files'), $new_name);
 
-            $image = new Image;
-            $image->name = $new_name;
-            $image->originalName = $originalName;
-            $image->save();
+            $videoExtensions = array("mp4"); 
+            if(in_array($extension, $videoExtensions)){
+                $type = 'VIDEO';
+            }else{
+                $type = 'IMAGE';
+            }
+
+            $file = new File;
+            $file->name = $new_name;
+            $file->originalName = $originalName;
+            $file->type = $type;
+            $file->save();
+
+            $news_files = new News_Files;
+            $news_files->news_id = $request->newsId;
+            $news_files->file_id = $file->id;
+            $news_files->save();
 
             return response()->json([
-                'massage' => 'Image Uploaded Successfully',
+                'massage' => 'File Uploaded Successfully',
                 'oriaginal_name' => $originalName,
-                'uploaded_image' => $new_name,
-                'class_name' => 'alert-danger'
+                'uploaded_file' => $new_name,
+                'class_name' => 'alert-danger',
+                'type' => $type
             ]);
         } else {
             return response()->json([
                 'massage' => $validation->errors()->all(),
-                'uploaded_image' => '',
+                'uploaded_file' => '',
                 'class_name' => 'alert-danger'
             ]);
         }
