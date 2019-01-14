@@ -19,7 +19,7 @@ class NewsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['show','index']);
+        $this->middleware('auth')->except(['show']);
     }
 
     /**
@@ -101,7 +101,22 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
+        $news = News::find($id);
+        return view('leitura');
     }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showLatest($id,$quantity){
+        $news = News::all($id)->orderBy('updated_at');
+        $latestNews = $news->slice($quantity);
+        return view('leitura');
+    }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -15,7 +15,6 @@ body {
 
 .menu {
   font-size: 1.10rem;
-  
 }
 
 .menu::after {
@@ -176,7 +175,8 @@ a, a:hover, a:active, a:visited {
 
 .texto-noticia {
   font-size: 1.15rem;
-  line-height: 1.6
+  line-height: 1.6;
+  word-wrap: break-word;
 }
 
 .image-size-spotlight{

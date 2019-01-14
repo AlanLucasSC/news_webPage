@@ -2,11 +2,11 @@
 
     <main role="main">
         @newsTitle([
-            'title' => {{ $title }}
-            'subtitle' => {{ $subtitle }}
-            'date' => {{ $date }}
-            'time' => {{ $time }}
-            'lastUpdated' => {{ $lastUpdated }}
+            'title' =>  "$title" ,
+            'subtitle' =>  "$subtitle" ,
+            'date' =>  "$date" ,
+            'time' =>  "$time" ,
+            'lastUpdated' =>  "$lastUpdated" 
         ])
         @endnewsTitle
         
@@ -36,13 +36,13 @@
                     </div> <!-- ./ Redes sociais-->
 
                     @newsPhoto([
-                        'url' => {{ $urlPhoto }},
-                        'source' => {{ $source }}
+                        'url' =>  "$urlPhoto" ,
+                        'source' =>  "$source" 
                     ])
                     @endnewsPhoto
 
                     @newsText([
-                        'text' => {{ $text }}
+                        'text' =>  "$text" 
                     ])
                     @endnewsText
                 </div>
@@ -53,17 +53,14 @@
             </div>
         
             @author([ 
-                'url' => {{ $urlAuthor }},
-                'author' => {{ $author }},
-                'description' => {{ $authorDescription }}
+                'url' => "$urlAuthor" ,
+                'author' =>  "$author" ,
+                'description' => "$authorDescription"
             ])
             @endauthor
             
         </div><!-- ./ corpo noticia-->
     </main>
 
-    @news()
-    
-    @endnews
 
 @endmain

@@ -1,4 +1,4 @@
 <!-- noticia-->
-<div class="text-justify texto-noticia">
+<div class="texto-noticia text-justify ">
     {{ $text }}
-</div><!-- ./ noticia-->
+</div><!-- ./ noticia-->  
