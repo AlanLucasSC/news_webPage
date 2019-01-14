@@ -17,6 +17,7 @@ class Images extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('originalName');
+            $table->timestamp('created_at');
         });
     }
 

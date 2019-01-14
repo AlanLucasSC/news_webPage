@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use App\Category;
 
 class NewsController extends Controller
 {
@@ -23,7 +25,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('markdown');
+        $categories = Category::all();
+        return view('markdown', compact('categories'));
     }
 
     /**

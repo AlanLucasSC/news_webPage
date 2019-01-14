@@ -17,6 +17,8 @@ Route::get('/markdown', function () {
     return view('markdown');
 });
 
+Route::get('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
+
 Auth::routes();
 
 Route::resources([

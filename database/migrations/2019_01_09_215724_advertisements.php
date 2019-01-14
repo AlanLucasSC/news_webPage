@@ -17,6 +17,8 @@ class Advertisements extends Migration
             $table->increments('id');
             $table->unsignedInteger('image_id');
             $table->string('url');
+            
+            $table->timestamp('created_at');
 
             $table->foreign('image_id')->references('id')->on('images');
         });

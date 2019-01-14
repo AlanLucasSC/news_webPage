@@ -11,6 +11,7 @@
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
+  text-align: justify;
 }
 
 .markdown-body .pl-c {
@@ -292,6 +293,7 @@
 .markdown-body p {
   margin-top: 0 !important;
   margin-bottom: 10px !important;
+  font-size: .90rem
 }
 
 .markdown-body blockquote {
@@ -587,8 +589,13 @@
 .markdown-body img {
   max-width: 100%;
   box-sizing: content-box;
-  background-color: #fff;
+  background-color: #fff;  
 }
+
+.markdown-body > p > img{
+  margin-left: auto!important;
+}
+
 
 .markdown-body img[align=right] {
   padding-left: 20px;
