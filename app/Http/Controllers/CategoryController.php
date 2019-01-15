@@ -48,9 +48,9 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = new Category;
-        $category->name = $request->name;
+        $category->name = $request->category;
         $category->save();
-        return $this->index();
+        return redirect()->route('home');
     }
 
     /**
@@ -99,6 +99,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        
+        $category = Category::find($id);
+        $category->delete();
+        return redirect()->route('home');
     }
 }
