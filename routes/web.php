@@ -12,7 +12,9 @@
 */
 
 Route::get('/', 'IndexController@index')->name('index');
-Route::get('/home', 'NewsController@index');
+Route::get('/home', function(){
+    return view('dashboard');
+});
 
 Route::get('/markdown', function () {
     return view('markdown');
