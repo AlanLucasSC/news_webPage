@@ -184,8 +184,15 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id){
+        $news = News::find($id);
+        $news_files = News_Files::where('news_id', $id)->get();
+
+        foreach($news_files as $news_file){
+            $news_file->delete();
+        }
+        $news->delete();
+
+        return redirect()->route('home');
     }
 }
