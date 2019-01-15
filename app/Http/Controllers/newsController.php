@@ -9,6 +9,8 @@ use Validator;
 use App\Category;
 use App\News;
 use App\File;
+use App\News_Files;
+use App\User;
 
 class NewsController extends Controller
 {
@@ -40,7 +42,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('markdown');
+        $categories = Category::all();
+        return view('markdown', compact('categories'));
     }
 
     /**
@@ -102,7 +105,9 @@ class NewsController extends Controller
      */
     public function show($id){
         $news = News::find($id);
-        return view('leitura');
+        $image = File::find($news->file_id);
+        $user = User::find($news->user_id);
+        return view('leitura', compact('news', 'image', 'user'));
     }
 
     /**
@@ -126,7 +131,14 @@ class NewsController extends Controller
      */
     public function edit($id){
         $categories = Category::all();
-        return view('markdown', compact('categories', 'id'));
+        $news = News::find($id);
+        $image = File::find($news->file_id);
+        $news_files = News_Files::where('news_id', $id)->get();
+        $files = [];
+        foreach($news_files as $news_file){
+            $files[] = File::find($news_file->file_id);
+        }
+        return view('markdown', compact('categories', 'id', 'news', 'image', 'files'));
     }
 
     /**
@@ -136,9 +148,34 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        $news = News::find($id);
+        $validation = Validator::make($request->all(), [
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        if($validation->passes()){
+            $image = $request->file('image');
+            $originalName = $image->getClientOriginalName();
+            $originalName = pathinfo($originalName, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $new_name = rand() . '.' . $extension;
+            $image->move(public_path('files'), $new_name);
+
+            $image = new File;
+            $image->name = $new_name;
+            $image->originalName = $originalName;
+            $image->type = 'IMAGE';
+            $image->save();
+
+            $news->file_id = $image->id;
+        }
+        $news->category_id = $request->category;
+        $news->title = $request->title;
+        $news->subtitle = $request->subtitle;
+        $news->text = $request->text;
+        $news->save();
+
+        return redirect()->route('news.edit', $news->id);
     }
 
     /**

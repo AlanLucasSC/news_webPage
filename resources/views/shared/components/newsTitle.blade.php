@@ -5,7 +5,7 @@
             <div class="InfoNoticia">
                 <h1 class="display-3" id="title">{{ $title }}</h1>
                 <p class="text-muted" id="subtitle">{{ $subtitle }}</p>
-                <small class="text-muted d-inline-block">{{ $date }} {{ $time }} . ultima atualização: {{ $lastUpdated }}</small>
+                <small class="text-muted d-inline-block">{{ $date }} {{ $time }}. Ultima atualização: {{ $lastUpdated }}</small>
             </div>
         </div>
     </div>

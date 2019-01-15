@@ -41,10 +41,9 @@
                     ])
                     @endnewsPhoto
 
-                    @newsText([
-                        'text' =>  "$text" 
-                    ])
-                    @endnewsText
+                    <div id="markdown" class="markdown-body">
+                    </div>
+                    
                 </div>
                 <div class="col-lg-2">
                     
@@ -53,14 +52,37 @@
             </div>
         
             @author([ 
-                'url' => "$urlAuthor" ,
                 'author' =>  "$author" ,
-                'description' => "$authorDescription"
             ])
             @endauthor
             
         </div><!-- ./ corpo noticia-->
     </main>
+    <script type="text/javascript">
+        window.onload = function () {
+            $(document).ready(function() {
+                function replaceAll(text, needle, replacement){
+                    return text.split(needle).join(replacement)
+                }
 
+                function insertMarkdom(markdown){
+                    request = $.ajax({
+                        url: "{{ route('getHtml') }}",
+                        method: "GET",
+                        dataType: "json",
+                        data: {
+                            markdown: markdown
+                        },
+                        complete: function(response) {
+                            markdown = document.querySelector('.markdown-body')
+                            markdown.innerHTML = response.responseText
+                        }
+                    })
+                }
+            
+                insertMarkdom( `{{ $text }}` )
+            })
+        }
+    </script>
 
 @endmain

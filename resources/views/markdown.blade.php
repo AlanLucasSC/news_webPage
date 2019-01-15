@@ -1,60 +1,148 @@
 @main
-    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 pb-3">
-        <div class="w-md-50 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden" style="display:inline-block;">
-            <div class="text-center">
-                <h2 class="display-5">Notícia</h2>
-            </div>
-            <div class="text-right pb-1">
-                <input class="button-save bg-dark text-white" type="Submit" value="Salvar">
-            </div>
-            <div 
-                class="border shadow-lg mx-auto pb-3" 
-                style="width: 100%; min-height: 50vh; border-width: 5px;"
+    <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 pb-3 row">
+        <div class="col-12 w-100 bg-dark ml-2 pt-3 px-3 text-white overflow-hidden" style="display:inline-block;">
+            <form 
+                class="row" 
+                enctype="multipart/form-data" 
+                id="form" 
+                role="form" 
+                method="POST" 
+                action="{{ isset($id) ? route('news.update', $id) : route('news.store') }}"
             >
+                @if( isset($id) )
+                    <input name="_method" type="hidden" value="PUT">
+                @endif
+                {{ csrf_field() }}
+                <div class="form-group col-md-6">
+                    <label for="inputTitle">Título</label>
+                    <input
+                        type="text" 
+                        name="title" 
+                        class="form-control" 
+                        id="inputTitle" 
+                        placeholder="Coloque um título"
+                        value="{{ $news->title ?? '' }}"
+                    >
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputCategory">Categoria</label>
+                    <select class="form-control" name="category" id="inputCategory">
+                        @foreach($categories as $category)
+                            <option 
+                                value="{{ $category->id }}"
+                                @if( isset($news) )
+                                    @if($category->id === $news->category_id)
+                                        {{ 'selected' }}
+                                    @endif
+                                @endif
+                            > {{ $category->name }} </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputImage">Imagem de Capa</label>
+                    <input type="file" name="image" class="form-control-file" id="inputImage">
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="inputSubtitle">Subtítulo</label>
+                    <textarea 
+                        class="form-control" 
+                        name="subtitle" 
+                        id="inputSubtitle" 
+                        rows="3"
+                    >{{ $news->subtitle ?? '' }}</textarea>
+                </div>
+                @if( isset($id) )
+                    <textarea name="text" id="inputText" cols="30" rows="10" hidden></textarea>
+                @endif
+                <div class="text-right pt-3 pb-3">
+                    <input class="button-save bg-dark text-white" type="Submit" value="Salvar">
+                </div>
+            </form>
+        </div>
+        @if( isset($id) )
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 pb-3">
+            <div class="col-md-6 w-md-50 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden" style="display:inline-block;">
+                <div class="text-center">
+                    <h2 class="display-5">Notícia</h2>
+                </div>
                 <div 
-                    contentEditable="true"
-                    id="text"
-                    class="pt-2 px-3 container-fluid text-secondary text-justify"
-                    style="width: 100%; min-height: 50vh;">
+                    class="border shadow-lg mx-auto pb-3" 
+                    style="width: 100%; min-height: 50vh; border-width: 5px;"
+                >
+                    <div 
+                        contentEditable="true"
+                        id="text"
+                        class="pt-2 px-3 container-fluid text-secondary text-justify"
+                        style="width: 100%; min-height: 50vh;">
+                    </div>
                 </div>
-            </div>
-            <div class="text-right pb-1 pt-2">
-                <input class="button-save bg-dark text-white" id="buttonNewImage" type="Submit" value="Adicionar Imagem ou video">
-                <form enctype="multipart/form-data" id="upload_form" role="form" method="POST" action="" >
-                    {{ csrf_field() }}
-                    <input type="file" name='file' id="newImage" hidden>
-                    <input type="number" name='newsId' value="{{ $id ?? '' }}" hidden>
-                </form>
-            </div>
-            <div class="row pt-2" id="images">
-            </div>
-            <br>
-        </div>
-        <div class="w-md-50 bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
-            <div class="text-center">
-                <h2 class="display-5">Visualização</h2>
-            </div>
-            <div 
-                class="bg-white shadow-lg mx-auto" 
-                style="width: 100%; min-height: 50vh; border-width: 5px;"
-            >
-                @newsTitle([
-                    'title' => "",
-                    'subtitle' => "",
-                    'date' => "19/12/2018",
-                    'time' => "08h44",
-                    'lastUpdated' => "Atualizado há uma hora"
-                ])
-                @endnewsTitle
-                <img src="" id="image" class="w-80 mx-auto d-block">
-                <div class="markdown-body">
+                <div class="text-right pb-1 pt-2">
+                    <input class="button-save bg-dark text-white" id="buttonNewImage" type="Submit" value="Adicionar Imagem ou video">
+                    <form enctype="multipart/form-data" id="upload_form" role="form" method="POST" action="" >
+                        {{ csrf_field() }}
+                        <input type="file" name='file' id="newImage" hidden>
+                        <input type="number" name='newsId' value="{{ $id ?? '' }}" hidden>
+                    </form>
                 </div>
+                <div class="row pt-2" id="images">
+                    @foreach($files as $file)
+                        @if( $file->type === 'IMAGE' )
+                            <div class="card col-md-4 bg-white border-0">
+                                <img src="{{ URL::to('/') }}/files/{{ $file->name }}" class="mt-1 card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Importar</h5>
+                                    <p class="card-text">
+                                        ![{{ $file->originalName }}]({{ URL::to('/') }}/files/{{ $file->name }})
+                                    </p>
+                                </div>
+                            </div>
+                        @elseif( $file->type === 'VIDEO' )
+                            <div class="card col-md-4 bg-white border-0">
+                                <video width="100%" controls="">
+                                    <source src="{{ URL::to('/') }}/files/{{ $file->name }}" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                                <div class="card-body">
+                                    <h5 class="card-title">Importar</h5>
+                                    <p class="card-text">
+                                        ?[{{ URL::to('/') }}/files/{{ $file->name }}]?
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+                <br>
             </div>
-            <br>
+            <div class="col-md-6 w-md-50 bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
+                <div class="text-center">
+                    <h2 class="display-5">Visualização</h2>
+                </div>
+                <div 
+                    class="bg-white shadow-lg mx-auto" 
+                    style="width: 100%; min-height: 50vh; border-width: 5px;"
+                >
+                    @newsTitle([
+                        'title' => $news->title,
+                        'subtitle' => $news->subtitle,
+                        'date' => $news->date,
+                        'time' => $news->time,
+                        'lastUpdated' => "Atualizado há uma hora"
+                    ])
+                    @endnewsTitle
+                    <img src="{{ URL::to('/') }}/files/{{ $image->name }}" id="image" class="w-80 mx-auto d-block">
+                    <div class="markdown-body">
+                    </div>
+                </div>
+                <br>
+            </div>
         </div>
+        @endif
     </div>
     <script type="text/javascript">
         window.onload = function () {
+
             function replaceAll(text, needle, replacement){
                 return text.split(needle).join(replacement)
             }
@@ -71,43 +159,103 @@
                     text = pre.textContent
                     pre.replaceWith(text)
                 }
-            }
-            function removeFontTag(){
-                tagsPre = $('#text > font')
+
+                tagsPre = $('#text > div > pre')
                 for(var index = 0; index < tagsPre.length; index++){
                     pre = tagsPre[index]
                     text = pre.textContent
                     pre.replaceWith(text)
+                }
+            }
+            function removeFontTag(){
+                tagsFont = $('#text > font')
+                for(var index = 0; index < tagsFont.length; index++){
+                    font = tagsFont[index]
+                    text = font.textContent
+                    font.replaceWith(text)
+                }
+
+                tagsFont = $('#text > div > font')
+                for(var index = 0; index < tagsFont.length; index++){
+                    font = tagsFont[index]
+                    text = font.textContent
+                    font.replaceWith(text)
                 }
             }
             function removeSpanTag(){
-                tagsPre = $('#text > span')
-                for(var index = 0; index < tagsPre.length; index++){
-                    pre = tagsPre[index]
-                    text = pre.textContent
-                    pre.replaceWith(text)
+                tagsSpan = $('#text > span')
+                for(var index = 0; index < tagsSpan.length; index++){
+                    span = tagsSpan[index]
+                    text = span.textContent
+                    span.replaceWith(text)
+                }
+
+                tagsSpan = $('#text > div > span')
+                for(var index = 0; index < tagsSpan.length; index++){
+                    span = tagsSpan[index]
+                    text = span.textContent
+                    span.replaceWith(text)
                 }
             }
+            function getMarkdown(e){
+                removePreTag()
+                removeFontTag()
+                removeSpanTag()
+                var markdown = convertToEndOfLine( $('#text').html() )
+
+                $('#inputText').text(markdown)
+
+                request = $.ajax({
+                    url: "{{ route('getHtml') }}",
+                    method: "GET",
+                    dataType: "json",
+                    data: {
+                        markdown: markdown
+                    },
+                    complete: function(response) {
+                        markdown = document.querySelector('.markdown-body')
+                        markdown.innerHTML = response.responseText
+                        //console.log(result.responseText)
+                    }
+                })
+            }
+
+            function insertMarkdom(markdown){
+                htmlMarkdown = replaceAll( markdown, '\n', '<br>' )
+
+                markdownSplited = htmlMarkdown.split("<br>")
+                htmlMarkdown = ''
+                for(var line = 0; line < markdownSplited.length; line++){
+                    var text = markdownSplited[line]
+                    htmlMarkdown += '<div>'+text+'</div>'
+                }
+                console.log(htmlMarkdown)
+
+                $('#text').append(htmlMarkdown)
+                $('#inputText').append(markdown)
+                request = $.ajax({
+                    url: "{{ route('getHtml') }}",
+                    method: "GET",
+                    dataType: "json",
+                    data: {
+                        markdown: markdown
+                    },
+                    complete: function(response) {
+                        markdown = document.querySelector('.markdown-body')
+                        markdown.innerHTML = response.responseText
+                    }
+                })
+            }
             $(document).ready(function() {
-                $('#text').on("DOMSubtreeModified", function(e) {
-                    var markdown = convertToEndOfLine($( this ).html())
-                    removePreTag()
-                    removeFontTag()
-                    removeSpanTag()
-                    console.log(markdown)
-                    request = $.ajax({
-                        url: "{{ route('getHtml') }}",
-                        method: "GET",
-                        dataType: "json",
-                        data: {
-                            markdown: markdown
-                        },
-                        complete: function(response) {
-                            markdown = document.querySelector('.markdown-body')
-                            markdown.innerHTML = response.responseText
-                            //console.log(result.responseText)
-                        }
-                    })
+                var typingTimer; //timer identifier
+                var getMarkdownInterval = 1000; //time in ms, 1 second for example
+                @if(isset($news))
+                    insertMarkdom( `{{ $news->text }}` )
+                @endif
+                $('#text').on("DOMSubtreeModified", (e) => {
+                    clearTimeout(typingTimer)
+                    console.log(typingTimer)
+                    typingTimer = setTimeout( getMarkdown, getMarkdownInterval);
                 })
                 $('#inputTitle').on('keyup', function (){
                     var title = $( this ).val()
@@ -156,7 +304,7 @@
                                 switch(json.type){
                                     case 'IMAGE':
                                         $('#images').append(`
-                                            <div class="card col-md-4 bg-dark border-0">
+                                            <div class="card col-md-4 bg-white border-0">
                                                 <img src="`+window.location.origin+`/files/`+json.uploaded_file+`" class="mt-1 card-img-top" alt="...">
                                                 <div class="card-body">
                                                     <h5 class="card-title">Importar</h5>
@@ -169,7 +317,7 @@
                                         break;
                                     case 'VIDEO':
                                         $('#images').append(`
-                                            <div class="card col-md-4 bg-dark border-0">
+                                            <div class="card col-md-4 bg-white border-0">
                                                 <video width="100%" controls="">
                                                     <source src="`+window.location.origin+`/files/`+json.uploaded_file+`" type="video/mp4">
                                                     Your browser does not support the video tag.
