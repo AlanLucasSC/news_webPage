@@ -66,6 +66,18 @@ class CategoryController extends Controller
     }
 
     /**
+     * Display the news of a determined category.
+     * 
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showNews($id, $page = 0)
+    {
+        $category = Category::find($id)->news();
+        return view('categoria', ['category' => $category]);   
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

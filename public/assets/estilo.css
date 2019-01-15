@@ -17,11 +17,17 @@ body {
   font-size: 1.10rem;
 }
 
+@media (max-width: 576px){
+  .menu{
+    position: relative;
+  }
+}
+
 .menu::after {
   content: " ";
   position: absolute;
   display: block;
-  width: 12%;
+  width: 11%;
   height: 100%;
   top: 0;
   left: 0;
@@ -31,24 +37,12 @@ body {
   clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
 }
 
-.menu::before {
-  content: " ";
-  position: absolute;
-  display: block;
-  width: 5%;
-  height: 100%;
-  top: 0;
-  right: 0;
-  z-index: 3;
-  background: yellow;
-}
-
 .menu:before {
   content: " ";
   position: absolute;
   display: block;
   margin-left: 1%;
-  width: 12%;
+  width: 11%;
   height: 100%;
   top: 0;
   left: 0;
