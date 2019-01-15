@@ -96,13 +96,10 @@
                 @linkMenu(['route' => 'category.index','','',''])
                     Lista de categorias
                 @endlinkMenu
-                @linkMenu(['route' => 'news.create','','',''])
+                @linkMenu(['route' => 'news.index'])
                     Listar noticias
                 @endlinkMenu
-                @linkMenu(['route' => 'news.create','','',''])
-                    Editar noticia
-                @endlinkMenu
-                @linkMenu(['route' => 'news.create','','',''])
+                @linkMenu(['route' => 'news.create'])
                     Escrever noticia
                 @endlinkMenu
             @endauth
