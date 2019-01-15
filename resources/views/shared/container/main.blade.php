@@ -92,15 +92,14 @@
                 @endforeach
             
             @else
-
-                @linkMenu(['route' => 'category.index','','',''])
-                    Lista de categorias
-                @endlinkMenu
-                @linkMenu(['route' => 'news.index'])
-                    Listar noticias
+                @linkMenu(['route' => 'home','','',''])
+                    home
                 @endlinkMenu
                 @linkMenu(['route' => 'news.create'])
                     Escrever noticia
+                @endlinkMenu
+                @linkMenu(['route' => 'register'])
+                    Cadastrar novo jornalista
                 @endlinkMenu
             @endauth
         @endmenu

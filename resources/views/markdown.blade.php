@@ -1,6 +1,6 @@
 @main
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 pb-3 row">
-        <div class="col-12 w-100 bg-dark ml-2 pt-3 px-3 text-white overflow-hidden" style="display:inline-block;">
+        <div class="col-12 w-100 ml-2 pt-3 px-3 overflow-hidden" style="display:inline-block;">
             <form 
                 class="row" 
                 enctype="multipart/form-data" 
@@ -14,7 +14,7 @@
                 @endif
                 {{ csrf_field() }}
                 <div class="form-group col-md-6">
-                    <label for="inputTitle">Título</label>
+                    <label for="inputTitle"><h4>Título</h4></label>
                     <input
                         type="text" 
                         name="title" 
@@ -25,7 +25,7 @@
                     >
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="inputCategory">Categoria</label>
+                    <label for="inputCategory"><h4>Categoria</h4></label>
                     <select class="form-control" name="category" id="inputCategory">
                         @foreach($categories as $category)
                             <option 
@@ -40,11 +40,11 @@
                     </select>
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="inputImage">Imagem de Capa</label>
+                    <label for="inputImage"><h4>Imagem de Capa</h4></label>
                     <input type="file" name="image" class="form-control-file" id="inputImage">
                 </div>
                 <div class="form-group col-md-12">
-                    <label for="inputSubtitle">Subtítulo</label>
+                    <label for="inputSubtitle"><h4>Subtítulo</h4></label>
                     <textarea 
                         class="form-control" 
                         name="subtitle" 
@@ -55,8 +55,8 @@
                 @if( isset($id) )
                     <textarea name="text" id="inputText" cols="30" rows="10" hidden></textarea>
                 @endif
-                <div class="text-right pt-3 pb-3">
-                    <input class="button-save bg-dark text-white" type="Submit" value="Salvar">
+                <div class="form-group col-md-3 pt-3 pb-3">
+                    <input class="btn btn-success" type="Submit" value="Escrever noticia">
                 </div>
             </form>
         </div>
@@ -64,7 +64,7 @@
         <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 pb-3">
             <div class="col-md-6 w-md-50 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden" style="display:inline-block;">
                 <div class="text-center">
-                    <h2 class="display-5">Notícia</h2>
+                    <h2 class="display-5"><h4>Notícia</h4></h2>
                 </div>
                 <div 
                     class="border shadow-lg mx-auto pb-3" 
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="text-right pb-1 pt-2">
-                    <input class="button-save bg-dark text-white" id="buttonNewImage" type="Submit" value="Adicionar Imagem ou video">
+                    <input class="btn btn-success" id="buttonNewImage" type="Submit" value="Adicionar Imagem ou video">
                     <form enctype="multipart/form-data" id="upload_form" role="form" method="POST" action="" >
                         {{ csrf_field() }}
                         <input type="file" name='file' id="newImage" hidden>
