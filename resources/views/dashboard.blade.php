@@ -56,6 +56,12 @@
                                 <div class="card justify-content-center">
                                     <img class="card-img-top" src="{{ URL::to('/') . '/files/' . $news->nameImage }}" alt="Card image cap">
                                     <div class="card-body">
+                                        <span class="badge badge-{{ $news->status == 'ACTIVE' ? 'success' : 'warning' }}">
+                                            {{ $news->status == 'ACTIVE' ? 'ativado' : 'desativado' }}
+                                        </span >
+                                        <a href="{{ route('news.status', [$news->id, $news->status]) }}" class="badge badge-pill badge-light">
+                                            {{ $news->status == 'ACTIVE' ? 'DESATIVAR' : 'ATIVAR' }}
+                                        </a>
                                         <h5 class="card-title">{{ $news->title }}</h5>
                                         <p class="card-text"> {{ $news->subtitle }} </p>
                                         <a href="{{ route('news.edit', $news->id) }}" class="badge badge-info">editar</a>

@@ -195,4 +195,18 @@ class NewsController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function changeStatus($id, $status){
+        $news = News::find($id);
+        
+        if($news->status === 'INACTIVE'){
+            $news->status = 'ACTIVE';
+        }else{
+            $news->status = 'INACTIVE';
+        }
+
+        $news->save();
+
+        return redirect()->route('home');
+    }
 }
