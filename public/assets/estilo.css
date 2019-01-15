@@ -17,6 +17,12 @@ body {
   font-size: 1.10rem;
 }
 
+@media (max-width: 576px){
+  .menu{
+    position: relative;
+  }
+}
+
 .menu::after {
   content: " ";
   position: absolute;
