@@ -15,6 +15,7 @@ Route::get('/', 'IndexController@index')->name('index');
 Route::get('/home', 'DashboardController@index')->name('home');
 Route::get('/category/{id}/excluir', 'CategoryController@destroy')->name('category.delete');
 Route::get('/news/{id}/excluir', 'NewsController@destroy')->name('news.delete');
+Route::get('/news/{id}/mudar/{status}', 'NewsController@changeStatus')->name('news.status');
 
 Route::get('/markdown', function () {
     return view('markdown');
