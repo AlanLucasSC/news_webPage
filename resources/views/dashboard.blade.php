@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-4 mb-2">
             <table class="table table-hover">
-                <thead >
+                <thead>
                     <tr>
                         <th><h4>Categorias</h4></th>
                     </tr>
@@ -54,35 +54,39 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-7 mb-2">
+        <div class="col-md-7 mb-2 w-100">
             <table class="table table-hover">
                 <thead >
                     <tr>
                         <th><h4>Suas noticias</h4></th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($newsList as $news)
                     <tr id="{{ $news->id }}">
-                        <td>
+                        <td class="col-md-3">
                             <div style="height: 100px;">
-                                <img class="card-img-top mx-auto" style="display: block; height: 100%; width: auto;" src="{{ URL::to('/') . '/files/' . $news->nameImage }}" alt="Card image cap">
+                                <img class="mx-auto" style="display: block; height: 100%; width: auto;" src="{{ URL::to('/') . '/files/' . $news->nameImage }}" alt="Card image cap">
                             </div>
                         <td>
+                        <td class="col-md-5">
+                            <div style="max-width: 100%;">
+                                <h5>{{ $news->title }}</h5>
+                                <p> {{ $news->subtitle }} </p>
+                            </div>
                         <td>
-                            <h5 class="card-title">{{ $news->title }}</h5>
-                            <p class="card-text"> {{ $news->subtitle }} </p>
-                        <td>
-                        <td>
+                        <td class="col-md-2">                      
                             <a href="{{ route('news.delete', $news->id) }}" class="mx-2">
-                                    <span class="float-right mx-2">
-                                        <span style="color: #bb2211;">
-                                            <i class="fas fa-trash fa-2x"></i>
-                                        </span>
+                                <span class="m-2">
+                                    <span style="color: #bb2211;">
+                                        <i class="fas fa-trash fa-2x"></i>
                                     </span>
-                                </a>
+                                </span>
+                            </a>
                             <a href="{{ route('news.edit', $news->id) }}" class="mx-2">
-                                <span class="float-right mx-2">
+                                <span class="m-2">
                                     <span style="color: #008582;">
                                         <i class="fas fa-edit fa-2x"></i>
                                     </span>
