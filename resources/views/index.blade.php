@@ -1,12 +1,15 @@
 @main
     <!-- initial content -->
     <div class="container mb-4">
+        <?php
+            $spotlight = App\News::orderBy('date', 'desc')->orderBy('time', 'desc')->first();
+        ?>
         @spotlight([
             'categoryColor' => 'success',
             'category' => 'Mato Grosso do Sul',
-            'news' => 'MINISTRO DETERMINA SOLTURA DE PRESOS COM CONDENAÇÃO APÓS 2ª INSTÂNCIA E LULA PODE SER SOLTO',
-            'description' => 'A decisão liminar (provisória) de Marco Aurélio Mello atendeu a pedido do PCdoBs',
-            'route' => 'login',
+            'news' => $spotlight->title,
+            'description' => $spotlight->subtitle,
+            'route' => route('news.show', $spotlight->id)
         ]) @endspotlight
         <div class="row">
             <!-- carrosel -->

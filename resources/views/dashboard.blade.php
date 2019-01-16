@@ -18,15 +18,15 @@
                         <tr> 
                             <td>
                                 {{ $category->name }} 
-                                <a href="{{ route('category.delete', $category->id) }}">
-                                
-                                    <span class="float-right">
-                                        <span style="color: #bb2211;">
-                                            <i class="fas fa-trash fa-2x"></i>
+                                @if( Auth::id() == 1 )
+                                    <a href="{{ route('category.delete', $category->id) }}">
+                                        <span class="float-right">
+                                            <span style="color: #bb2211;">
+                                                <i class="fas fa-trash fa-lg"></i>
+                                            </span>
                                         </span>
-                                    </span>
-
-                                </a>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -70,28 +70,51 @@
                             </div>
                         <td>
                         <td>
+                            <span class="badge badge-{{ $news->status == 'ACTIVE' ? 'success' : 'warning' }}">
+                                {{ $news->status == 'ACTIVE' ? 'ativado' : 'desativado' }}
+                            </span >
                             <h5 class="card-title">{{ $news->title }}</h5>
                             <p class="card-text"> {{ $news->subtitle }} </p>
+                            <a href="{{ route('news.status', [$news->id, $news->status]) }}">
+                                @if($news->status == 'INACTIVE')
+                                <span>
+                                    <span>
+                                        <i class="far fa-square fa-lg"></i>
+                                    </span>
+                                </span>
+                                @else
+                                <span>
+                                    <span>
+                                        <i class="far fa-check-square fa-lg"></i>
+                                    </span>
+                                </span>
+                                @endif
+                                
+                            </a>
+                            <a href="{{ route('news.edit', $news->id) }}">
+                                <span>
+                                    <span style="color: #008582;">
+                                        <i class="fas fa-edit fa-lg"></i>
+                                    </span>
+                                </span>
+                            </a>
                         <td>
                         <td>
                             <a href="{{ route('news.delete', $news->id) }}" class="mx-2">
-                                    <span class="float-right mx-2">
-                                        <span style="color: #bb2211;">
-                                            <i class="fas fa-trash fa-2x"></i>
-                                        </span>
-                                    </span>
-                                </a>
-                            <a href="{{ route('news.edit', $news->id) }}" class="mx-2">
                                 <span class="float-right mx-2">
-                                    <span style="color: #008582;">
-                                        <i class="fas fa-edit fa-2x"></i>
+                                    <span style="color: #bb2211;">
+                                        <i class="fas fa-trash fa-lg"></i>
                                     </span>
                                 </span>
                             </a>
                         <td>
                     </tr>
                     @endforeach
-                    
+                    <tr>
+                        <td colspan='3' class="d-flex  justify-content-center">
+                            <a class="btn btn-sm btn-success" href="{{ route('news.store') }}" role="button">Nova notícia</a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         

@@ -93,14 +93,16 @@
             
             @else
                 @linkMenu(['route' => 'home','','',''])
-                    home
+                    Home
                 @endlinkMenu
                 @linkMenu(['route' => 'news.create'])
                     Escrever noticia
                 @endlinkMenu
-                @linkMenu(['route' => 'register'])
-                    Cadastrar novo jornalista
-                @endlinkMenu
+                @if( Auth::id() == 1 )
+                    @linkMenu(['route' => 'register'])
+                        Cadastrar novo jornalista
+                    @endlinkMenu
+                @endif
             @endauth
         @endmenu
         {{ $slot }}

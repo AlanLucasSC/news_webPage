@@ -4,7 +4,7 @@
             <small class="text-{{ $categoryColor }}"> {{ $category }} </small>
         </div>
         <h1 class="scale-active destaque card-title text-center">
-            <a class="text-dark" href="{{ route( $route ) }}">
+            <a class="text-dark" href="{{ $route }}">
                 {{ $news }}
             </a>
         </h1>

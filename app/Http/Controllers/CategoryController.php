@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\News;
+use App\News_Files;
+use App\File;
 
 class CategoryController extends Controller
 {
@@ -61,8 +64,42 @@ class CategoryController extends Controller
      */
     public function show($id, $name, $page = 0)
     {
-        $category = Category::find($id)->news();
-        return view('categoria', ['category' => $category]);   
+        $category = Category::find($id);
+        switch($name){
+            case 'Cultura':
+                $category->color = 'success';
+                break;
+            case 'Mato Grosso do Sul':
+                $category->color = 'success';
+                break;
+            case 'Economia':
+                $category->color = 'info';
+                break;
+            case 'Economia':
+                $category->color = 'warning';
+                break;
+            case 'Esporte':
+                $category->color = 'info';
+                break;
+            case 'Política':
+                $category->color = 'danger';
+                break;
+            default:
+                $category->color = 'success';
+                break;
+        }
+        $news_list = News::where('category_id', $id)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+        foreach($news_list as $news){
+            $file = File::find($news->file_id);
+            $news->imageName = $file->name;
+        }
+        $spotlight = null;
+        $highlights = null;
+        if(count($news_list) > 0){
+            $spotlight = $news_list[0];
+        }
+
+        return view('categoria', compact('news_list', 'spotlight', 'category', 'highlights'));   
     }
 
     /**
@@ -73,8 +110,8 @@ class CategoryController extends Controller
      */
     public function showNews($id, $page = 0)
     {
-        $category = Category::find($id)->news();
-        return view('categoria', ['category' => $category]);   
+        $categories = Category::find($id)->news();
+        return view('categoria', ['categories' => $categories]);   
     }
 
     /**
@@ -112,6 +149,15 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::find($id);
+        $news_list = News::where('category_id', $id)->get();
+
+        foreach($news_list as $news){
+            $news_files = News_Files::where('news_id', $news->id)->get();
+            foreach($news_files as $news_file){
+                $news_file->delete();
+            }
+            $news->delete();
+        }
         $category->delete();
         return redirect()->route('home');
     }
