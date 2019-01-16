@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-4 mb-2">
             <table class="table table-hover">
-                <thead>
+                <thead class="table-info">
                     <tr>
                         <th><h4>Categorias</h4></th>
                     </tr>
@@ -55,29 +55,27 @@
             </table>
         </div>
         <div class="col-md-7 mb-2 w-100">
-            <table class="table table-hover">
-                <thead >
-                    <tr>
-                        <th><h4>Suas noticias</h4></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($newsList as $news)
-                    <tr id="{{ $news->id }}">
-                        <td class="col-md-3">
-                            <div style="height: 100px;">
-                                <img class="mx-auto" style="display: block; height: 100%; width: auto;" src="{{ URL::to('/') . '/files/' . $news->nameImage }}" alt="Card image cap">
+            <table class="table table-hover container-fluid">
+                
+                <tr class="table-info row ">
+                    <th>
+                        <h4>Suas noticias</h4>
+                    </th>
+                    
+                </tr>
+            
+                @foreach($newsList as $news)
+                    <tr id="{{ $news->id }}" class="row">
+                        <td class="col-lg-2">
+                            <div style="width: 100px;">
+                                <img class="mx-auto" style="display: block; width: 100%; height: auto;" src="{{ URL::to('/') . '/files/' . $news->nameImage }}" alt="Card image cap">
                             </div>
-                        <td>
-                        <td class="col-md-5">
-                            <div style="max-width: 100%;">
-                                <h5>{{ $news->title }}</h5>
-                                <p> {{ $news->subtitle }} </p>
-                            </div>
-                        <td>
-                        <td class="col-md-2">                      
+                        </td>
+                        <td class="col-lg-8">
+                            <h5>{{ $news->title }}</h5>
+                            <p>{{ $news->subtitle }}</p>
+                        </td>
+                        <td class="col-lg-2">                      
                             <a href="{{ route('news.delete', $news->id) }}" class="mx-2">
                                 <span class="m-2">
                                     <span style="color: #bb2211;">
@@ -92,15 +90,11 @@
                                     </span>
                                 </span>
                             </a>
-                        <td>
-                    </tr>
-                    @endforeach
-                    <tr>
-                        <td colspan='3' class="d-flex  justify-content-center">
-                            <a class="btn btn-sm btn-success" href="{{ route('news.store') }}" role="button">Nova notícia</a>
                         </td>
                     </tr>
-                </tbody>
+                @endforeach
+                   
+                
             </table>
         
         </div>
