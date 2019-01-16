@@ -18,15 +18,15 @@
                         <tr> 
                             <td>
                                 {{ $category->name }} 
-                                <a href="{{ route('category.delete', $category->id) }}">
-                                
-                                    <span class="float-right">
-                                        <span style="color: #bb2211;">
-                                            <i class="fas fa-trash fa-2x"></i>
+                                @if( Auth::id() == 1 )
+                                    <a href="{{ route('category.delete', $category->id) }}">
+                                        <span class="float-right">
+                                            <span style="color: #bb2211;">
+                                                <i class="fas fa-trash fa-lg"></i>
+                                            </span>
                                         </span>
-                                    </span>
-
-                                </a>
+                                    </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
@@ -95,7 +95,11 @@
                         <td>
                     </tr>
                     @endforeach
-                    
+                    <tr>
+                        <td colspan='3' class="d-flex  justify-content-center">
+                            <a class="btn btn-sm btn-success" href="{{ route('news.store') }}" role="button">Nova notícia</a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         

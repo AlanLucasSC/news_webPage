@@ -55,8 +55,8 @@
                 @if( isset($id) )
                     <textarea name="text" id="inputText" cols="30" rows="10" hidden></textarea>
                 @endif
-                <div class="form-group col-md-3 pt-3 pb-3">
-                    <input class="btn btn-success" type="Submit" value="Escrever noticia">
+                <div class="form-group col-md-12 pt-3 pb-3 text-right">
+                    <input class="btn btn-success" type="Submit" value="Salvar">
                 </div>
             </form>
         </div>
