@@ -27,6 +27,19 @@
   }
 }
 
+#title{
+  margin-top: 20px;
+}
+
+.display-3{
+  font-size: 3rem !important;
+}
+@media (max-width: 768px) {
+  .display-3 {
+    font-size: 2rem !important;
+  }
+}
+
 .nav-scroller {
   position: relative;
   z-index: 2;

@@ -249,3 +249,8 @@ div:focus, textarea:focus, input:focus{
   background: #85888C; 
   border-radius: 2px;
 }
+
+.navbar-collapse { margin-bottom: 0; }
+.navbar-collapse > div.dropdown.show { position: static; }
+.navbar-collapse > div.dropdown.show .dropdown-menu {display:block; width: 99%;  }
+.dropdown-menu>li { display: block; }

@@ -21,7 +21,7 @@ class News extends Migration
             $table->date('date');
             $table->time('time');
             $table->string('title');
-            $table->string('subtitle');
+            $table->string('subtitle')->nullable();
             $table->longText('text')->nullable();
             $table->string('status')->default('INACTIVE');
 

@@ -4,13 +4,15 @@
         <?php
             $spotlight = App\News::orderBy('date', 'desc')->orderBy('time', 'desc')->first();
         ?>
-        @spotlight([
-            'categoryColor' => 'success',
-            'category' => 'Mato Grosso do Sul',
-            'news' => $spotlight->title,
-            'description' => $spotlight->subtitle,
-            'route' => route('news.show', $spotlight->id)
-        ]) @endspotlight
+        @if(isset($spotlight))
+            @spotlight([
+                'categoryColor' => 'success',
+                'category' => 'Mato Grosso do Sul',
+                'news' => $spotlight->title,
+                'description' => $spotlight->subtitle,
+                'route' => route('news.show', $spotlight->id)
+            ]) @endspotlight
+        @endif
         <div class="row">
             <!-- carrosel -->
             <div class="col-lg-8 d-flex align-items-center">

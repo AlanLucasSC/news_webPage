@@ -81,15 +81,20 @@
                                     <span style="color: #bb2211;">
                                         <i class="fas fa-trash fa-2x"></i>
                                     </span>
-                                </span>
-                            </a>
-                            <a href="{{ route('news.edit', $news->id) }}" class="mx-2">
-                                <span class="m-2">
-                                    <span style="color: #008582;">
-                                        <i class="fas fa-edit fa-2x"></i>
+                                </a>
+                                <a href="{{ route('news.edit', $news->id) }}" class="mx-2">
+                                    <span class="m-2">
+                                        <span style="color: #008582;">
+                                            <i class="fas fa-edit fa-2x"></i>
+                                        </span>
                                     </span>
-                                </span>
-                            </a>
+                                </a>
+                            <td>
+                        </tr>
+                    @endforeach
+                    <tr>
+                        <td colspan='3' class="d-flex  justify-content-center">
+                            <a class="btn btn-sm btn-success" href="{{ route('news.store') }}" role="button">Nova notícia</a>
                         </td>
                     </tr>
                 @endforeach

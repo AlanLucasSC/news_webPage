@@ -80,7 +80,7 @@
 
             @guest
             
-                @foreach (  App\Category::all() as $category )
+                @foreach (  DB::table('categories')->limit(5)->get() as $category )
                     @linkMenu([
                             'route' => 'category', 
                             'id' => "$category->id",
@@ -90,7 +90,21 @@
                         {{ $category->name }}
                     @endlinkMenu
                 @endforeach
-            
+                <div class="dropdown">
+                    <a class="px-3 mx-1 c-link menu-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Mais
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="row justify-content-center">
+                            @foreach (  DB::table('categories')->skip(5)->take(PHP_INT_MAX)->get() as $category )
+                                <a 
+                                    class="dropdown-item col-md-3 col-sm-4 text-center" 
+                                    href="{{ route('category', [$category->id, $category->name, 1]) }}"
+                                >{{ $category->name }}</a>
+                            @endforeach
+                        </div>
+                    </div>  
+                </div>          
             @else
                 @linkMenu(['route' => 'home','','',''])
                     Home
