@@ -1,7 +1,7 @@
 <div class="col-md-{{ $columnLenght }} px-0">
     <div class="card flex-md-row mb-0 noticia">
         <div class="card-body d-flex flex-column align-items-start">
-            <img class="card-img-top flex-auto d-none d-lg-block scale-active" src="{{ URL::to('/') . '/img/' . $imageName }}" />
+            <img class="card-img-top flex-auto d-none d-lg-block scale-active" src="{{ URL::to('/') . '/files/' . $imageName }}" />
             <div class="d-flex w-100 justify-content-between my-1 "> 
                 <strong class="mb-2 text-{{ $categoryColor }}">{{ $category }}</strong>
                 <div class="mb-1 text-muted">{{ $later }}</div>

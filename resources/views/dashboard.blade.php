@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-4 mb-2">
             <table class="table table-hover">
-                <thead class="table-info">
+                <thead class="">
                     <tr>
                         <th><h4>Categorias</h4></th>
                     </tr>
@@ -100,7 +100,6 @@
                             <a class="btn btn-sm btn-success" href="{{ route('news.store') }}" role="button">Nova notícia</a>
                         </td>
                     </tr>
-                @endforeach
                    
                 
             </table>
