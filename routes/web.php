@@ -17,6 +17,8 @@ Route::get('/category/{id}/excluir', 'CategoryController@destroy')->name('catego
 Route::get('/news/{id}/excluir', 'NewsController@destroy')->name('news.delete');
 Route::get('/news/{id}/mudar/{status}', 'NewsController@changeStatus')->name('news.status');
 
+Route::get('/news/plus/view', 'NewsViewsController@plusView')->name('news.plus');
+
 Route::get('/markdown', function () {
     return view('markdown');
 });

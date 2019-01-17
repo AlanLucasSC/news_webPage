@@ -254,3 +254,7 @@ div:focus, textarea:focus, input:focus{
 .navbar-collapse > div.dropdown.show { position: static; }
 .navbar-collapse > div.dropdown.show .dropdown-menu {display:block; width: 99%;  }
 .dropdown-menu>li { display: block; }
+
+.pagination{
+  justify-content: center!important;
+}

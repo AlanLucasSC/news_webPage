@@ -107,7 +107,7 @@ class NewsController extends Controller
         $news = News::find($id);
         $image = File::find($news->file_id);
         $user = User::find($news->user_id);
-        return view('leitura', compact('news', 'image', 'user'));
+        return view('leitura', compact('news', 'image', 'user', 'id'));
     }
 
     /**

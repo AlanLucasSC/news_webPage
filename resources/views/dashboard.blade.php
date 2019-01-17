@@ -54,7 +54,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-md-7 mb-2 w-100">
+        <div class="col-md-7 mb-2">
             <table class="table table-hover">
                 <thead >
                     <tr>
@@ -77,18 +77,18 @@
                                     <p> {{ $news->subtitle }} </p>
                                 </div>
                             <td>
-                            <td >                      
+                            <td>                      
                                 <a href="{{ route('news.delete', $news->id) }}" class="mx-2">
                                     <span class="m-2">
                                         <span style="color: #bb2211;">
-                                            <i class="fas fa-trash fa-2x"></i>
+                                            <i class="fas fa-trash fa-lg"></i>
                                         </span>
                                     </span>
                                 </a>
                                 <a href="{{ route('news.edit', $news->id) }}" class="mx-2">
                                     <span class="m-2">
                                         <span style="color: #008582;">
-                                            <i class="fas fa-edit fa-2x"></i>
+                                            <i class="fas fa-edit fa-lg"></i>
                                         </span>
                                     </span>
                                 </a>

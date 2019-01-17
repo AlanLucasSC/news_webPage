@@ -9,6 +9,7 @@
     'text' => $news->text,
     'urlAuthor' => '#',
     'author' => $user->name,
-    'authorDescription' => 'Teste'
+    'authorDescription' => 'Teste',
+    'id' => $news->id
 ])
 @endshowNews

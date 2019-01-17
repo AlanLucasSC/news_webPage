@@ -18,21 +18,23 @@
                 <div class="col-lg-8">
                     <!-- Redes sociais -->
                     <div class="d-inline-block">
-                        @socialLink([
-                            'url' => '#' , 
-                            'icon' => 'fa-facebook'
-                        ])
-                        @endsocialLink
-                        @socialLink([
-                            'url' => '#', 
-                            'icon' => 'fa-instagram'
-                        ])
-                        @endsocialLink
-                        @socialLink([
-                            'url' => '#', 
-                            'icon' => 'fa-twitter'
-                        ])
-                        @endsocialLink
+                        @if(false)
+                            @socialLink([
+                                'url' => '#' , 
+                                'icon' => 'fa-facebook'
+                            ])
+                            @endsocialLink
+                            @socialLink([
+                                'url' => '#', 
+                                'icon' => 'fa-instagram'
+                            ])
+                            @endsocialLink
+                            @socialLink([
+                                'url' => '#', 
+                                'icon' => 'fa-twitter'
+                            ])
+                            @endsocialLink
+                        @endif
                     </div> <!-- ./ Redes sociais-->
 
                     @newsPhoto([
@@ -79,6 +81,18 @@
                         }
                     })
                 }
+
+                $.ajax({
+                    url: "{{ route('news.plus') }}",
+                    method: "GET",
+                    dataType: "json",
+                    data: {
+                        id: {{ $id }}
+                    },
+                    complete: function(response) {
+                        console.log(response.responseText)
+                    }
+                })
             
                 insertMarkdom( `{{ $text }}` )
             })

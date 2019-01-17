@@ -62,8 +62,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, $name, $page = 0)
+    public function show($id, $name, $page = 0, Request $request)
     {
+        if(isset($request)){
+            $page = $request->page - 1;
+        }
         $category = Category::find($id);
         switch($name){
             case 'Cultura':
@@ -88,18 +91,33 @@ class CategoryController extends Controller
                 $category->color = 'success';
                 break;
         }
-        $news_list = News::where('category_id', $id)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+        $newsForPage = 16;
+        $news_list = News::where('category_id', $id)
+                        ->skip($newsForPage * $page)
+                        ->take($newsForPage)
+                        ->orderBy('date', 'desc')
+                        ->orderBy('time', 'desc')
+                        ->get();
+
         foreach($news_list as $news){
             $file = File::find($news->file_id);
             $news->imageName = $file->name;
         }
-        $spotlight = null;
-        $highlights = null;
-        if(count($news_list) > 0){
-            $spotlight = $news_list[0];
-        }
 
-        return view('categoria', compact('news_list', 'spotlight', 'category', 'highlights'));   
+        $spotlight = News::where('category_id', $id)
+                        ->orderBy('date', 'desc')
+                        ->orderBy('time', 'desc')
+                        ->first();
+
+        $moreViews = News::where('category_id', $id)
+                        ->skip(0)
+                        ->take(3)
+                        ->orderBy('views', 'desc')
+                        ->get();
+        
+        $pagination = News::paginate($newsForPage);
+
+        return view('categoria', compact('news_list', 'spotlight', 'category', 'moreViews', 'pagination'));   
     }
 
     /**
