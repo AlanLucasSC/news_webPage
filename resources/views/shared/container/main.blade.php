@@ -93,7 +93,7 @@
                 <?php
                     $categories = DB::table('categories')->skip(5)->take(PHP_INT_MAX)->get();
                 ?>
-                @if(isset($categories))
+                @if(count($categories) != 0)
                     <div class="dropdown">
                         <a class="px-3 mx-1 c-link menu-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Mais
