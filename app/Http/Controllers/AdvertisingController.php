@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Advertising;
+use App\File;
 
 class AdvertisingController extends Controller
 {
@@ -47,7 +48,7 @@ class AdvertisingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**

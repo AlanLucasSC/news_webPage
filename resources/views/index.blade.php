@@ -33,7 +33,7 @@
                             'subtitle' => $news->subtitle,
                             'route' => route('news.show', $news->id)
                         ]) @endcarroselImage
-                        <?php $cont++; ?>
+                        @php $cont++; @endphp
                     @endforeach
                 @endcarrosel
             </div>
