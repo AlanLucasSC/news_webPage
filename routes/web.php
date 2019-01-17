@@ -36,3 +36,5 @@ Route::resources([
 ]);
 
 Route::get('/categorias/{id}/{name}/{page?}','CategoryController@show')->name('category');
+
+Route::get('/teste','CategoryController@newsByCategory');

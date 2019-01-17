@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['show','index']);
+        $this->middleware('auth')->except(['show','index','newsByCategory']);
     }
 
     /**
@@ -126,9 +126,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showNews(Category $category , $page = 0)
+    public function showNews($id, $page = 0)
     {
-        $categories = Category::find($category->id)->news();
+        $categories = Category::find($id)->news();
         return view('categoria', ['categories' => $categories]);   
     }
 
@@ -142,11 +142,14 @@ class CategoryController extends Controller
     {
         $newsByCategory = [];
         $categories = Category::all();
-        foreach($categories as $categoty){
-            $categoryNews = Category::find($category->id)->news();
-            $newsByCategory = array_merge ($newsByCategory,$categoryNews );
+
+        foreach($categories as $category){
+            $categoryNews = (array) Category::find($category->id)->news();
+            var_dump($categoryNews);
+            $newsByCategory = array_push($newsByCategory, $categoryNews );
         }
-        var_dump($newsByCategory);
+
+        return view('categoria', ['newsByCategory' => $newsByCategory]);
     }
 
     /**

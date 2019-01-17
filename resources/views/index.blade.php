@@ -31,8 +31,8 @@
                             'imageName' => $news->imageName,
                             'title' => $news->title,
                             'subtitle' => $news->subtitle,
-                            'route' => route('news.show', $news->id)
-                        ]) @endcarroselImage
+                            'route' => route('news.show', $news->id)                                                                                
+                        ]) @endcarroselImage                                                                                                                                                         
                         @php $cont++; @endphp
                     @endforeach
                 @endcarrosel
