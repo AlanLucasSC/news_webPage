@@ -17,18 +17,24 @@
             <!-- carrosel -->
             <div class="col-lg-8 d-flex align-items-center">
                 @carrosel
-                    @carroselImage([
-                        'active' => 'active',
-                        'name' => '959b24c6-a979-468c-afe7-846fcbd28873.jpg.640x360_q75_box-0,90,1732,1065_crop_detail.jpg'
-                    ]) @endcarroselImage
-                    @carroselImage([
-                        'active' => '',
-                        'name' => 'maxresdefault.jpg'
-                    ]) @endcarroselImage
-                    @carroselImage([
-                        'active' => '',
-                        'name' => 'dest_923.jpg'
-                    ]) @endcarroselImage
+                    <?php
+                        $news_list = App\News::skip(0)->take(3)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+                        foreach($news_list as $news){
+                            $file = App\File::find($news->file_id);
+                            $news->imageName = $file->name;
+                        }
+                        $cont = 0;
+                    ?>
+                    @foreach( $news_list as $news)
+                        @carroselImage([
+                            'active' => $cont == 0 ? 'active' : '',
+                            'imageName' => $news->imageName,
+                            'title' => $news->title,
+                            'subtitle' => $news->subtitle,
+                            'route' => route('news.show', $news->id)
+                        ]) @endcarroselImage
+                        <?php $cont++; ?>
+                    @endforeach
                 @endcarrosel
             </div>
             <!-- recent news -->

@@ -57,6 +57,33 @@
                 'author' =>  "$author" ,
             ])
             @endauthor
+
+            <div class="container">
+                <div class="row">
+                    <?php
+                        $news_list = App\News::skip(0)->take(12)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+                        foreach($news_list as $news){
+                            $file = App\File::find($news->file_id);
+                            $category = App\Category::find($news->category_id);
+                            $news->imageName = $file->name;
+                            $news->categoryName = $category->name;
+                        }
+                        $cont = 0;
+                    ?>
+                    @foreach( $news_list as $news)
+                        @news([
+                            'columnLenght' => '4',
+                            'imageName' => $news->imageName,
+                            'category' => $news->categoryName,
+                            'categoryColor' => $category->color,
+                            'later' => $news->date,
+                            'title' => $news->title,
+                            'description' => '',
+                            'route' => route('news.show', $news->id)
+                        ]) @endnews
+                    @endforeach
+                </div>
+            </div>
             
         </div><!-- ./ corpo noticia-->
     </main>
