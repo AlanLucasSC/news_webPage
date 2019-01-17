@@ -3,6 +3,8 @@ body {
   letter-spacing: .5px;
   font-family: 'Raleway', sans-serif;
   min-height: 100vh;
+  word-wrap: break-word;
+  max-width: 100% !important;
 }
 
 .col-md-4 > .card > .card-body > img{
@@ -97,11 +99,6 @@ a, a:hover, a:active, a:visited {
   border: 0px !important;
   border-radius: 0px !important;
   box-shadow: 0px !important;
-}
-
-.avatar-img-small{
-  width: 60px;
-  height: 60px;
 }
 
 .img-noticia{
