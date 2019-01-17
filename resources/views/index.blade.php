@@ -17,14 +17,14 @@
             <!-- carrosel -->
             <div class="col-lg-8 d-flex align-items-center">
                 @carrosel
-                    <?php
+                    @php
                         $news_list = App\News::skip(0)->take(3)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
                         foreach($news_list as $news){
                             $file = App\File::find($news->file_id);
                             $news->imageName = $file->name;
                         }
                         $cont = 0;
-                    ?>
+                    @endphp
                     @foreach( $news_list as $news)
                         @carroselImage([
                             'active' => $cont == 0 ? 'active' : '',
