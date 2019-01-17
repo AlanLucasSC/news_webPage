@@ -13,6 +13,8 @@ class IndexController extends Controller
      */
     public function index()
     {
+        Category::all();
+        
         return view('index');
     }
 }

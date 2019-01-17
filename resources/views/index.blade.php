@@ -1,9 +1,9 @@
 @main
     <!-- initial content -->
     <div class="container mb-4">
-        <?php
+        @php
             $spotlight = App\News::orderBy('date', 'desc')->orderBy('time', 'desc')->first();
-        ?>
+        @endphp
         @if(isset($spotlight))
             @spotlight([
                 'categoryColor' => 'success',

@@ -126,10 +126,27 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showNews($id, $page = 0)
+    public function showNews(Category $category , $page = 0)
     {
-        $categories = Category::find($id)->news();
+        $categories = Category::find($category->id)->news();
         return view('categoria', ['categories' => $categories]);   
+    }
+
+    /**
+     * Display the news of a determined category.
+     * 
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function newsByCategory()
+    {
+        $newsByCategory = [];
+        $categories = Category::all();
+        foreach($categories as $categoty){
+            $categoryNews = Category::find($category->id)->news();
+            $newsByCategory = array_merge ($newsByCategory,$categoryNews );
+        }
+        var_dump($newsByCategory);
     }
 
     /**
