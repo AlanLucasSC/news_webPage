@@ -2,7 +2,7 @@
 
 @foreach ($newsByCategory as $category)
     @foreach ($category as $item)
-        {{ $item }}
+        {{ $item->name }}
     @endforeach
 @endforeach
 
