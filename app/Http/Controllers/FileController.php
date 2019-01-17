@@ -78,7 +78,7 @@ class FileController extends Controller
             $news_files->save();
 
             return response()->json([
-                'massage' => 'File Uploaded Successfully',
+                'message' => 'File Uploaded Successfully',
                 'oriaginal_name' => $originalName,
                 'uploaded_file' => $new_name,
                 'class_name' => 'alert-danger',
@@ -86,7 +86,7 @@ class FileController extends Controller
             ]);
         } else {
             return response()->json([
-                'massage' => $validation->errors()->all(),
+                'message' => $validation->errors()->all(),
                 'uploaded_file' => '',
                 'class_name' => 'alert-danger'
             ]);

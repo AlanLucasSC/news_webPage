@@ -84,14 +84,14 @@ class NewsController extends Controller
                 return redirect()->route('news.edit', $news->id);
             } else {
                 return response()->json([
-                    'massage' => 'Faltou inserir informações em algum local.',
+                    'message' => 'Faltou inserir informações em algum local.',
                     'class_name' => 'alert-danger'
                 ]);
             }
         } 
         
         return response()->json([
-            'massage' => $validation->errors()->all(),
+            'message' => $validation->errors()->all(),
             'uploaded_file' => '',
             'class_name' => 'alert-danger'
         ]);

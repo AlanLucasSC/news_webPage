@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Advertising;
 
 class AdvertisingController extends Controller
 {
@@ -24,7 +25,8 @@ class AdvertisingController extends Controller
      */
     public function index()
     {
-        //
+        $ads = Advertising::all();
+        return view('advertising', ['ads' => $ads]);
     }
 
     /**
