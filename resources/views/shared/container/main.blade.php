@@ -90,9 +90,9 @@
                         {{ $category->name }}
                     @endlinkMenu
                 @endforeach
-                <?php
+                @php
                     $categories = DB::table('categories')->skip(5)->take(PHP_INT_MAX)->get();
-                ?>
+                @endphp
                 @if(count($categories) != 0)
                     <div class="dropdown">
                         <a class="px-3 mx-1 c-link menu-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -125,21 +125,7 @@
                         Cadastrar novo jornalista
                     @endlinkMenu
                 @endif
-                <div class="dropdown">
-                    <a class="px-3 mx-1 c-link menu-link nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Categorias
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <div class="row justify-content-center">
-                            @foreach (  App\Category::all() as $category )
-                                <a 
-                                    class="dropdown-item col-md-3 col-sm-4 text-center" 
-                                    href="{{ route('category', [$category->id, $category->name, 1]) }}"
-                                >{{ $category->name }}</a>
-                            @endforeach
-                        </div>
-                    </div>  
-                </div> 
+                
             @endauth
         @endmenu
         {{ $slot }}
