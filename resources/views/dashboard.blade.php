@@ -65,35 +65,35 @@
                 </thead>
                 <tbody>
                     @foreach($newsList as $news)
-                    <tr id="{{ $news->id }}">
-                        <td class="col-md-3">
-                            <div style="height: 100px;">
-                                <img class="mx-auto" style="display: block; height: 100%; width: auto;" src="{{ URL::to('/') . '/files/' . $news->nameImage }}" alt="Card image cap">
-                            </div>
-                        <td>
-                        <td class="col-md-5">
-                            <div style="max-width: 100%;">
-                                <h5>{{ $news->title }}</h5>
-                                <p> {{ $news->subtitle }} </p>
-                            </div>
-                        <td>
-                        <td class="col-md-2">                      
-                            <a href="{{ route('news.delete', $news->id) }}" class="mx-2">
-                                <span class="m-2">
-                                    <span style="color: #bb2211;">
-                                        <i class="fas fa-trash fa-2x"></i>
+                        <tr id="{{ $news->id }}">
+                            <td>
+                                <div>
+                                    <img class="card-img-top" src="{{ URL::to('/') . '/files/' . $news->nameImage }}" alt="Card image cap">
+                                </div>
+                            <td>
+                            <td>
+                                <div>
+                                    <h5>{{ $news->title }}</h5>
+                                    <p> {{ $news->subtitle }} </p>
+                                </div>
+                            <td>
+                            <td >                      
+                                <a href="{{ route('news.delete', $news->id) }}" class="mx-2">
+                                    <span class="m-2">
+                                        <span style="color: #bb2211;">
+                                            <i class="fas fa-trash fa-2x"></i>
+                                        </span>
                                     </span>
-                                </span>
-                            </a>
-                            <a href="{{ route('news.edit', $news->id) }}" class="mx-2">
-                                <span class="m-2">
-                                    <span style="color: #008582;">
-                                        <i class="fas fa-edit fa-2x"></i>
+                                </a>
+                                <a href="{{ route('news.edit', $news->id) }}" class="mx-2">
+                                    <span class="m-2">
+                                        <span style="color: #008582;">
+                                            <i class="fas fa-edit fa-2x"></i>
+                                        </span>
                                     </span>
-                                </span>
-                            </a>
-                        <td>
-                    </tr>
+                                </a>
+                            <td>
+                        </tr>
                     @endforeach
                     <tr>
                         <td colspan='3' class="d-flex  justify-content-center">

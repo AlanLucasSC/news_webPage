@@ -197,10 +197,27 @@
                     span.replaceWith(text)
                 }
             }
+
+            function removePTag(){
+                tagsP = $('#text > p')
+                for(var index = 0; index < tagsP.length; index++){
+                    p = tagsP[index]
+                    text = p.textContent
+                    p.replaceWith(text)
+                }
+
+                tagsP = $('#text > div > p')
+                for(var index = 0; index < tagsP.length; index++){
+                    p = tagsP[index]
+                    text = p.textContent
+                    p.replaceWith(text)
+                }
+            }
             function getMarkdown(e){
                 removePreTag()
                 removeFontTag()
                 removeSpanTag()
+                removePTag()
                 var markdown = convertToEndOfLine( $('#text').html() )
 
                 $('#inputText').text(markdown)

@@ -57,7 +57,7 @@ class NewsController extends Controller
             'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         if($validation->passes()){
-            if(isset($request->title) && isset($request->category) && isset($request->subtitle)){
+            if(isset($request->title) && isset($request->category)){
                 $image = $request->file('image');
                 $originalName = $image->getClientOriginalName();
                 $originalName = pathinfo($originalName, PATHINFO_FILENAME);
@@ -172,7 +172,8 @@ class NewsController extends Controller
         $news->category_id = $request->category;
         $news->title = $request->title;
         $news->subtitle = $request->subtitle;
-        $news->text = $request->text;
+        $markdown = str_replace('`', '\`', $request->text);
+        $news->text = $markdown;
         $news->save();
 
         return redirect()->route('news.edit', $news->id);

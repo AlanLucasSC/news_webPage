@@ -8,7 +8,8 @@ use GrahamCampbell\Markdown\Facades\Markdown;
 class MarkdownController extends Controller
 {
     public function markdownToHtml(Request $request){
-        $markdown = Markdown::convertToHtml($request->markdown);
+        $markdown = str_replace('\`', '`', $request->markdown);
+        $markdown = Markdown::convertToHtml($markdown);
         $markdown = $this->tagVideo($markdown);
         return $markdown;
     }
