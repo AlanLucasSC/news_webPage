@@ -98,6 +98,9 @@
                 @linkMenu(['route' => 'news.create'])
                     Escrever noticia
                 @endlinkMenu
+                @linkMenu(['route' => 'advertising.index'])
+                    Propagandas
+                @endlinkMenu
                 @if( Auth::id() == 1 )
                     @linkMenu(['route' => 'register'])
                         Cadastrar novo jornalista
