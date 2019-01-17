@@ -140,16 +140,16 @@ class CategoryController extends Controller
      */
     public function newsByCategory()
     {
+
         $newsByCategory = [];
-        $categories = Category::all();
-
-        foreach($categories as $category){
-            $categoryNews = (array) Category::find($category->id)->news();
-            var_dump($categoryNews);
-            $newsByCategory = array_push($newsByCategory, $categoryNews );
+        $categories = Category::get();
+        
+        foreach($categories as $index => $category){
+            
+            $categoryNews = Category::find($category->id)->news()->get();
+            array_push($newsByCategory, $categoryNews);
         }
-
-        return view('categoria', ['newsByCategory' => $newsByCategory]);
+        return view('teste', ['newsByCategory' => $newsByCategory]);
     }
 
     /**
