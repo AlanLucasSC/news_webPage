@@ -2,38 +2,44 @@
 
 <div class="container-fluid my-4">
     <div class="row justify-content-center">
-        <div class="col-md-6 mb-2">
-            <table class="table table-hover">
-                <thead class="">
-                    <tr>
-                        <th><h4>Anuncios</h4></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach( $ads as $ad )
-                        <tr> 
-                            <td>
-                                <figure class="text-center">
-                                    <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="width: 100%;" /> 
-                                    <figcaption>{{ $ad->url }}<figcaption>
-                                    <figcaption>{{ $category->name }}<figcaption>
-                                </figure>
-                                @if( Auth::user()->role === 'admin' )
-                                    <a href="{{ route('advertising.delete', $ad->id) }}">
-                                        <span class="float-right">
-                                            <span style="color: #bb2211;">
-                                                <i class="fas fa-trash fa-lg"></i>
-                                            </span>
-                                        </span>
-                                    </a>
-                                @endif
-                            </td>
+        @if( Auth::user()->role === 'admin' )
+            <div class="col-md-6 mb-2">
+                <table class="table table-hover">
+                    <thead class="">
+                        <tr>
+                            <th><h4>Anuncioss</h4></th>
                         </tr>
-                    @endforeach
-                    
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        @foreach( $catalog as $ads )
+                            @php
+                                $image = App\File::find($ads->file_id);
+                            @endphp
+                            <tr> 
+                                <td>
+                                    <figure class="text-center">
+                                        <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="width: 100%;" /> 
+                                        <figcaption>{{ $ads->url }}<figcaption>
+                                        <figcaption>{{ $category->name }}<figcaption>
+                                    </figure>
+                                    @if( Auth::user()->role === 'admin' )
+                                        <a href="{{ route('advertising.delete', $ads->id) }}">
+                                            <span class="float-right">
+                                                <span style="color: #bb2211;">
+                                                    <i class="fas fa-trash fa-lg"></i>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        
+                    </tbody>
+                </table>
+            </div>
+        @endif
+
         <div class="col-md-6 mb-2">
             <h3>Cadastrar anuncio</h3>
             

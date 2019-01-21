@@ -15,7 +15,7 @@ class CatalogController extends Controller
      */
     public function __construct()
     {
-
+        $this->middleware('auth');
     }
 
     /**
@@ -35,7 +35,8 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        return view('catalog');
+        $catalog = Catalog::all();
+        return view('catalog', ['catalog' => $catalog]);
     }
 
     /**
@@ -48,6 +49,7 @@ class CatalogController extends Controller
     {
         $catalog = new Catalog;
         $catalog->name = $request->name;
+        $catalog->url = $request->url;
         $catalog->description = $request->description;
         $catalog->contact = $request->contact;
         // TODO: salvar imagem
@@ -94,8 +96,11 @@ class CatalogController extends Controller
      * @param  \App\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Catalog $catalog)
+    public function destroy($id)
     {
-        //
+        $catalog = Catalog::find($id);
+        $catalog->delete();
+        return redirect()->route('catalog.criar');
+
     }
 }

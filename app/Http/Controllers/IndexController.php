@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Catalog;
 class IndexController extends Controller
 {
     /**
@@ -39,6 +40,13 @@ class IndexController extends Controller
                     break;
             }
         }
-        return view('index', compact('categories'));
+        $catalog = Catalog::all();
+        if(!isset($catalog)){
+            $catalog = $catalog->random(3);
+        }else{
+            $catalog = [];
+        }
+        
+        return view('index',compact('categories','catalog'));
     }
 }
