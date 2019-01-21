@@ -120,11 +120,17 @@
                 @linkMenu(['route' => 'advertising.index'])
                     Propagandas
                 @endlinkMenu
-                @if( Auth::id() == 1 )
+                @if( Auth::user()->role === 'admin' )
                     @linkMenu(['route' => 'register'])
                         Cadastrar novo jornalista
                     @endlinkMenu
                 @endif
+                @if( Auth::user()->role === 'admin' ||  Auth::user()->role === 'anunciante' )
+                    @linkMenu(['route' => 'catalog.create'])
+                        Cadastrar Anuncio
+                    @endlinkMenu
+                @endif
+                
                 
             @endauth
         @endmenu

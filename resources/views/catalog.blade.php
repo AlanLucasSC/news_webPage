@@ -2,20 +2,15 @@
 
 <div class="container-fluid my-4">
     <div class="row justify-content-center">
-        
         <div class="col-md-6 mb-2">
             <table class="table table-hover">
                 <thead class="">
                     <tr>
-                        <th><h4>Propagandas</h4></th>
+                        <th><h4>Anuncios</h4></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach( $ads as $ad )
-                        <?php 
-                            $image = App\File::find($ad->file_id);
-                            $category = App\AdvertisingCategory::find($ad->category_id);
-                        ?>
                         <tr> 
                             <td>
                                 <figure class="text-center">
@@ -40,10 +35,10 @@
             </table>
         </div>
         <div class="col-md-6 mb-2">
-            <h3>Cadastrar nova propaganda</h3>
+            <h3>Cadastrar anuncio</h3>
             
             <form 
-                action="{{ route('advertising.store') }}" 
+                action="{{ route('catalog.store') }}" 
                 id="form" 
                 enctype="multipart/form-data"
                 role="form" 
@@ -51,25 +46,33 @@
                 class="form-row my-4"
             >
                 {{ csrf_field() }}
+
                 <div class="form-group col-md-12">
-                    <label for="newAdvertising">Nova propaganda</label>
-                    <input name="url" class="form-control" id="newAdvertising" placeholder="Insira a url onde deseja ser redirecionado a propaganda">
-                </div>
-                <div class="form-group col-md-12">
-                    <label for="newAdvertising">Categoria</label>
-                    <select class="form-control" name="category" id="inputCategory">
-                        @foreach($categories as $category)
-                            <option 
-                                value="{{ $category->id }}"
-                            > {{ $category->name }} </option>
-                        @endforeach
-                    </select>
+                    <label for="newCatalog">Novo anuncio</label>
+                    <input name="url" class="form-control" id="newCatalog" placeholder="Insira a url onde deseja ser redirecionado o anuncio">
                 </div>
                 
                 <div class="form-group col-md-12">
-                    <label for="inputImage">Imagem da propaganda</label>
+                    <label for="contact">Seu contato</label>
+                    <input name="contact" class="form-control" id="contact" placeholder="Onde os interessados podem te contactar?">
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="name">Nome do anuncio</label>
+                    <input name="name" class="form-control" id="name" placeholder="Digite o nome do que deseja anunciar">
+                </div>
+                
+                <div class="form-group col-md-12">
+                    <label for="description">Descriçao</label>
+                    <textarea name="description" class="form-control" id="description" rows="3" placeholder="digite um paragrafo sobre o que deseja anunciar">
+                    </textarea>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="inputImage">Imagem do anuncio</label>
                     <input type="file" name="image" class="form-control-file" id="inputImage">
                 </div>
+
                 <div class="form-group col-md-12 pt-3 pb-3 text-right">
                     <input class="btn btn-success" type="Submit" value="Salvar">
                 </div>

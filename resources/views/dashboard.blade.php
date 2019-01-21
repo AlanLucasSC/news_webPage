@@ -20,7 +20,7 @@
                         <tr> 
                             <td>
                                 {{ $category->name }} 
-                                @if( Auth::id() == 1 )
+                                @if( Auth::user()->role === 'admin' )
                                     <a href="{{ route('category.delete', $category->id) }}">
                                         <span class="float-right">
                                             <span style="color: #bb2211;">

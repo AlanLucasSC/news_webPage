@@ -8,6 +8,7 @@
                 <a class="text-dark" href="{{ $route }}">{{ $name }}</a>
             </h5>
             <p class="card-text mb-auto">{{ $description }}</p>
+            <p>{{ $contact }}</p>
         </div>
     </div>
 </div>

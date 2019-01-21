@@ -31,6 +31,7 @@ Route::get('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
 Auth::routes();
 
 Route::resources([
+    'catalog' => 'CatalogController',
     'advertising' => 'AdvertisingController',
     'category' => 'CategoryController',
     'comment' => 'CommentController',

@@ -35,7 +35,7 @@ class CatalogController extends Controller
      */
     public function create()
     {
-        //
+        return view('catalog');
     }
 
     /**
@@ -46,7 +46,12 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $catalog = new Catalog;
+        $catalog->name = $request->name;
+        $catalog->description = $request->description;
+        $catalog->contact = $request->contact;
+        // TODO: salvar imagem
+
     }
 
     /**
@@ -55,9 +60,9 @@ class CatalogController extends Controller
      * @param  \App\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function show(Catalog $catalog)
+    public function show($id)
     {
-        //
+       
     }
 
     /**
