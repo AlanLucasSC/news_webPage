@@ -13,6 +13,13 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
+  'graham-campbell/markdown' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'GrahamCampbell\\Markdown\\MarkdownServiceProvider',
+    ),
+  ),
   'laravel/nexmo-notification-channel' => 
   array (
     'providers' => 

@@ -18,10 +18,7 @@ class CategoryController extends Controller
      */
     public function __construct()
     {
-<<<<<<< HEAD
-=======
         $this->middleware('role:admin')->only(['store','destroy']);
->>>>>>> commit
         $this->middleware('auth')->except(['show','index','newsByCategory']);
     }
 
@@ -144,11 +141,7 @@ class CategoryController extends Controller
      */
     public function newsByCategory()
     {
-<<<<<<< HEAD
-
-=======
         /*
->>>>>>> commit
         $newsByCategory = [];
         $categories = Category::get();
         
@@ -157,9 +150,6 @@ class CategoryController extends Controller
             $categoryNews = Category::find($category->id)->news()->get();
             array_push($newsByCategory, $categoryNews);
         }
-<<<<<<< HEAD
-        return view('teste', ['newsByCategory' => $newsByCategory]);
-=======
         
         foreach ($categories as $key => $category) {
             foreach ($category as $key => $news) {
@@ -172,6 +162,7 @@ class CategoryController extends Controller
         $categories = Category::all();
         $newsForPage = 16;
         $newsByCategory = [];
+        $teste = "";
 
         foreach ($categories as $key => $category) {
             $news_list = News::where('category_id', $category->id)
@@ -190,7 +181,6 @@ class CategoryController extends Controller
 
         return view('teste', ['newsByCategory' => $newsByCategory]);  
         
->>>>>>> commit
     }
 
     /**
@@ -213,14 +203,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-<<<<<<< HEAD
-        $category = Category::find($id);
-        $category->name = $request->name;
-        $category->save();
-        return $this->index();
-=======
         
->>>>>>> commit
     }
 
     /**

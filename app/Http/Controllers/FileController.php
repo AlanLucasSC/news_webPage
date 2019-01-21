@@ -17,14 +17,11 @@ class FileController extends Controller
      */
     public function __construct()
     {
-<<<<<<< HEAD
-=======
         $this->middleware('role:jornalista')->except(['show','index']);
->>>>>>> commit
         $this->middleware('auth')->except(['show','index']);
     }
 
-    /**
+    /**s
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
