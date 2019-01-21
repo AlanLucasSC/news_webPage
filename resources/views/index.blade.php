@@ -161,4 +161,14 @@
             @endif
         </div>
     </div>
+    @catalog()
+        @foreach ($catalog as $ads)
+            @catItem([
+
+            ])
+            
+
+            @endcatItem
+        @endforeach
+    @endcatalog
 @endmain

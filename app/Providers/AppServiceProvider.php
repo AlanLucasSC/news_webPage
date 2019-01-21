@@ -37,6 +37,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('shared.components.newsPhoto', 'newsPhoto');
         Blade::component('shared.components.socialLink', 'socialLink');
         Blade::component('shared.components.feedback', 'feedback');   
+        Blade::component('shared.components.catalog.catalog', 'catalog');   
+        Blade::component('shared.components.catalog.catalogItem', 'catItems');   
 
         // Containers
         Blade::component('shared.container.news', 'showNews');
