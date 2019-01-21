@@ -22,11 +22,12 @@
                         id="inputTitle" 
                         placeholder="Coloque um título"
                         value="{{ $news->title ?? '' }}"
+                        required
                     >
                 </div>
                 <div class="form-group col-md-3">
                     <label for="inputCategory"><h4>Categoria</h4></label>
-                    <select class="form-control" name="category" id="inputCategory">
+                    <select class="form-control" name="category" id="inputCategory" required>
                         @foreach($categories as $category)
                             <option 
                                 value="{{ $category->id }}"
@@ -41,7 +42,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="inputImage"><h4>Imagem de Capa</h4></label>
-                    <input type="file" name="image" class="form-control-file" id="inputImage">
+                    <input type="file" name="image" class="form-control-file" id="inputImage" required>
                 </div>
                 <div class="form-group col-md-12">
                     <label for="inputSubtitle"><h4>Subtítulo</h4></label>
@@ -50,6 +51,7 @@
                         name="subtitle" 
                         id="inputSubtitle" 
                         rows="3"
+                        required
                     >{{ $news->subtitle ?? '' }}</textarea>
                 </div>
                 @if( isset($id) )

@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-group col-md-12">
                     <label for="newAdvertising">Categoria</label>
-                    <select class="form-control" name="category" id="inputCategory">
+                    <select class="form-control" name="category" id="inputCategory" required>
                         @foreach($categories as $category)
                             <option 
                                 value="{{ $category->id }}"
@@ -68,7 +68,7 @@
                 
                 <div class="form-group col-md-12">
                     <label for="inputImage">Imagem da propaganda</label>
-                    <input type="file" name="image" class="form-control-file" id="inputImage">
+                    <input type="file" name="image" class="form-control-file" id="inputImage" required>
                 </div>
                 <div class="form-group col-md-12 pt-3 pb-3 text-right">
                     <input class="btn btn-success" type="Submit" value="Salvar">
