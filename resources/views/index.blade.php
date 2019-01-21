@@ -60,13 +60,17 @@
         <?php 
             $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
             $advertising = App\Advertising::where('category_id', $category->id)->first();
-            $image = App\File::find($advertising->file_id);
+            if( isset($advertising) ){
+                $image = App\File::findOrFail($advertising->file_id);
+            }
         ?>
-        <a href="{{ $advertising->url }}">
-            <figure class="text-center">
-                <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px" /> 
-            </figure>
-        </a>
+        @if( isset($image) )
+            <a href="{{ $advertising->url }}" class="p-1">
+                <figure class="text-center">
+                    <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px" /> 
+                </figure>
+            </a>
+        @endif
     </div>
     
     <!-- news by category -->
@@ -125,16 +129,36 @@
                         <?php 
                             $category = App\AdvertisingCategory::where('name', 'Suquarw banner 300px250px')->first();
                             $advertising = App\Advertising::where('category_id', $category->id)->first();
-                            $image = App\File::find($advertising->file_id);
+                            if( isset($advertising) ){
+                                $image = App\File::findOrFail($advertising->file_id);
+                            }
                         ?>
-                        <a href="{{ $advertising->url }}">
-                            <figure class="text-center">
-                                <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 300px; max-height: 250px" /> 
-                            </figure>
-                        </a>
+                        @if( isset($image) )
+                            <a href="{{ $advertising->url }}" class="p-1">
+                                <figure class="text-center">
+                                    <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 300px; max-height: 250px" /> 
+                                </figure>
+                            </a>
+                        @endif
                     @endlistGroup
                 </div>
             </div>
+        </div>
+        <?php 
+            $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
+            $advertising = App\Advertising::where('category_id', $category->id)->first();
+            if( isset($advertising) ){
+                $image = App\File::findOrFail($advertising->file_id);
+            }
+        ?>
+        <div class="">
+            @if( isset($image) )
+                <a href="{{ $advertising->url }}" class="p-1">
+                    <figure class="text-center">
+                        <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px" /> 
+                    </figure>
+                </a>
+            @endif
         </div>
     </div>
 @endmain

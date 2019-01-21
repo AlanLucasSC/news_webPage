@@ -83,6 +83,20 @@
                         ]) @endnews
                     @endforeach
                 </div>
+                <?php 
+                    $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
+                    $advertising = App\Advertising::where('category_id', $category->id)->first();
+                    if( isset($advertising) ){
+                        $image = App\File::findOrFail($advertising->file_id);
+                    }
+                ?>
+                @if( isset($image) )
+                    <a href="{{ $advertising->url }}" class="p-1">
+                        <figure class="text-center">
+                            <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 728px; max-height: 90px" /> 
+                        </figure>
+                    </a>
+                @endif
             </div>
             
         </div><!-- ./ corpo noticia-->
