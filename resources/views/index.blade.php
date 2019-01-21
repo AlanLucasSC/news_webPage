@@ -57,10 +57,16 @@
             </div>
         </div>
         <!-- advertising -->
-        @advertising([
-            'url' => 'https://tpc.googlesyndication.com/simgad/7855129284900403990',
-            'name' => 'propaganda1.gif'
-        ]) @endadvertising
+        <?php 
+            $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
+            $advertising = App\Advertising::where('category_id', $category->id)->first();
+            $image = App\File::find($advertising->file_id);
+        ?>
+        <a href="{{ $advertising->url }}">
+            <figure class="text-center">
+                <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px" /> 
+            </figure>
+        </a>
     </div>
     
     <!-- news by category -->
@@ -116,10 +122,16 @@
                                 'description' => $news->subtitle
                             ]) @endgroupItem
                         @endforeach
-                        @advertising([
-                            'url' => 'https://cdn.midiamax.com.br/elasticbeanstalk-us-west-2-809048387867/uploads/2018/12/BANNER-NATAL-MORANGO.jpg',
-                            'name' => 'propaganda2.jpg'
-                        ]) @endadvertising
+                        <?php 
+                            $category = App\AdvertisingCategory::where('name', 'Suquarw banner 300px250px')->first();
+                            $advertising = App\Advertising::where('category_id', $category->id)->first();
+                            $image = App\File::find($advertising->file_id);
+                        ?>
+                        <a href="{{ $advertising->url }}">
+                            <figure class="text-center">
+                                <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 300px; max-height: 250px" /> 
+                            </figure>
+                        </a>
                     @endlistGroup
                 </div>
             </div>
