@@ -17,10 +17,7 @@ class FileController extends Controller
      */
     public function __construct()
     {
-<<<<<<< HEAD
-=======
         $this->middleware('role:jornalista')->except(['show','index']);
->>>>>>> commit
         $this->middleware('auth')->except(['show','index']);
     }
 

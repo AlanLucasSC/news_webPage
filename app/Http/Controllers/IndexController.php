@@ -13,8 +13,32 @@ class IndexController extends Controller
      */
     public function index()
     {
-        Category::all();
-        
-        return view('index');
+        $categories = Category::all();
+        foreach($categories as $category){
+            switch($category->name){
+                case 'Cultura':
+                    $category->color = 'success';
+                    break;
+                case 'Mato Grosso do Sul':
+                    $category->color = 'success';
+                    break;
+                case 'Economia':
+                    $category->color = 'info';
+                    break;
+                case 'Economia':
+                    $category->color = 'warning';
+                    break;
+                case 'Esporte':
+                    $category->color = 'info';
+                    break;
+                case 'Política':
+                    $category->color = 'danger';
+                    break;
+                default:
+                    $category->color = 'success';
+                    break;
+            }
+        }
+        return view('index', compact('categories'));
     }
 }
