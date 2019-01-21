@@ -128,6 +128,7 @@
                 
             @endauth
         @endmenu
+        
         {{ $slot }}
         @footer 
         @endfooter
