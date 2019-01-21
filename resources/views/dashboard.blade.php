@@ -1,10 +1,5 @@
 @main
 
-@php
-    $feedback = Session::get('success');
-@endphp
-@feedback(['feedback' => $feedback])
-@endfeedback
 
 <div class="container-fluid mt-3 mb-3">
     <div class="row justify-content-center">
@@ -104,7 +99,7 @@
                     @endforeach
                     <tr>
                         <td colspan='3' class="d-flex  justify-content-center">
-                            <a class="btn btn-sm btn-success" href="{{ route('news.store') }}" role="button">Nova notícia</a>
+                            <a class="btn btn-sm btn-success" href="{{ route('news.create') }}" role="button">Nova notícia</a>
                         </td>
                     </tr>
                    

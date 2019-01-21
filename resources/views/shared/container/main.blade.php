@@ -128,7 +128,8 @@
                 
             @endauth
         @endmenu
-        
+        @feedback(['feedback' => Session::get('feedback')])
+        @endfeedback
         {{ $slot }}
         @footer 
         @endfooter
