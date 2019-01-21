@@ -134,56 +134,6 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the news of a determined category.
-     * 
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function newsByCategory()
-    {
-        /*
-        $newsByCategory = [];
-        $categories = Category::get();
-        
-        foreach($categories as $index => $category){
-            
-            $categoryNews = Category::find($category->id)->news()->get();
-            array_push($newsByCategory, $categoryNews);
-        }
-        
-        foreach ($categories as $key => $category) {
-            foreach ($category as $key => $news) {
-                $file = File::find($news->file_id);
-                $news->imageName = $file->name;
-            }
-        }
-        return view('teste', ['newsByCategory' => $newsByCategory]);*/
-
-        $categories = Category::all();
-        $newsForPage = 16;
-        $newsByCategory = [];
-        $teste = "";
-
-        foreach ($categories as $key => $category) {
-            $news_list = News::where('category_id', $category->id)
-                        ->orderBy('date', 'desc')
-                        ->orderBy('time', 'desc')
-                        ->get();
-
-            foreach($news_list as $news){
-                $file = File::find($news->file_id);
-                $news->imageName = $file->name;
-            }            
-
-            array_push($newsByCategory, $news_list);
-
-        }
-
-        return view('teste', ['newsByCategory' => $newsByCategory]);  
-        
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
