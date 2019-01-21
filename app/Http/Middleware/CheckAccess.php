@@ -17,7 +17,7 @@ class CheckAccess
         if ($userRole === $role) {
             return $next($request);
         }else{
-            return redirect()->back();
+            return redirect()->back()->with('feedback', 'Você não tem permissão para isso');
         }
         
     }

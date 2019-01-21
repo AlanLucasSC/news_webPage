@@ -1,6 +1,11 @@
 @main
-@feedback([$message,$color])
+
+@php
+    $feedback = Session::get('success');
+@endphp
+@feedback(['feedback' => $feedback])
 @endfeedback
+
 <div class="container-fluid mt-3 mb-3">
     <div class="row justify-content-center">
         <div class="col-md-9 mb-2">
