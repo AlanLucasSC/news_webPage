@@ -1,18 +1,6 @@
 @main
     <!-- initial content -->
-    <div class="container mb-4">
-        @php
-            $spotlight = App\News::orderBy('date', 'desc')->orderBy('time', 'desc')->first();
-        @endphp
-        @if(isset($spotlight))
-            @spotlight([
-                'categoryColor' => 'success',
-                'category' => 'Mato Grosso do Sul',
-                'news' => $spotlight->title,
-                'description' => $spotlight->subtitle,
-                'route' => route('news.show', $spotlight->id)
-            ]) @endspotlight
-        @endif
+    <div class="container mb-4 mt-3">
         <div class="row">
             <!-- carrosel -->
             <div class="col-lg-8 d-flex align-items-center">
@@ -173,17 +161,4 @@
             @endif
         </div>
     </div>
-    @catalog()
-        @foreach ($catalog as $ads)
-            @catItem([
-                'columnLenght' => 4,
-                'imageName' => $ads->imageName,
-                'name' => $ads->name,
-                'description' => $ads->description,
-                'contact' => $ads->contact
-            ])
-
-            @endcatItem
-        @endforeach
-    @endcatalog
 @endmain

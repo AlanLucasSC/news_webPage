@@ -12,6 +12,7 @@ class MarkdownController extends Controller
         $markdown = str_replace('\'', `'`, $request->markdown);
         $markdown = str_replace('\"', '"', $request->markdown);
         $markdown = Markdown::convertToHtml($markdown);
+        $markdown = str_replace('&nbsp;', ' ', $request->markdown);
         $markdown = $this->tagVideo($markdown);
         return $markdown;
     }
