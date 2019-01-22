@@ -5,7 +5,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="https://getbootstrap.com/favicon.ico">
 
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -114,9 +113,11 @@
                 @linkMenu(['route' => 'home','','',''])
                     Home
                 @endlinkMenu
-                @linkMenu(['route' => 'news.create'])
-                    Escrever noticia
-                @endlinkMenu
+                @if( Auth::user()->role === 'jornalista' )
+                    @linkMenu(['route' => 'news.create'])
+                        Escrever noticia
+                    @endlinkMenu
+                @endif
                 @linkMenu(['route' => 'advertising.index'])
                     Propagandas
                 @endlinkMenu
@@ -130,8 +131,11 @@
                         Cadastrar Anuncio
                     @endlinkMenu
                 @endif
-                
-                
+                @if(false)
+                    @linkMenu(['route' => 'password.edit'])
+                        Trocar senha
+                    @endlinkMenu
+                @endif
             @endauth
         @endmenu
         @feedback(['feedback' => Session::get('feedback')])
