@@ -113,6 +113,7 @@
                 }
 
                 function insertMarkdom(markdown){
+                    markdown = replaceAll( markdown, '&nbsp;', ' ' );
                     request = $.ajax({
                         url: "{{ route('getHtml') }}",
                         method: "GET",

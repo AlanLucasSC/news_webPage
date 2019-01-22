@@ -152,9 +152,12 @@
                 return text.split(needle).join(replacement)
             }
             function convertToEndOfLine(text){
-                newText = replaceAll( text, '<br>', '' )
+                newText = replaceAll( text, '<br>', '</div><div>' )
+                newText = replaceAll( text, '<p>', '<div>' )
+                newText = replaceAll( text, '</p>', '</div>' )
                 newText = replaceAll( newText, '<div>', '\n\n' )
                 newText = replaceAll( newText, '</div>', '' )
+                newText = replaceAll( newText, '&nbsp;', ' ' )
                 return newText
             }
             function removePreTag(){
@@ -208,21 +211,33 @@
                 for(var index = 0; index < tagsP.length; index++){
                     p = tagsP[index]
                     text = p.textContent
-                    p.replaceWith(text)
+                    p.replaceWith(text+' ')
                 }
 
                 tagsP = $('#text > div > p')
                 for(var index = 0; index < tagsP.length; index++){
                     p = tagsP[index]
                     text = p.textContent
-                    p.replaceWith(text)
+                    p.replaceWith(text+' ')
                 }
             }
+
+            function removeDivTag(){
+
+                tagsDiv = $('#text > div > div')
+                for(var index = 0; index < tagsDiv.length; index++){
+                    div = tagsDiv[index]
+                    text = div.textContent
+                    div.replaceWith(text)
+                }
+            }
+
             function getMarkdown(e){
                 removePreTag()
                 removeFontTag()
                 removeSpanTag()
                 removePTag()
+                removeDivTag()
                 var markdown = convertToEndOfLine( $('#text').html() )
 
                 $('#inputText').text(markdown)

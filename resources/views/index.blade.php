@@ -1,6 +1,24 @@
 @main
     <!-- initial content -->
     <div class="container mb-4 mt-3">
+        @php 
+            $category = App\AdvertisingCategory::where('name', 'Super banner 940px100px')->first();
+            $advertising = App\Advertising::where('category_id', $category->id)->first();
+            if( isset($advertising) ){
+                $image = App\File::findOrFail($advertising->file_id);
+            }
+        @endphp
+        @if( isset($advertising) )
+            <a href="{{ $advertising->url }}" class="p-1">
+                <figure class="text-center">
+                    @if( isset($image) )
+                        <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px"  />
+                    @else 
+                        <img src="{{ $advertising->url }}" style="max-width: 100%; max-height: 90px" /> 
+                    @endif
+                </figure>
+            </a>
+        @endif
         <div class="row">
             <!-- carrosel -->
             <div class="col-lg-8 d-flex align-items-center">
@@ -52,7 +70,7 @@
                 $image = App\File::findOrFail($advertising->file_id);
             }
         @endphp
-        @if( isset($image) )
+        @if( isset($advertising) )
             <a href="{{ $advertising->url }}" class="p-1">
                 <figure class="text-center">
                     @if( isset($image) )
@@ -148,7 +166,7 @@
             }
         @endphp
         <div class="">
-            @if( isset($image) )
+            @if( isset($advertising) )
                 <a href="{{ $advertising->url }}" class="p-1">
                     <figure class="text-center">
                         @if( isset($image) )
