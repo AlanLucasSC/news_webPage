@@ -39,5 +39,23 @@ Route::resources([
     'news' => 'NewsController',
 ]);
 
+Route::get('/files/{filename}', function ($filename)
+{
+    // Add folder path here instead of storing in the database.
+    $path = public_path('files') .'\\'. $filename;
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    $file = File::get($path);
+    $type = File::mimeType($path);
+
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+
+    return $response;
+});
+
 Route::get('/categorias/{id}/{name}/{page?}','CategoryController@show')->name('category');
 

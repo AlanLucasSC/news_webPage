@@ -4,7 +4,7 @@
     'date' => $news->date,
     'time' => $news->time,
     'lastUpdated' => $news->updated_at,
-    'urlPhoto' => URL::to('/') . '/files/' . $image->name,
+    'urlPhoto' => $image ? URL::to('/') . '/files/' . $image->name : '',
     'source' => '',
     'text' => $news->text,
     'urlAuthor' => '#',

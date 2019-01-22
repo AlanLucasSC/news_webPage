@@ -19,7 +19,11 @@
                         <tr> 
                             <td>
                                 <figure class="text-center">
-                                    <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="width: 100%;" /> 
+                                    @if( isset($image) )
+                                        <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="width: 100%;" />
+                                    @else
+                                        <img src="{{ $ad->url }}" style="width: 100%;" />
+                                    @endif 
                                     <figcaption>{{ $ad->url }}<figcaption>
                                     <figcaption>{{ $category->name }}<figcaption>
                                 </figure>
@@ -68,7 +72,7 @@
                 
                 <div class="form-group col-md-12">
                     <label for="inputImage">Imagem da propaganda</label>
-                    <input type="file" name="image" class="form-control-file" id="inputImage" required>
+                    <input type="file" name="image" class="form-control-file" id="inputImage" >
                 </div>
                 <div class="form-group col-md-12 pt-3 pb-3 text-right">
                     <input class="btn btn-success" type="Submit" value="Salvar">

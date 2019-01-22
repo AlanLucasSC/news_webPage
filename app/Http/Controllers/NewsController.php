@@ -50,42 +50,42 @@ class NewsController extends Controller
         $validation = Validator::make($request->all(), [
             'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        $image = null;
         if($validation->passes()){
-            if(isset($request->title) && isset($request->category)){
-                $image = $request->file('image');
-                $originalName = $image->getClientOriginalName();
-                $originalName = pathinfo($originalName, PATHINFO_FILENAME);
-                $extension = $image->getClientOriginalExtension();
-                $new_name = rand() . '.' . $extension;
-                $image->move(public_path('files'), $new_name);
-                $image = new File;
-                $image->name = $new_name;
-                $image->originalName = $originalName;
-                $image->type = 'IMAGE';
-                $image->save();
-                $news = new News;
-                $news->user_id = Auth::user()->id;
-                $news->category_id = $request->category;
-                $news->title = $request->title;
-                $news->subtitle = $request->subtitle;
+            $image = $request->file('image');
+            $originalName = $image->getClientOriginalName();
+            $originalName = pathinfo($originalName, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $new_name = rand() . '.' . $extension;
+            $image->move(public_path('files'), $new_name);
+            $image = new File;
+            $image->name = $new_name;
+            $image->originalName = $originalName;
+            $image->type = 'IMAGE';
+            $image->save();
+        }
+
+        if(isset($request->title) && isset($request->category)){     
+
+            $news = new News;
+            $news->user_id = Auth::user()->id;
+            $news->category_id = $request->category;
+            $news->title = $request->title;
+            $news->subtitle = $request->subtitle;
+            if( isset($image) ){
                 $news->file_id = $image->id;
-                $news->date = date("Y-m-d");
-                $news->time = date("H:i:s");
-                $news->save();
-                return redirect()->route('news.edit', $news->id);
-            } else {
-                return response()->json([
-                    'message' => 'Faltou inserir informações em algum local.',
-                    'class_name' => 'alert-danger'
-                ]);
             }
-        } 
-        
-        return response()->json([
-            'message' => $validation->errors()->all(),
-            'uploaded_file' => '',
-            'class_name' => 'alert-danger'
-        ]);
+            $news->date = date("Y-m-d");
+            $news->time = date("H:i:s");
+            $news->save();
+            return redirect()->route('news.edit', $news->id);
+
+        } else {
+            return response()->json([
+                'message' => 'Faltou inserir informações em algum local.',
+                'class_name' => 'alert-danger'
+            ]);
+        }
     }
     /**
      * Display the specified resource.

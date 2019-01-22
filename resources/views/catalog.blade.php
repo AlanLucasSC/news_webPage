@@ -7,7 +7,7 @@
                 <table class="table table-hover">
                     <thead class="">
                         <tr>
-                            <th><h4>Anuncioss</h4></th>
+                            <th><h4>Anuncios</h4></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -18,7 +18,9 @@
                             <tr> 
                                 <td>
                                     <figure class="text-center">
-                                        <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="width: 100%;" /> 
+                                        @if( isset($image) )
+                                            <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="width: 100%;" />
+                                        @endif 
                                         <figcaption>{{ $ads->url }}<figcaption>
                                         <figcaption>{{ $category->name }}<figcaption>
                                     </figure>

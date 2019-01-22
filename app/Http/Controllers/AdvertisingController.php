@@ -53,40 +53,36 @@ class AdvertisingController extends Controller
      */
     public function store(Request $request)
     {
+        $image = null;
         if( isset( $request->image ) ){
-            if(isset($request->url)){
-                $image = $request->file('image');
-                $originalName = $image->getClientOriginalName();
-                $originalName = pathinfo($originalName, PATHINFO_FILENAME);
-                $extension = $image->getClientOriginalExtension();
-                $new_name = rand() . '.' . $extension;
-                $image->move(public_path('files'), $new_name);
+            $image = $request->file('image');
+            $originalName = $image->getClientOriginalName();
+            $originalName = pathinfo($originalName, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $new_name = rand() . '.' . $extension;
+            $image->move(public_path('files'), $new_name);
 
-                $image = new File;
-                $image->name = $new_name;
-                $image->originalName = $originalName;
-                $image->type = 'IMAGE';
-                $image->save();
-                //return dd($request->image);
-                
-                $advertising = new Advertising;
-                $advertising->file_id = $image->id;
-                $advertising->category_id = $request->category;
-                $advertising->url = $request->url;
-                $advertising->save();
-
-                return redirect()->back()->with('message', 'Criado com sucesso!');
-            } else{
-                return response()->json([
-                    'message' => 'É preciso colocar uma URL',
-                    'class_name' => 'alert-danger'
-                ]);
-            }
+            $image = new File;
+            $image->name = $new_name;
+            $image->originalName = $originalName;
+            $image->type = 'IMAGE';
+            $image->save();
         } 
-        return response()->json([
-            'message' => 'É preciso colocar uma imagem',
-            'class_name' => 'alert-danger'
-        ]);
+        if(isset($request->url)){
+
+            $advertising = new Advertising;
+            $advertising->file_id = $image ? $image->id : null;
+            $advertising->category_id = $request->category;
+            $advertising->url = $request->url;
+            $advertising->save();
+
+            return redirect()->back()->with('message', 'Criado com sucesso!');
+        } else{
+            return response()->json([
+                'message' => 'É preciso colocar uma URL',
+                'class_name' => 'alert-danger'
+            ]);
+        }
     }
 
     /**

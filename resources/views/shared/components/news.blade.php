@@ -2,7 +2,9 @@
     <div class="card flex-md-row mb-0 noticia">
         <div class="card-body d-flex flex-column align-items-start">
             <a href="{{ $route }}">
-                <img class="card-img-top flex-auto d-none d-lg-block scale-active" src="{{ URL::to('/') . '/files/' . $imageName }}" />
+                @if($imageName != '')
+                    <img class="card-img-top flex-auto d-none d-lg-block scale-active" src="{{ URL::to('/') . '/files/' . $imageName }}" />
+                @endif
             </a>
             <div class="d-flex w-100 justify-content-between my-1 "> 
                 <strong class="mb-2 text-{{ $categoryColor }}">{{ $category }}</strong>
