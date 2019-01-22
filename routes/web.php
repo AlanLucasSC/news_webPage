@@ -31,6 +31,7 @@ Route::get('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
 Auth::routes();
 
 Route::resources([
+    
     'catalog' => 'CatalogController',
     'advertising' => 'AdvertisingController',
     'category' => 'CategoryController',
@@ -40,4 +41,7 @@ Route::resources([
 ]);
 
 Route::get('/categorias/{id}/{name}/{page?}','CategoryController@show')->name('category');
+Route::get('/usuario/editar','ChangePasswordController@edit')->name('password.edit');
+Route::put('/usuario/atualizar','ChangePasswordController@update')->name('password.update');
+
 
