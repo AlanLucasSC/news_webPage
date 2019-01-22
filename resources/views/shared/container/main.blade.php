@@ -131,10 +131,11 @@
                         Cadastrar Anuncio
                     @endlinkMenu
                 @endif
-                @linkMenu(['route' => 'password.edit'])
-                    Trocar senha
-                @endlinkMenu
-                
+                @if(false)
+                    @linkMenu(['route' => 'password.edit'])
+                        Trocar senha
+                    @endlinkMenu
+                @endif
             @endauth
         @endmenu
         @feedback(['feedback' => Session::get('feedback')])
