@@ -17,7 +17,7 @@ class News extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id');
-            $table->unsignedInteger('file_id');
+            $table->unsignedInteger('file_id')->nullable();
             $table->date('date');
             $table->time('time');
             $table->string('title');
