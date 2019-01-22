@@ -46,10 +46,24 @@
                                     'description' => ''
                                 ]) @endgroupItem
                             @endforeach
-                            @advertising([
-                                'url' => 'https://cdn.midiamax.com.br/elasticbeanstalk-us-west-2-809048387867/uploads/2018/12/BANNER-NATAL-MORANGO.jpg',
-                                'name' => 'propaganda2.jpg'
-                            ]) @endadvertising
+                            @php 
+                                $category = App\AdvertisingCategory::where('name', 'Suquarw banner 300px250px')->first();
+                                $advertising = App\Advertising::where('category_id', $category->id)->first();
+                                if( isset($advertising) ){
+                                    $image = App\File::findOrFail($advertising->file_id);
+                                }
+                            @endphp
+                            @if( isset($advertising) )
+                                <a href="{{ $advertising->url }}" class="p-1">
+                                    <figure class="text-center">
+                                        @if( isset($image) )
+                                            <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 300px; max-height: 250px"  />
+                                        @else 
+                                            <img src="{{ $advertising->url }}" style="max-width: 300px; max-height: 250px" /> 
+                                        @endif
+                                    </figure>
+                                </a>
+                            @endif
                         @endlistGroup
                     </div>
                 </div>

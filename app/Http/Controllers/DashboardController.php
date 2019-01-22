@@ -14,7 +14,8 @@ class DashboardController extends Controller
         $categories = Category::all();
         $newsList = News::where('user_id', Auth::user()->id)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
         foreach($newsList as $news){
-            $news->nameImage = File::find($news->file_id)->name;
+            $file = File::find($news->file_id);
+            $news->nameImage = $file ? $file->name : 'noimage.png';
         }
         return view('dashboard', compact('categories', 'newsList'));   
     }

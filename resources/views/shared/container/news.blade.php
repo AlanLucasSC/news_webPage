@@ -65,7 +65,7 @@
                         foreach($news_list as $news){
                             $file = App\File::find($news->file_id);
                             $category = App\Category::find($news->category_id);
-                            $news->imageName = $file->name;
+                            $news->imageName = $file ? $file->name : '';
                             $news->categoryName = $category->name;
                         }
                         $cont = 0;
@@ -93,7 +93,11 @@
                 @if( isset($image) )
                     <a href="{{ $advertising->url }}" class="p-1">
                         <figure class="text-center">
-                            <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 728px; max-height: 90px" /> 
+                            @if( isset($image) )
+                                <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 728; max-height: 90px"  />
+                            @else 
+                                <img src="{{ $advertising->url }}" style="max-width: 728px; max-height: 90px" /> 
+                            @endif
                         </figure>
                     </a>
                 @endif

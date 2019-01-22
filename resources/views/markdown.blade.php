@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="inputImage"><h4>Imagem de Capa</h4></label>
-                    <input type="file" name="image" class="form-control-file" id="inputImage" required>
+                    <input type="file" name="image" class="form-control-file" id="inputImage">
                 </div>
                 <div class="form-group col-md-12">
                     <label for="inputSubtitle"><h4>Subtítulo</h4></label>
@@ -67,6 +67,7 @@
             <div class="col-md-6 w-md-50 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden" style="display:inline-block;">
                 <div class="text-center">
                     <h2 class="display-5"><h4>Notícia</h4></h2>
+                    <a href="https://forum.techtudo.com.br/ajuda_markdown/"> Ajuda para escrever a noticia </a>
                 </div>
                 <div 
                     class="border shadow-lg mx-auto pb-3" 
@@ -133,7 +134,9 @@
                         'lastUpdated' => "Atualizado há uma hora"
                     ])
                     @endnewsTitle
-                    <img src="{{ URL::to('/') }}/files/{{ $image->name }}" id="image" class="w-80 mx-auto d-block">
+                    @if( isset($image) )
+                        <img src="{{ URL::to('/') }}/files/{{ $image->name}}" id="image" class="w-80 mx-auto d-block">
+                    @endif
                     <div class="markdown-body">
                     </div>
                 </div>

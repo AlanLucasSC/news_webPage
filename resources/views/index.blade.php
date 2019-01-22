@@ -1,18 +1,6 @@
 @main
     <!-- initial content -->
-    <div class="container mb-4">
-        @php
-            $spotlight = App\News::orderBy('date', 'desc')->orderBy('time', 'desc')->first();
-        @endphp
-        @if(isset($spotlight))
-            @spotlight([
-                'categoryColor' => 'success',
-                'category' => 'Mato Grosso do Sul',
-                'news' => $spotlight->title,
-                'description' => $spotlight->subtitle,
-                'route' => route('news.show', $spotlight->id)
-            ]) @endspotlight
-        @endif
+    <div class="container mb-4 mt-3">
         <div class="row">
             <!-- carrosel -->
             <div class="col-lg-8 d-flex align-items-center">
@@ -21,7 +9,7 @@
                         $news_list = App\News::skip(0)->take(3)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
                         foreach($news_list as $news){
                             $file = App\File::find($news->file_id);
-                            $news->imageName = $file->name;
+                            $news->imageName = $file ? $file->name : '';
                         }
                         $cont = 0;
                     @endphp
@@ -67,7 +55,11 @@
         @if( isset($image) )
             <a href="{{ $advertising->url }}" class="p-1">
                 <figure class="text-center">
-                    <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px" /> 
+                    @if( isset($image) )
+                        <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px"  />
+                    @else 
+                        <img src="{{ $advertising->url }}" style="max-width: 100%; max-height: 90px" /> 
+                    @endif
                 </figure>
             </a>
         @endif
@@ -88,7 +80,7 @@
                                 $categoryNews = App\News::where('category_id', $category->id)->skip(0)->take(4)->get();
                                 foreach($categoryNews as $news){
                                     $file = App\File::find($news->file_id);
-                                    $news->imageName = $file->name;
+                                    $news->imageName = $file ? $file->name : '';
                             @endphp
                                     @news([
                                         'columnLenght' => '6',
@@ -133,10 +125,14 @@
                                 $image = App\File::findOrFail($advertising->file_id);
                             }
                         @endphp
-                        @if( isset($image) )
+                        @if( isset($advertising) )
                             <a href="{{ $advertising->url }}" class="p-1">
                                 <figure class="text-center">
-                                    <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 300px; max-height: 250px" /> 
+                                    @if( isset($image) )
+                                        <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 300px; max-height: 250px"  />
+                                    @else 
+                                        <img src="{{ $advertising->url }}" style="max-width: 300px; max-height: 250px" /> 
+                                    @endif
                                 </figure>
                             </a>
                         @endif
@@ -155,23 +151,14 @@
             @if( isset($image) )
                 <a href="{{ $advertising->url }}" class="p-1">
                     <figure class="text-center">
-                        <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px" /> 
+                        @if( isset($image) )
+                            <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="max-width: 100%; max-height: 90px"  />
+                        @else 
+                            <img src="{{ $advertising->url }}" style="max-width: 100%; max-height: 90px" /> 
+                        @endif
                     </figure>
                 </a>
             @endif
         </div>
     </div>
-    @catalog()
-        @foreach ($catalog as $ads)
-            @catItem([
-                'columnLenght' => 4,
-                'imageName' => $ads->imageName,
-                'name' => $ads->name,
-                'description' => $ads->description,
-                'contact' => $ads->contact
-            ])
-
-            @endcatItem
-        @endforeach
-    @endcatalog
 @endmain

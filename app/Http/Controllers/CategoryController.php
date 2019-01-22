@@ -102,7 +102,7 @@ class CategoryController extends Controller
 
         foreach($news_list as $news){
             $file = File::find($news->file_id);
-            $news->imageName = $file->name;
+            $news->imageName = $file ? $file->name : '';
         }
 
         $spotlight = News::where('category_id', $id)

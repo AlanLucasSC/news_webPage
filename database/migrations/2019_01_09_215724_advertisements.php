@@ -15,7 +15,7 @@ class Advertisements extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('file_id');
+            $table->unsignedInteger('file_id')->nullable();
             $table->unsignedInteger('category_id');
             $table->string('url');
             
