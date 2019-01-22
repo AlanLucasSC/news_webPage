@@ -157,9 +157,11 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->subtitle = $request->subtitle;
         $markdown = str_replace('`', '\`', $request->text);
+        $markdown = str_replace('"', '\"', $request->text);
+        $markdown = str_replace(`'`, '\'', $request->text);
         $news->text = $markdown;
         $news->save();
-        return redirect()->route('news.edit', $news->id);
+        return redirect()->route('news.create');
     }
     /**
      * Remove the specified resource from storage.
