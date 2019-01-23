@@ -17,7 +17,7 @@ class Advertisements extends Migration
             $table->increments('id');
             $table->unsignedInteger('file_id')->nullable();
             $table->unsignedInteger('category_id');
-            $table->string('url');
+            $table->string('url')->default('#');
             
             $table->timestamps();
 

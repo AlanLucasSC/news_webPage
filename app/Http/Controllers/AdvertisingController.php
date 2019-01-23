@@ -68,21 +68,15 @@ class AdvertisingController extends Controller
             $image->type = 'IMAGE';
             $image->save();
         } 
-        if(isset($request->url)){
 
-            $advertising = new Advertising;
-            $advertising->file_id = $image ? $image->id : null;
-            $advertising->category_id = $request->category;
+        $advertising = new Advertising;
+        $advertising->file_id = $image ? $image->id : null;
+        $advertising->category_id = $request->category;
+        if(isset($request->url))
             $advertising->url = $request->url;
-            $advertising->save();
+        $advertising->save();
 
-            return redirect()->back()->with('message', 'Criado com sucesso!');
-        } else{
-            return response()->json([
-                'message' => 'É preciso colocar uma URL',
-                'class_name' => 'alert-danger'
-            ]);
-        }
+        return redirect()->back()->with('message', 'Criado com sucesso!');
     }
 
     /**
