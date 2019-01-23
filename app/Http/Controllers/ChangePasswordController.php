@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Http\Request;
 use App\User;
@@ -73,16 +74,16 @@ class ChangePasswordController extends Controller
         $user = User::find(Auth::user()->id);
         $userPassword = $user->password;
 
-        if( $userPassword == $request->oldPassword)
+        if( $userPassword == Hash::make($request->oldPassword))
         {
+
             if($request->password == $request->confirm)
             {
-                $user->password = $request->password;
+                $user->password = Hash::make($request->password);
                 $user->save();
                 return view('home');
             }
             
-
         }else{
             return redirect()->back();
         }

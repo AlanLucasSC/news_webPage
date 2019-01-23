@@ -9,6 +9,7 @@ use App\News;
 use App\File;
 use App\News_Files;
 use App\User;
+
 class NewsController extends Controller
 {
     /**
@@ -47,16 +48,20 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
+        
         $validation = Validator::make($request->all(), [
             'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         $image = null;
+
         if($validation->passes()){
+
             $image = $request->file('image');
             $originalName = $image->getClientOriginalName();
             $originalName = pathinfo($originalName, PATHINFO_FILENAME);
             $extension = $image->getClientOriginalExtension();
             $new_name = rand() . '.' . $extension;
+
             $image->move(public_path('files'), $new_name);
             $image = new File;
             $image->name = $new_name;
@@ -72,12 +77,15 @@ class NewsController extends Controller
             $news->category_id = $request->category;
             $news->title = $request->title;
             $news->subtitle = $request->subtitle;
+
             if( isset($image) ){
                 $news->file_id = $image->id;
             }
+
             $news->date = date("Y-m-d");
             $news->time = date("H:i:s");
             $news->save();
+
             return redirect()->route('news.edit', $news->id);
 
         } else {
@@ -178,6 +186,7 @@ class NewsController extends Controller
         $news->delete();
         return redirect()->route('home');
     }
+    
     public function changeStatus($id, $status){
         $news = News::find($id);
         

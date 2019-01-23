@@ -131,7 +131,7 @@
                         Cadastrar Anuncio
                     @endlinkMenu
                 @endif
-                @if(false)
+                @if( false )
                     @linkMenu(['route' => 'password.edit'])
                         Trocar senha
                     @endlinkMenu
