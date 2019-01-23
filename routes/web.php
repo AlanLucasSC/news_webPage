@@ -27,6 +27,7 @@ Route::get('/markdown', function () {
 });
 
 Route::get('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
+Route::post('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
 
 Auth::routes();
 
@@ -43,7 +44,7 @@ Route::resources([
 Route::get('/files/{filename}', function ($filename)
 {
     // Add folder path here instead of storing in the database.
-    $path = public_path('files') .'\\'. $filename;
+    $path = public_path('files') .'/'. $filename;
 
     if (!File::exists($path)) {
         abort(404);

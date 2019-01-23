@@ -116,14 +116,15 @@
                     markdown = replaceAll( markdown, '&nbsp;', ' ' );
                     request = $.ajax({
                         url: "{{ route('getHtml') }}",
-                        method: "GET",
+                        method: "POST",
                         dataType: "json",
                         data: {
                             markdown: markdown
                         },
                         complete: function(response) {
                             markdown = document.querySelector('.markdown-body')
-                            markdown.innerHTML = response.responseText
+                            text = replaceAll( response.responseText, '&lt;br&gt;', ' ' )
+                            markdown.innerHTML = text
                         }
                     })
                 }

@@ -244,7 +244,7 @@
 
                 request = $.ajax({
                     url: "{{ route('getHtml') }}",
-                    method: "GET",
+                    method: "POST",
                     dataType: "json",
                     data: {
                         markdown: markdown
@@ -259,6 +259,7 @@
 
             function insertMarkdom(markdown){
                 htmlMarkdown = replaceAll( markdown, '\n', '<br>' )
+                htmlMarkdown = replaceAll( markdown, '&lt;br&gt;', '<div></div>' )
 
                 markdownSplited = htmlMarkdown.split("<br>")
                 htmlMarkdown = ''
@@ -266,20 +267,20 @@
                     var text = markdownSplited[line]
                     htmlMarkdown += '<div>'+text+'</div>'
                 }
-                console.log(htmlMarkdown)
 
                 $('#text').append(htmlMarkdown)
                 $('#inputText').append(markdown)
                 request = $.ajax({
                     url: "{{ route('getHtml') }}",
-                    method: "GET",
+                    method: "POST",
                     dataType: "json",
                     data: {
                         markdown: markdown
                     },
                     complete: function(response) {
                         markdown = document.querySelector('.markdown-body')
-                        markdown.innerHTML = response.responseText
+                        text = replaceAll( response.responseText, '&lt;br&gt;', ' ' )
+                        markdown.innerHTML = text
                     }
                 })
             }
