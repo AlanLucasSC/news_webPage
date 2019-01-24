@@ -156,5 +156,6 @@
                 }
             });
         </script>
+        @analytics @endanalytics
     </body>
 </html>
