@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Catalog;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+
+use App\Catalog;
+use App\File;
+
+use Validator;
 
 class CatalogController extends Controller
 {
@@ -47,13 +52,43 @@ class CatalogController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validation = Validator::make($request->all(), [
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $image = null;
+
+        if($validation->passes()){
+
+            $image = $request->file('image');
+            $originalName = $image->getClientOriginalName();
+            $originalName = pathinfo($originalName, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $new_name = rand() . '.' . $extension;
+
+            $image->move(public_path('files'), $new_name);
+            $image = new File;
+            $image->name = $new_name;
+            $image->originalName = $originalName;
+            $image->type = 'IMAGE';
+            $image->save();
+        }
+
         $catalog = new Catalog;
         $catalog->name = $request->name;
         $catalog->url = $request->url;
         $catalog->description = $request->description;
         $catalog->contact = $request->contact;
-        // TODO: salvar imagem
+        $catalog->user_id = Auth::user()->id;
 
+        if( isset($image) ){
+            $catalog->file_id = $image->id;
+        }
+
+        $catalog->save();
+
+        $catalog = Catalog::all();
+        return view('catalog' , compact('catalog'));
     }
 
     /**
@@ -73,9 +108,11 @@ class CatalogController extends Controller
      * @param  \App\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Catalog $catalog)
+    public function edit($id)
     {
-        //
+        $catalog = Catalog::all();
+        $ad = Catalog::find($id);
+        return view('catalog', ['ad' => $ad , 'catalog' => $catalog]);
     }
 
     /**
@@ -100,7 +137,7 @@ class CatalogController extends Controller
     {
         $catalog = Catalog::find($id);
         $catalog->delete();
-        return redirect()->route('catalog.criar');
+        return redirect()->route('catalog.create');
 
     }
 }

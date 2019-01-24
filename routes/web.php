@@ -13,9 +13,13 @@
 
 Route::get('/', 'IndexController@index')->name('index');
 Route::get('/home', 'DashboardController@index')->name('home');
+Auth::routes();
+
 
 Route::get('/category/{id}/excluir', 'CategoryController@destroy')->name('category.delete');
 Route::get('/news/{id}/excluir', 'NewsController@destroy')->name('news.delete');
+Route::get('/acnuncio/{id}/excluir', 'CatalogController@destroy')->name('catalog.delete');
+
 Route::get('/advertising/{id}/excluir', 'AdvertisingController@destroy')->name('advertising.delete');
 
 Route::get('/news/{id}/mudar/{status}', 'NewsController@changeStatus')->name('news.status');
@@ -28,8 +32,6 @@ Route::get('/markdown', function () {
 
 Route::get('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
 Route::post('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
-
-Auth::routes();
 
 Route::resources([
     

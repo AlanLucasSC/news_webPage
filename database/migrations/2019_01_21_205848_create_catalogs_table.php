@@ -18,9 +18,14 @@ class CreateCatalogsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('contact');
-            $table->string('url');
+            $table->string('url')->nullable();
+
+            $table->unsignedInteger('file_id')->nullable();
+            $table->foreign('file_id')->references('id')->on('files');
+
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            
             $table->timestamps();
         });
     }

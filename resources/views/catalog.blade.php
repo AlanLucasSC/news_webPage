@@ -22,13 +22,21 @@
                                             <img src="{{ URL::to('/') . '/files/' . $image->name }}" style="width: 100%;" />
                                         @endif 
                                         <figcaption>{{ $ads->url }}<figcaption>
-                                        <figcaption>{{ $category->name }}<figcaption>
                                     </figure>
                                     @if( Auth::user()->role === 'admin' )
-                                        <a href="{{ route('advertising.delete', $ads->id) }}">
+                                        <a href="{{ route('catalog.delete', $ads->id) }}">
                                             <span class="float-right">
                                                 <span style="color: #bb2211;">
                                                     <i class="fas fa-trash fa-lg"></i>
+                                                </span>
+                                            </span>
+                                        </a>
+                                    @endif
+                                    @if(false)
+                                        <a href="{{ route('catalog.edit', $ads->id) }}" class="mx-2">
+                                            <span class="m-2">
+                                                <span style="color: #008582;">
+                                                    <i class="fas fa-edit fa-lg"></i>
                                                 </span>
                                             </span>
                                         </a>
@@ -55,24 +63,26 @@
             >
                 {{ csrf_field() }}
 
+
                 <div class="form-group col-md-12">
-                    <label for="newCatalog">Novo anuncio</label>
-                    <input name="url" class="form-control" id="newCatalog" placeholder="Insira a url onde deseja ser redirecionado o anuncio">
+                        <label for="name">Nome do anuncio</label>
+                        <input name="name" class="form-control" id="name" value="{{ $ad->name ?? '' }}" placeholder="Digite o nome do que deseja anunciar">
+                    </div>
+
+                <div class="form-group col-md-12">
+                    <label for="newCatalog">Link do anuncio</label>
+                    <input name="url" class="form-control" id="newCatalog" value="{{ $ad->url ?? '' }}" placeholder="Insira a url onde deseja ser redirecionado o anuncio">
                 </div>
                 
                 <div class="form-group col-md-12">
                     <label for="contact">Seu contato</label>
-                    <input name="contact" class="form-control" id="contact" placeholder="Onde os interessados podem te contactar?">
-                </div>
-
-                <div class="form-group col-md-12">
-                    <label for="name">Nome do anuncio</label>
-                    <input name="name" class="form-control" id="name" placeholder="Digite o nome do que deseja anunciar">
+                    <input name="contact" class="form-control" id="contact" value="{{ $ad->contact ?? '' }}" placeholder="Onde os interessados podem te contactar?">
                 </div>
                 
                 <div class="form-group col-md-12">
                     <label for="description">Descriçao</label>
-                    <textarea name="description" class="form-control" id="description" rows="3" placeholder="digite um paragrafo sobre o que deseja anunciar">
+                    <textarea name="description" class="form-control text-left" id="description" rows="3" placeholder="digite um paragrafo sobre o que deseja anunciar">
+                        {{ $ad->description ?? '' }}
                     </textarea>
                 </div>
 
