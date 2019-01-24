@@ -25,7 +25,7 @@
                         required
                     >
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-6">
                     <label for="inputCategory"><h4>Categoria</h4></label>
                     <select class="form-control" name="category" id="inputCategory" required>
                         @foreach($categories as $category)
@@ -40,9 +40,20 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="form-group col-md-3">
+                <div class="form-group col-md-4">
                     <label for="inputImage"><h4>Imagem de Capa</h4></label>
                     <input type="file" name="image" class="form-control-file" id="inputImage">
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="inputTitle"><h4>Fonte</h4></label>
+                    <input
+                        type="text" 
+                        name="imageSource" 
+                        class="form-control" 
+                        id="imageSource" 
+                        placeholder="Coloque a fonte da imagem"
+                        value="{{ $news->imageSource ?? '' }}"
+                    >
                 </div>
                 <div class="form-group col-md-12">
                     <label for="inputSubtitle"><h4>Subtítulo</h4></label>
@@ -51,7 +62,6 @@
                         name="subtitle" 
                         id="inputSubtitle" 
                         rows="3"
-                        required
                     >{{ $news->subtitle ?? '' }}</textarea>
                 </div>
                 @if( isset($id) )

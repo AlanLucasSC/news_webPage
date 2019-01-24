@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Closure;
 class CheckAccess
 {
@@ -12,7 +13,7 @@ class CheckAccess
      */
     public function handle($request, Closure $next, $role)
     {
-        $userRole = $request->user()->role;
+        $userRole = Auth::user()->role;
         
         if ($userRole === $role) {
             return $next($request);

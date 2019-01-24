@@ -18,10 +18,11 @@ class News extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('file_id')->nullable();
+            $table->text('imageSource')->nullable();
             $table->date('date');
             $table->time('time');
             $table->string('title');
-            $table->string('subtitle')->nullable();
+            $table->text('subtitle')->nullable();
             $table->longText('text')->nullable();
             $table->string('status')->default('INACTIVE');
             $table->integer('views')->default(0);

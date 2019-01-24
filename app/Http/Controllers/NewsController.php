@@ -72,6 +72,7 @@ class NewsController extends Controller
             $news->category_id = $request->category;
             $news->title = $request->title;
             $news->subtitle = $request->subtitle;
+            $news->imageSource = $request->imageSource;
             if( isset($image) ){
                 $news->file_id = $image->id;
             }
@@ -98,6 +99,16 @@ class NewsController extends Controller
         $image = File::find($news->file_id);
         $user = User::find($news->user_id);
         return view('leitura', compact('news', 'image', 'user', 'id'));
+    }
+
+    public function showWithName($created_at, $title){
+        $news = News::where([
+            ['title', '=', $title],
+            ['created_at', '=', $created_at]
+        ])->first();
+        $image = File::find($news->file_id);
+        $user = User::find($news->user_id);
+        return view('leitura', compact('news', 'image', 'user'));
     }
     /**
      * Display the specified resource.
@@ -156,6 +167,7 @@ class NewsController extends Controller
         $news->category_id = $request->category;
         $news->title = $request->title;
         $news->subtitle = $request->subtitle;
+        $news->imageSource = $request->imageSource;
         $markdown = str_replace('`', '\`', $request->text);
         $markdown = str_replace('"', '\"', $request->text);
         $markdown = str_replace(`'`, '\'', $request->text);
