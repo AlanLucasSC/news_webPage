@@ -112,7 +112,7 @@ class CatalogController extends Controller
     {
         $catalog = Catalog::all();
         $ad = Catalog::find($id);
-        return view('catalog', ['ad' => $ad , 'catalog' => $catalog]);
+        return view('catalog', ['ad' => $ad , 'catalog' => $catalog, 'id' => $id]);
     }
 
     /**
@@ -122,9 +122,44 @@ class CatalogController extends Controller
      * @param  \App\Catalog  $catalog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Catalog $catalog)
+    public function update(Request $request, $id)
     {
-        //
+        $validation = Validator::make($request->all(), [
+            'image' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        $image = null;
+
+        if($validation->passes()){
+
+            $image = $request->file('image');
+            $originalName = $image->getClientOriginalName();
+            $originalName = pathinfo($originalName, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $new_name = rand() . '.' . $extension;
+
+            $image->move(public_path('files'), $new_name);
+            $image = new File;
+            $image->name = $new_name;
+            $image->originalName = $originalName;
+            $image->type = 'IMAGE';
+            $image->save();
+        }
+
+        $catalog = Catalog::find($id);
+        $catalog->name = $request->name;
+        $catalog->url = $request->url;
+        $catalog->description = $request->description;
+        $catalog->contact = $request->contact;
+        $catalog->user_id = Auth::user()->id;
+
+        if( isset($image) ){
+            $catalog->file_id = $image->id;
+        }
+
+        $catalog->save();
+
+        $catalog = Catalog::all();
+        return view('catalog' , compact('catalog'));
     }
 
     /**
