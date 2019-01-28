@@ -142,6 +142,9 @@
         {{ $slot }}
         @footer 
         @endfooter
+        
+        @include('shared.components.analytics')
+
         <!-- Bootstrap core JavaScript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -155,6 +158,6 @@
                 }
             });
         </script>
-        @analytics @endanalytics
+
     </body>
 </html>

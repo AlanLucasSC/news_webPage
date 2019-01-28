@@ -32,7 +32,7 @@
                                             </span>
                                         </a>
                                     @endif
-                                    @if(false)
+                                    @if( Auth::user()->role === 'admin' )
                                         <a href="{{ route('catalog.edit', $ads->id) }}" class="mx-2">
                                             <span class="m-2">
                                                 <span style="color: #008582;">
@@ -54,7 +54,7 @@
             <h3>Cadastrar anuncio</h3>
             
             <form 
-                action="{{ route('catalog.store') }}" 
+                action="{{ isset($id) ? route('catalog.update', $id) : route('catalog.store') }}" 
                 id="form" 
                 enctype="multipart/form-data"
                 role="form" 
@@ -62,7 +62,9 @@
                 class="form-row my-4"
             >
                 {{ csrf_field() }}
-
+                @if( isset($id) )
+                    <input name="_method" type="hidden" value="PUT">
+                @endif
 
                 <div class="form-group col-md-12">
                         <label for="name">Nome do anuncio</label>
@@ -81,7 +83,7 @@
                 
                 <div class="form-group col-md-12">
                     <label for="description">Descriçao</label>
-                    <textarea name="description" class="form-control text-left" id="description" rows="3" placeholder="digite um paragrafo sobre o que deseja anunciar">
+                    <textarea name="description" class="form-control text-left" id="description" rows="3">
                         {{ $ad->description ?? '' }}
                     </textarea>
                 </div>
