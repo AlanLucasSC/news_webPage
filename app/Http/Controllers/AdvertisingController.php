@@ -54,6 +54,9 @@ class AdvertisingController extends Controller
     public function store(Request $request)
     {
         $image = null;
+        if(!isset( $request->image ) && !isset( $request->url )){
+            return redirect()->back()->with('error', 'A propaganda precisa de pelomenos uma imagem ou uma url!');
+        }
         if( isset( $request->image ) ){
             $image = $request->file('image');
             $originalName = $image->getClientOriginalName();
@@ -121,10 +124,14 @@ class AdvertisingController extends Controller
      */
     public function destroy($id){
         $advertising = Advertising::find($id);
-        $advertising_file = File::find($advertising->file_id);
-        unlink(public_path('files').'\\'.$advertising_file->name);
+        if($advertising->file_id){
+            $advertising_file = File::find($advertising->file_id);
+            unlink(public_path('files').'\\'.$advertising_file->name);
+        }
         $advertising->delete();
-        $advertising_file->delete();
+        if($advertising->file_id){
+            $advertising_file->delete();
+        }
 
         return redirect()->back()->with('message', 'Excluido com sucesso');
     }

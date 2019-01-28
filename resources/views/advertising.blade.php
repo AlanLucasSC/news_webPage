@@ -2,7 +2,20 @@
 
 <div class="container-fluid my-4">
     <div class="row justify-content-center">
-        
+        <div class="col-12">
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+        </div>
+        <div class="col-12">
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
+        </div>
         <div class="col-md-6 mb-2">
             <table class="table table-hover">
                 <thead class="">

@@ -46,6 +46,7 @@
                     @endnewsPhoto
 
                     <div id="markdown" class="markdown-body">
+                        {!! $text !!}
                     </div>
                     
                 </div>
@@ -108,43 +109,5 @@
             
         </div><!-- ./ corpo noticia-->
     </main>
-    <script type="text/javascript">
-        window.onload = function () {
-            function replaceAll(text, needle, replacement){
-                    return text.split(needle).join(replacement)
-                }
-
-                function insertMarkdom(markdown){
-                    markdown = replaceAll( markdown, '&nbsp;', ' ' );
-                    request = $.ajax({
-                        url: "{{ route('getHtml') }}",
-                        method: "POST",
-                        dataType: "json",
-                        data: {
-                            markdown: markdown
-                        },
-                        complete: function(response) {
-                            markdown = document.querySelector('.markdown-body')
-                            text = replaceAll( response.responseText, '&lt;br&gt;', ' ' )
-                            markdown.innerHTML = text
-                        }
-                    })
-                }
-
-                $.ajax({
-                    url: "{{ route('news.plus') }}",
-                    method: "GET",
-                    dataType: "json",
-                    data: {
-                        id: {{ $id }}
-                    },
-                    complete: function(response) {
-                        console.log(response.responseText)
-                    }
-                })
-            
-                insertMarkdom( `{{ $text }}` )
-        }
-    </script>
 
 @endmain

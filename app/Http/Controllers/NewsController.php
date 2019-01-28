@@ -10,6 +10,8 @@ use App\File;
 use App\News_Files;
 use App\User;
 
+use App\Http\Controllers\MarkdownController;
+
 class NewsController extends Controller
 {
     /**
@@ -105,7 +107,11 @@ class NewsController extends Controller
         $news = News::find($id);
         $image = File::find($news->file_id);
         $user = User::find($news->user_id);
-        return view('leitura', compact('news', 'image', 'user', 'id'));
+
+        $markdownController = new MarkdownController;
+        $markdown = $markdownController->markdownToHtmlViaController($news->text);
+        
+        return view('leitura', compact('news', 'image', 'user', 'id', 'markdown'));
     }
 
     public function showWithName($created_at, $title){
