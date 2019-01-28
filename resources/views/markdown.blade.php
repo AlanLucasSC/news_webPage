@@ -98,6 +98,9 @@
                         <input type="number" name='newsId' value="{{ $id ?? '' }}" hidden>
                     </form>
                 </div>
+                <div class="text-center d-none" id="load">
+                    Fazendo o upload do arquivo. Espera um pouco...
+                </div>
                 <div class="row pt-2" id="images">
                     @foreach($files as $file)
                         @if( $file->type === 'IMAGE' )
@@ -161,6 +164,7 @@
             function replaceAll(text, needle, replacement){
                 return text.split(needle).join(replacement)
             }
+
             function convertToEndOfLine(text){
                 newText = replaceAll( text, '<br>', '</div><div>' )
                 newText = replaceAll( text, '<p>', '<div>' )
@@ -175,14 +179,18 @@
                 for(var index = 0; index < tagsPre.length; index++){
                     pre = tagsPre[index]
                     text = pre.textContent
-                    pre.replaceWith(text)
+                    var div = document.createElement("div")
+                    div.innerText = text
+                    pre.replaceWith(div)
                 }
 
                 tagsPre = $('#text > div > pre')
                 for(var index = 0; index < tagsPre.length; index++){
                     pre = tagsPre[index]
                     text = pre.textContent
-                    pre.replaceWith(text)
+                    var div = document.createElement("div")
+                    div.innerText = text
+                    pre.replaceWith(div)
                 }
             }
             function removeFontTag(){
@@ -190,14 +198,18 @@
                 for(var index = 0; index < tagsFont.length; index++){
                     font = tagsFont[index]
                     text = font.textContent
-                    font.replaceWith(text)
+                    var div = document.createElement("div")
+                    div.innerText = text
+                    font.replaceWith(div)
                 }
 
                 tagsFont = $('#text > div > font')
                 for(var index = 0; index < tagsFont.length; index++){
                     font = tagsFont[index]
                     text = font.textContent
-                    font.replaceWith(text)
+                    var div = document.createElement("div")
+                    div.innerText = text
+                    font.replaceWith(div)
                 }
             }
             function removeSpanTag(){
@@ -205,14 +217,18 @@
                 for(var index = 0; index < tagsSpan.length; index++){
                     span = tagsSpan[index]
                     text = span.textContent
-                    span.replaceWith(text)
+                    var div = document.createElement("div")
+                    div.innerText = text
+                    span.replaceWith(div)
                 }
 
                 tagsSpan = $('#text > div > span')
                 for(var index = 0; index < tagsSpan.length; index++){
                     span = tagsSpan[index]
                     text = span.textContent
-                    span.replaceWith(text)
+                    var div = document.createElement("div")
+                    div.innerText = text
+                    span.replaceWith(div)
                 }
             }
 
@@ -221,34 +237,41 @@
                 for(var index = 0; index < tagsP.length; index++){
                     p = tagsP[index]
                     text = p.textContent
-                    p.replaceWith(text+' ')
+                    var div = document.createElement("div")
+                    div.innerText = text
+                    p.replaceWith(div)
                 }
 
                 tagsP = $('#text > div > p')
                 for(var index = 0; index < tagsP.length; index++){
                     p = tagsP[index]
                     text = p.textContent
-                    p.replaceWith(text+' ')
+                    var div = document.createElement("div")
+                    div.innerText = text
+                    p.replaceWith(div)
                 }
             }
 
             function removeDivTag(){
 
+                textInput = $('#text')
                 tagsDiv = $('#text > div > div')
                 for(var index = 0; index < tagsDiv.length; index++){
-                    div = tagsDiv[index]
-                    text = div.textContent
-                    div.replaceWith(text)
+                    element = tagsDiv[index]
+                    textInput.append(element)
                 }
             }
 
             function getMarkdown(e){
+                removePTag()
                 removePreTag()
                 removeFontTag()
                 removeSpanTag()
-                removePTag()
-                removeDivTag()
+                //removeDivTag()
+                console.log($('#text').html())
                 var markdown = convertToEndOfLine( $('#text').html() )
+
+                
 
                 $('#inputText').text(markdown)
 
@@ -268,8 +291,11 @@
             }
 
             function insertMarkdom(markdown){
-                htmlMarkdown = replaceAll( markdown, '\n', '<br>' )
-                htmlMarkdown = replaceAll( markdown, '&lt;br&gt;', '<div></div>' )
+                htmlMarkdown = replaceAll( markdown, '&lt;br&gt;', ' ' )
+                htmlMarkdown = replaceAll( htmlMarkdown, '\n', '</div><div>' )
+                htmlMarkdown = replaceAll( htmlMarkdown, '\r', '</div><div>' )
+
+                //console.log(htmlMarkdown)
 
                 markdownSplited = htmlMarkdown.split("<br>")
                 htmlMarkdown = ''
@@ -302,7 +328,6 @@
                 @endif
                 $('#text').on("DOMSubtreeModified", (e) => {
                     clearTimeout(typingTimer)
-                    console.log(typingTimer)
                     typingTimer = setTimeout( getMarkdown, getMarkdownInterval);
                 })
                 $('#inputTitle').on('keyup', function (){
@@ -336,6 +361,7 @@
                     $('#newImage').click()
                 })
                 $('#newImage').on('change', function(){
+                    $('#load').removeClass('d-none')
                     if($(this)[0].files.length > 0){
                         console.log('nova imagem')
                         $.ajax({
@@ -347,8 +373,10 @@
                             contentType: false,
                             cache: false,
                             complete: function(response){
+                                console.log(response)
                                 var json = JSON.parse(response.responseText)
                                 console.log(json)
+                                $('#load').addClass('d-none')
                                 switch(json.type){
                                     case 'IMAGE':
                                         $('#images').append(`

@@ -105,7 +105,9 @@ class NewsController extends Controller
      */
     public function show($id){
         $news = News::find($id);
-        $image = File::find($news->file_id);
+        if(isset($news->file_id)){
+            $image = File::find($news->file_id);
+        }
         $user = User::find($news->user_id);
 
         $markdownController = new MarkdownController;
@@ -143,8 +145,11 @@ class NewsController extends Controller
     public function edit($id){
         $categories = Category::all();
         $news = News::find($id);
-        $image = File::find($news->file_id);
+        if(isset($news->file_id)){
+            $image = File::find($news->file_id);
+        }
         $news_files = News_Files::where('news_id', $id)->get();
+
         $files = [];
         foreach($news_files as $news_file){
             $files[] = File::find($news_file->file_id);
