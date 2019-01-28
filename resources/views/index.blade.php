@@ -3,8 +3,9 @@
     <div class="container mb-4 mt-3">
         @php 
             $category = App\AdvertisingCategory::where('name', 'Super banner 940px100px')->first();
-            $advertising = App\Advertising::where('category_id', $category->id)->first();
-            if( isset($advertising) ){
+            $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+            $image = null;
+            if( isset($advertising->file_id) ){
                 $image = App\File::findOrFail($advertising->file_id);
             }
         @endphp
@@ -65,8 +66,9 @@
         <!-- advertising -->
         @php 
             $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
-            $advertising = App\Advertising::where('category_id', $category->id)->first();
-            if( isset($advertising) ){
+            $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+            $image = null;
+            if( isset($advertising->file_id) ){
                 $image = App\File::findOrFail($advertising->file_id);
             }
         @endphp
@@ -118,6 +120,36 @@
                 @endforeach
             </div>
             <div class="col-md-4">
+                <div>
+                    @listGroup([
+                        'title' => 'Publicidade'
+                    ])
+                        @php 
+                            $category = App\AdvertisingCategory::where('name', 'Banner rodape 300px100px')->first();
+                            $advertisements = App\Advertising::where('category_id', $category->id)
+                                        ->orderBy('created_at', 'desc')
+                                        ->offset(0)
+                                        ->take(3)
+                                        ->get();
+                            foreach($advertisements as $advertising){
+                                if( isset($advertising->file_id) ){
+                                    $advertising->image = App\File::findOrFail($advertising->file_id)->name;
+                                }
+                            }
+                        @endphp
+                        @foreach($advertisements as $advertising)
+                            <a href="{{ $advertising->url }}" class="p-1">
+                                <figure class="text-center">
+                                    @if( isset($advertising->image) )
+                                        <img src="{{ URL::to('/') . '/files/' . $advertising->image }}" style="max-width: 300px; max-height: 100px"  />
+                                    @else 
+                                        <img src="{{ $advertising->url }}" style="max-width: 300px; max-height: 100px" /> 
+                                    @endif
+                                </figure>
+                            </a>
+                        @endforeach
+                    @endlistGroup
+                </div>
                 <div class="sticky-top z-1000">
                     @listGroup([
                         'title' => 'Mais Vistos'
@@ -138,8 +170,9 @@
                         @endforeach
                         @php 
                             $category = App\AdvertisingCategory::where('name', 'Suquarw banner 300px250px')->first();
-                            $advertising = App\Advertising::where('category_id', $category->id)->first();
-                            if( isset($advertising) ){
+                            $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+                            $image = null;
+                            if( isset($advertising->file_id) ){
                                 $image = App\File::findOrFail($advertising->file_id);
                             }
                         @endphp
@@ -159,9 +192,10 @@
             </div>
         </div>
         @php 
-            $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
-            $advertising = App\Advertising::where('category_id', $category->id)->first();
-            if( isset($advertising) ){
+            $category = App\AdvertisingCategory::where('name', 'Full banner 460px60px')->first();
+            $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+            $image = null;
+            if( isset($advertising->file_id) ){
                 $image = App\File::findOrFail($advertising->file_id);
             }
         @endphp

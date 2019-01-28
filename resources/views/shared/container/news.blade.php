@@ -1,5 +1,7 @@
-@main
-
+@main([
+    'title' => $title,
+    'description' => $subtitle
+])
     <main role="main">
         @newsTitle([
             'title' =>  "$title" ,
@@ -9,7 +11,6 @@
             'lastUpdated' =>  "$lastUpdated" 
         ])
         @endnewsTitle
-        
         <!--Corpo Notícia-->
         <div class="container my-2">
             <div class="row">
@@ -84,13 +85,14 @@
                     @endforeach
                 </div>
                 <?php 
-                    $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
-                    $advertising = App\Advertising::where('category_id', $category->id)->first();
-                    if( isset($advertising) ){
+                    $category = App\AdvertisingCategory::where('name', 'Super banner 940px100px')->first();
+                    $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+                    if( isset($advertising->file_id) ){
                         $image = App\File::findOrFail($advertising->file_id);
                     }
+                    //dd($advertising);
                 ?>
-                @if( isset($image) )
+                @if( isset($advertising) )
                     <a href="{{ $advertising->url }}" class="p-1">
                         <figure class="text-center">
                             @if( isset($image) )
