@@ -269,13 +269,28 @@
                 }
             }
 
+            function removeHTag(){
+                for(var index = 1; index <= 6; i++){
+                    textInput = $('#text')
+                    tagsH = $('#text > h'+index)
+                    for(var index = 0; index < tagsH.length; index++){
+                        h = tagsH[index]
+                        text = h.textContent
+                        var div = document.createElement("div")
+                        div.innerText = text
+                        h.replaceWith(div)
+                    }
+                }
+            }
+
             function getMarkdown(e){
                 removePTag()
                 removePreTag()
                 removeFontTag()
                 removeSpanTag()
-                //removeDivTag()
-                console.log($('#text').html())
+                removeHTag()
+                removeDivTag()
+                //console.log($('#text').html())
                 var markdown = convertToEndOfLine( $('#text').html() )
 
                 
@@ -298,9 +313,12 @@
             }
 
             function insertMarkdom(markdown){
-                htmlMarkdown = replaceAll( markdown, '&lt;br&gt;', ' ' )
-                htmlMarkdown = replaceAll( htmlMarkdown, '\n', '</div><div>' )
-                htmlMarkdown = replaceAll( htmlMarkdown, '\r', '</div><div>' )
+                htmlMarkdown = replaceAll( markdown, '\n&lt;br&gt;', '</div><div>' )
+                htmlMarkdown = replaceAll( markdown, ' &lt;br&gt;', '</div><div>' )
+                htmlMarkdown = replaceAll( htmlMarkdown, '&lt;br&gt;', ' ' )
+                htmlMarkdown = replaceAll( htmlMarkdown, '.\n', '.</div><div>' )
+                htmlMarkdown = replaceAll( htmlMarkdown, '\n\n', '</div><div>' )
+                htmlMarkdown = replaceAll( htmlMarkdown, '.\r', '.</div><div>' )
 
                 //console.log(htmlMarkdown)
 
