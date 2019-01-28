@@ -80,6 +80,7 @@ class NewsController extends Controller
             $news->title = $request->title;
             $news->subtitle = $request->subtitle;
             $news->imageSource = $request->imageSource;
+            $news->spotlight = $request->spotlight;
             if( isset($image) ){
                 $news->file_id = $image->id;
             }
@@ -145,6 +146,7 @@ class NewsController extends Controller
     public function edit($id){
         $categories = Category::all();
         $news = News::find($id);
+        $image = null;
         if(isset($news->file_id)){
             $image = File::find($news->file_id);
         }
@@ -186,6 +188,7 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->subtitle = $request->subtitle;
         $news->imageSource = $request->imageSource;
+        $news->spotlight = $request->spotlight;
         $markdown = str_replace('`', '\`', $request->text);
         $markdown = str_replace('"', '\"', $request->text);
         $markdown = str_replace(`'`, '\'', $request->text);

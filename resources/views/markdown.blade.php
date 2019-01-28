@@ -25,7 +25,7 @@
                         required
                     >
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-3">
                     <label for="inputCategory"><h4>Categoria</h4></label>
                     <select class="form-control" name="category" id="inputCategory" required>
                         @foreach($categories as $category)
@@ -38,6 +38,13 @@
                                 @endif
                             > {{ $category->name }} </option>
                         @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="inputCategory"><h4>Destaque - Slide</h4></label>
+                    <select class="form-control" name="spotlight" id="inputSpotlight" required>
+                        <option value="NO">NÂO</option>
+                        <option value="YES">SIM</option>
                     </select>
                 </div>
                 <div class="form-group col-md-4">

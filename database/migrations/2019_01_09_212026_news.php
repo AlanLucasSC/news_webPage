@@ -25,6 +25,7 @@ class News extends Migration
             $table->text('subtitle')->nullable();
             $table->longText('text')->nullable();
             $table->string('status')->default('INACTIVE');
+            $table->string('spotlight')->default('NO');
             $table->integer('views')->default(0);
             $table->integer('likes')->default(0);
 

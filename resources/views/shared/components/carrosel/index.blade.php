@@ -1,8 +1,18 @@
 <div id="carouselExampleIndicators" class="carousel slide w-100" data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        @php
+            $cont = 0;
+        @endphp
+        @for($index = 0; $index < $lenght; $index++)
+            @if($cont == 0)
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ $cont }}" class="active"></li>
+            @else
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ $cont }}"></li>
+            @endif
+            @php
+                $cont++;
+            @endphp
+        @endfor
     </ol>
     <div class="carousel-inner">
         {{ $slot }}

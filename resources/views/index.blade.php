@@ -23,15 +23,18 @@
         <div class="row">
             <!-- carrosel -->
             <div class="col-lg-8 d-flex align-items-center">
-                @carrosel
-                    @php
-                        $news_list = App\News::skip(0)->take(3)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
-                        foreach($news_list as $news){
-                            $file = App\File::find($news->file_id);
-                            $news->imageName = $file ? $file->name : '';
-                        }
-                        $cont = 0;
-                    @endphp
+                @php
+                    $news_list = App\News::where('spotlight', 'YES')->skip(0)->take(3)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+                    foreach($news_list as $news){
+                        $file = App\File::find($news->file_id);
+                        $news->imageName = $file ? $file->name : '';
+                    }
+                    $lenght = count($news_list);
+                    $cont = 0;
+                @endphp
+                @carrosel([
+                    'lenght' => $lenght
+                ])
                     @foreach( $news_list as $news)
                         @carroselImage([
                             'active' => $cont == 0 ? 'active' : '',
