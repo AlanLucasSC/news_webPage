@@ -10,7 +10,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title id="title">{{ $title ?? 'NaMidiaMS' }}</title>
-        <meta name="description" content="NaMidiaMS">
+        <meta name="description" content="{{ $description ?? '' }}">
+        <meta itemprop="image" content="{{ $image ?? '' }}">
 
         <!-- Bootstrap core CSS -->
         <link href="/assets/bootstrap.min.css" rel="stylesheet">

@@ -1,6 +1,7 @@
 @main([
     'title' => $title,
-    'description' => $subtitle
+    'description' => $subtitle,
+    'image' => $urlPhoto
 ])
     <main role="main">
         @newsTitle([
@@ -109,8 +110,7 @@
     </main>
     <script type="text/javascript">
         window.onload = function () {
-            $(document).ready(function() {
-                function replaceAll(text, needle, replacement){
+            function replaceAll(text, needle, replacement){
                     return text.split(needle).join(replacement)
                 }
 
@@ -144,7 +144,6 @@
                 })
             
                 insertMarkdom( `{{ $text }}` )
-            })
         }
     </script>
 
