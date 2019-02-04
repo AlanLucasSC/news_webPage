@@ -60,7 +60,7 @@
 
             <div class="container">
                 <div class="row">
-                    <?php
+                    @php
                         $news_list = App\News::skip(0)->take(12)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
                         foreach($news_list as $news){
                             $file = App\File::find($news->file_id);
@@ -69,7 +69,7 @@
                             $news->categoryName = $category->name;
                         }
                         $cont = 0;
-                    ?>
+                    @endphp
                     @foreach( $news_list as $news)
                         @news([
                             'columnLenght' => '4',
@@ -83,13 +83,13 @@
                         ]) @endnews
                     @endforeach
                 </div>
-                <?php 
+                @php
                     $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
                     $advertising = App\Advertising::where('category_id', $category->id)->first();
                     if( isset($advertising) ){
                         $image = App\File::findOrFail($advertising->file_id);
                     }
-                ?>
+                @endphp
                 @if( isset($image) )
                     <a href="{{ $advertising->url }}" class="p-1">
                         <figure class="text-center">
