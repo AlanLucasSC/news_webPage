@@ -17,6 +17,18 @@ class MarkdownController extends Controller
         return $markdown;
     }
 
+    public function markdownToHtmlViaController($markdomText){
+        $markdown = str_replace('\`', '`', $markdomText);
+        $markdown = str_replace('\'', `'`, $markdomText);
+        $markdown = str_replace('\"', '"', $markdomText);
+        $markdown = str_replace('&nbsp;', ' ', $markdomText);
+        $markdown = str_replace('&lt;br&gt;', ' ', $markdomText);
+        $markdown = Markdown::convertToHtml($markdown);
+        //$markdown = str_replace('', ' ', $markdomText);
+        $markdown = $this->tagVideo($markdown);
+        return $markdown;
+    }
+
     public function tagVideo($markdown){
         $newMarkdown = $markdown;
         $initialPositionOfShortcutVideo = strrpos($newMarkdown, "?[");

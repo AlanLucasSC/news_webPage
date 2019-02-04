@@ -9,7 +9,9 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>NaMidiaMS</title>
+        <title id="title">{{ $title ?? 'NaMidiaMS' }}</title>
+        <meta name="description" content="{{ $description ?? '' }}">
+        <meta itemprop="image" content="{{ $image ?? '' }}">
 
         <!-- Bootstrap core CSS -->
         <link href="/assets/bootstrap.min.css" rel="stylesheet">
@@ -138,8 +140,6 @@
                 @endif
             @endauth
         @endmenu
-        @feedback(['feedback' => Session::get('feedback')])
-        @endfeedback
         {{ $slot }}
         @footer 
         @endfooter

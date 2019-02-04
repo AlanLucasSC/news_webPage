@@ -1,5 +1,8 @@
-@main
-
+@main([
+    'title' => $title,
+    'description' => $subtitle,
+    'image' => $urlPhoto
+])
     <main role="main">
         @newsTitle([
             'title' =>  "$title" ,
@@ -9,7 +12,6 @@
             'lastUpdated' =>  "$lastUpdated" 
         ])
         @endnewsTitle
-        
         <!--Corpo Notícia-->
         <div class="container my-2">
             <div class="row">
@@ -44,6 +46,7 @@
                     @endnewsPhoto
 
                     <div id="markdown" class="markdown-body">
+                        {!! $text !!}
                     </div>
                     
                 </div>
@@ -83,14 +86,15 @@
                         ]) @endnews
                     @endforeach
                 </div>
-                @php
-                    $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
-                    $advertising = App\Advertising::where('category_id', $category->id)->first();
-                    if( isset($advertising) ){
+                <?php 
+                    $category = App\AdvertisingCategory::where('name', 'Super banner 940px100px')->first();
+                    $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+                    if( isset($advertising->file_id) ){
                         $image = App\File::findOrFail($advertising->file_id);
                     }
-                @endphp
-                @if( isset($image) )
+                    //dd($advertising);
+                ?>
+                @if( isset($advertising) )
                     <a href="{{ $advertising->url }}" class="p-1">
                         <figure class="text-center">
                             @if( isset($image) )
@@ -105,45 +109,5 @@
             
         </div><!-- ./ corpo noticia-->
     </main>
-    <script type="text/javascript">
-        window.onload = function () {
-            $(document).ready(function() {
-                function replaceAll(text, needle, replacement){
-                    return text.split(needle).join(replacement)
-                }
-
-                function insertMarkdom(markdown){
-                    markdown = replaceAll( markdown, '&nbsp;', ' ' );
-                    request = $.ajax({
-                        url: "{{ route('getHtml') }}",
-                        method: "POST",
-                        dataType: "json",
-                        data: {
-                            markdown: markdown
-                        },
-                        complete: function(response) {
-                            markdown = document.querySelector('.markdown-body')
-                            text = replaceAll( response.responseText, '&lt;br&gt;', ' ' )
-                            markdown.innerHTML = text
-                        }
-                    })
-                }
-
-                $.ajax({
-                    url: "{{ route('news.plus') }}",
-                    method: "GET",
-                    dataType: "json",
-                    data: {
-                        id: {{ $id }}
-                    },
-                    complete: function(response) {
-                        console.log(response.responseText)
-                    }
-                })
-            
-                insertMarkdom( `{{ $text }}` )
-            })
-        }
-    </script>
 
 @endmain

@@ -10,6 +10,8 @@ use App\File;
 use App\News_Files;
 use App\User;
 
+use App\Http\Controllers\MarkdownController;
+
 class NewsController extends Controller
 {
     /**
@@ -78,6 +80,7 @@ class NewsController extends Controller
             $news->title = $request->title;
             $news->subtitle = $request->subtitle;
             $news->imageSource = $request->imageSource;
+            $news->spotlight = $request->spotlight;
             if( isset($image) ){
                 $news->file_id = $image->id;
             }
@@ -103,9 +106,15 @@ class NewsController extends Controller
      */
     public function show($id){
         $news = News::find($id);
-        $image = File::find($news->file_id);
+        if(isset($news->file_id)){
+            $image = File::find($news->file_id);
+        }
         $user = User::find($news->user_id);
-        return view('leitura', compact('news', 'image', 'user', 'id'));
+
+        $markdownController = new MarkdownController;
+        $markdown = $markdownController->markdownToHtmlViaController($news->text);
+        
+        return view('leitura', compact('news', 'image', 'user', 'id', 'markdown'));
     }
 
     public function showWithName($created_at, $title){
@@ -137,8 +146,12 @@ class NewsController extends Controller
     public function edit($id){
         $categories = Category::all();
         $news = News::find($id);
-        $image = File::find($news->file_id);
+        $image = null;
+        if(isset($news->file_id)){
+            $image = File::find($news->file_id);
+        }
         $news_files = News_Files::where('news_id', $id)->get();
+
         $files = [];
         foreach($news_files as $news_file){
             $files[] = File::find($news_file->file_id);
@@ -175,6 +188,7 @@ class NewsController extends Controller
         $news->title = $request->title;
         $news->subtitle = $request->subtitle;
         $news->imageSource = $request->imageSource;
+        $news->spotlight = $request->spotlight;
         $markdown = str_replace('`', '\`', $request->text);
         $markdown = str_replace('"', '\"', $request->text);
         $markdown = str_replace(`'`, '\'', $request->text);
