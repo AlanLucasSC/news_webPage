@@ -115,19 +115,31 @@
                 @linkMenu(['route' => 'home','','',''])
                     Home
                 @endlinkMenu
+
                 @if( Auth::user()->role === 'jornalista' )
                     @linkMenu(['route' => 'news.create'])
                         Escrever noticia
                     @endlinkMenu
                 @endif
+
                 @linkMenu(['route' => 'advertising.index'])
                     Propagandas
                 @endlinkMenu
+
+                @linkMenu(['route' => 'category.index'])
+                    Categorias
+                @endlinkMenu
+
+                @linkMenu(['route' => 'news.index'])
+                    Minhas noticias
+                @endlinkMenu
+
                 @if( Auth::user()->role === 'admin' )
                     @linkMenu(['route' => 'register'])
                         Cadastrar novo jornalista
                     @endlinkMenu
                 @endif
+                
                 @if( Auth::user()->role === 'admin' ||  Auth::user()->role === 'anunciante' )
                     @linkMenu(['route' => 'catalog.create'])
                         Cadastrar Anuncio
