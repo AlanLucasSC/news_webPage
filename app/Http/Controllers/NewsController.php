@@ -106,6 +106,7 @@ class NewsController extends Controller
      */
     public function show($id){
         $news = News::find($id);
+        $image = null;
         if(isset($news->file_id)){
             $image = File::find($news->file_id);
         }

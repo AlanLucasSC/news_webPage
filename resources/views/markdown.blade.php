@@ -283,17 +283,42 @@
                 }
             }
 
-            function getMarkdown(e){
-                removePTag()
-                removePreTag()
-                removeFontTag()
-                removeSpanTag()
-                removeHTag()
-                removeDivTag()
-                //console.log($('#text').html())
+            function removeTags(){
+                textInput = $('#text')
+                textHtml = textInput[0]
+                newTextHtml = replaceAll(textHtml.innerText, '\n', '</div><div>')
+                var div = document.createElement("div")
+                div.innerHTML = '<div>'+newTextHtml+'</div>'
+                textInput.html(div)
+            }
+
+            function pasteHtmlToMarkdown(e){
+                console.log('Aqui')
+                removeTags()
                 var markdown = convertToEndOfLine( $('#text').html() )
 
                 
+
+                $('#inputText').text(markdown)
+
+                request = $.ajax({
+                    url: "{{ route('getHtml') }}",
+                    method: "POST",
+                    dataType: "json",
+                    data: {
+                        markdown: markdown
+                    },
+                    complete: function(response) {
+                        markdown = document.querySelector('.markdown-body')
+                        markdown.innerHTML = response.responseText
+                        //console.log(result.responseText)
+                    }
+                })
+            }
+
+            function getMarkdown(e){
+
+                var markdown = convertToEndOfLine( $('#text').html() )
 
                 $('#inputText').text(markdown)
 
@@ -351,7 +376,11 @@
                 @if(isset($news))
                     insertMarkdom( `{{ $news->text }}` )
                 @endif
-                $('#text').on("DOMSubtreeModified", (e) => {
+                $("#text").on("paste", (e) => {
+                    clearTimeout(typingTimer)
+                    typingTimer = setTimeout( pasteHtmlToMarkdown, getMarkdownInterval);
+                })
+                $("body").on("keydown", "#text", (e) => {
                     clearTimeout(typingTimer)
                     typingTimer = setTimeout( getMarkdown, getMarkdownInterval);
                 })

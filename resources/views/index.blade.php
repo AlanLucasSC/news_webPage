@@ -24,7 +24,7 @@
             <!-- carrosel -->
             <div class="col-lg-8 d-flex align-items-center">
                 @php
-                    $news_list = App\News::where('spotlight', 'YES')->skip(0)->take(3)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+                    $news_list = App\News::where('spotlight', 'YES')->skip(0)->take(4)->orderBy('created_at', 'desc')->get();
                     foreach($news_list as $news){
                         $file = App\File::find($news->file_id);
                         $news->imageName = $file ? $file->name : '';
@@ -53,7 +53,7 @@
                     'title' => 'Destaques'
                 ])
                     @php
-                        $news_list = App\News::skip(3)->take(3)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+                        $news_list = App\News::skip(4)->take(3)->orderBy('created_at', 'desc')->get();
                     @endphp
                     @foreach( $news_list as $news)
                         @groupItem([
@@ -92,15 +92,22 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
+            	@php
+                    $date_raw = date("r");
+                    $twoDaysBefore = date('Y-m-d', strtotime('-2 day', strtotime($date_raw)))
+                @endphp
                 @foreach( $categories as $category )
-                    @if( DB::table('news')->where('category_id', $category->id)->count() != 0 )
+                    @if( DB::table('news')->where('category_id', $category->id)->whereDate( 'created_at', '>', $twoDaysBefore )->count() != 0 )
                         @category([
                             'category' => $category->name,
                             'categoryColor' => $category->color,
                             'news' => []
                         ])
                             @php
-                                $categoryNews = App\News::where('category_id', $category->id)->skip(0)->take(4)->get();
+                                $categoryNews = App\News::where('category_id', $category->id)
+                                                    ->whereDate( 'created_at', '>', $twoDaysBefore )
+                                                    ->orderBy('created_at', 'desc')
+                                                    ->skip(0)->take(6)->get();
                                 foreach($categoryNews as $news){
                                     $file = App\File::find($news->file_id);
                                     $news->imageName = $file ? $file->name : '';
