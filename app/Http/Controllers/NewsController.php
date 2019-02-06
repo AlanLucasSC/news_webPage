@@ -30,8 +30,12 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('markdown', compact('categories'));
+        $newsList = News::where('user_id', Auth::user()->id)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+        foreach($newsList as $news){
+            $file = File::find($news->file_id);
+            $news->nameImage = $file ? $file->name : 'noimage.png';
+        }
+        return view('newsList', compact('newsList'));   
     }
     /**
      * Show the form for creating a new resource.
