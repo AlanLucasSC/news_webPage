@@ -230,7 +230,7 @@
                             $image = App\File::find($catItem->file_id);
                         @endphp
                         @catItems([
-                            'columnLenght' => 4,
+                            'columnLenght' => 3,
                             'url' => $catItem->url,
                             'name' => $catItem->name,
                             'description' => $catItem->description,

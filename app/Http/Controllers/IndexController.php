@@ -42,7 +42,7 @@ class IndexController extends Controller
             }
         }
         
-        $catalog = Catalog::orderBy('updated_at', 'desc')->limit(3)->get();
+        $catalog = Catalog::orderBy('updated_at', 'desc')->limit(4)->get();
         
         
         return view('index',compact('categories','catalog'));
