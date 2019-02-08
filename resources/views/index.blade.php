@@ -210,7 +210,7 @@
             }
         @endphp
         <div class="">
-            @if( isset($advertising) )
+            @isset($advertising)
                 <a href="{{ $advertising->url }}" class="p-1">
                     <figure class="text-center">
                         @if( isset($image) )
@@ -220,7 +220,27 @@
                         @endif
                     </figure>
                 </a>
-            @endif
+            @endisset
+        </div>
+        <div>
+            @isset($catalog)
+                @catalog
+                    @foreach($catalog as $catItem)
+                        @php
+                            $image = App\File::find($catItem->file_id);
+                        @endphp
+                        @catItems([
+                            'columnLenght' => 4,
+                            'url' => $catItem->url,
+                            'name' => $catItem->name,
+                            'description' => $catItem->description,
+                            'contact' => $catItem->contact,
+                            'imageName' => $image->name ?? ''
+                        ])
+                        @endcatItems
+                    @endforeach
+                @endcatalog
+            @endisset
         </div>
     </div>
 @endmain

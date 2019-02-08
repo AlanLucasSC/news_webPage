@@ -41,15 +41,10 @@ class IndexController extends Controller
                     break;
             }
         }
-        /*
-        $catalog = Catalog::all();
-        if(!isset($catalog)){
-            $catalog = $catalog->random(3);
-        }else{
-            $catalog = [];
-        }
-        */
         
-        return view('index',compact('categories'));
+        $catalog = Catalog::orderBy('updated_at', 'desc')->limit(3)->get();
+        
+        
+        return view('index',compact('categories','catalog'));
     }
 }
