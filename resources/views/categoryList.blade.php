@@ -9,28 +9,29 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if( Auth::user()->role === 'admin' )
+                        <tr>
+                            <td>
+                                <form 
+                                    action="{{ route('category.store') }}" 
+                                    id="form" 
+                                    role="form" 
+                                    method="POST"  
+                                    class="row my-4"
+                                >
+                                    {{ csrf_field() }}
+                                    <div class="form-group col-md-12">
+                                        <label for="newCategory">Nova categoria</label>
+                                        <input name="category" class="form-control" id="newCategory" placeholder="Insira uma nova categoria">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-sm btn-success" id="buttonNewCategory" type="Submit">Adicionar Categoria</button>
+                                    </div>
+                                </form>
 
-                    <tr>
-                        <td>
-                            <form 
-                                action="{{ route('category.store') }}" 
-                                id="form" 
-                                role="form" 
-                                method="POST"  
-                                class="row my-4"
-                            >
-                                {{ csrf_field() }}
-                                <div class="form-group col-md-12">
-                                    <label for="newCategory">Nova categoria</label>
-                                    <input name="category" class="form-control" id="newCategory" placeholder="Insira uma nova categoria">
-                                </div>
-                                <div class="col-md-4">
-                                    <button class="btn btn-sm btn-success" id="buttonNewCategory" type="Submit">Adicionar Categoria</button>
-                                </div>
-                            </form>
-
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endif
                     @foreach( $categories as $category )
                         <tr> 
                             <td>

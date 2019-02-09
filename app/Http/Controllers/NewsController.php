@@ -30,12 +30,37 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $newsList = News::where('user_id', Auth::user()->id)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+        $newsForPage = 6;
+        $newsList = News::where('user_id', Auth::user()->id)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
         foreach($newsList as $news){
             $file = File::find($news->file_id);
             $news->nameImage = $file ? $file->name : 'noimage.png';
         }
         return view('newsList', compact('newsList'));   
+    }
+
+    public function myNews(Request $request){
+        $page = 0;
+        if(isset($request->page)){
+            $page = $request->page - 1;
+        }
+        $newsForPage = 6;
+        $newsList = News::where('user_id', Auth::user()->id)
+                    ->skip($newsForPage * $page)
+                    ->take($newsForPage)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
+        foreach($newsList as $news){
+            $file = File::find($news->file_id);
+            $news->nameImage = $file ? $file->name : 'noimage.png';
+        }
+
+        $pagination = News::where('user_id', Auth::user()->id)
+                            ->paginate($newsForPage);
+
+        return view('newsList', compact('newsList', 'pagination')); 
     }
     /**
      * Show the form for creating a new resource.
@@ -45,7 +70,10 @@ class NewsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('markdown', compact('categories'));
+        $files = File::skip(0)
+                ->take(6)
+                ->get();
+        return view('markdown', compact('categories', 'files'));
     }
     /**
      * Store a newly created resource in storage.
@@ -85,6 +113,12 @@ class NewsController extends Controller
             $news->subtitle = $request->subtitle;
             $news->imageSource = $request->imageSource;
             $news->spotlight = $request->spotlight;
+
+            $markdown = str_replace('`', '\`', $request->text);
+            $markdown = str_replace('"', '\"', $markdown);
+            $markdown = str_replace(`'`, '\'', $markdown);
+            $news->text = $markdown;
+
             if( isset($image) ){
                 $news->file_id = $image->id;
             }
@@ -155,12 +189,11 @@ class NewsController extends Controller
         if(isset($news->file_id)){
             $image = File::find($news->file_id);
         }
-        $news_files = News_Files::where('news_id', $id)->get();
 
-        $files = [];
-        foreach($news_files as $news_file){
-            $files[] = File::find($news_file->file_id);
-        }
+        $files = File::skip(0)
+                    ->take(6)
+                    ->get();
+        
         return view('markdown', compact('categories', 'id', 'news', 'image', 'files'));
     }
     /**
@@ -194,12 +227,15 @@ class NewsController extends Controller
         $news->subtitle = $request->subtitle;
         $news->imageSource = $request->imageSource;
         $news->spotlight = $request->spotlight;
+
         $markdown = str_replace('`', '\`', $request->text);
-        $markdown = str_replace('"', '\"', $request->text);
-        $markdown = str_replace(`'`, '\'', $request->text);
+        $markdown = str_replace('"', '\"', $markdown);
+        $markdown = str_replace(`'`, '\'', $markdown);
         $news->text = $markdown;
+
         $news->save();
-        return redirect()->route('news.create');
+        
+        return redirect()->route('news.edit', $news->id);
     }
     /**
      * Remove the specified resource from storage.

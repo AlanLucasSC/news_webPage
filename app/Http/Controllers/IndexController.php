@@ -41,10 +41,11 @@ class IndexController extends Controller
                     break;
             }
         }
+        /*
+            $catalog = Catalog::orderBy('updated_at', 'desc')->limit(4)->get();
+        */
         
-        $catalog = Catalog::orderBy('updated_at', 'desc')->limit(4)->get();
-        
-        
-        return view('index',compact('categories','catalog'));
+        //return view('index',compact('categories','catalog'));
+        return view('index',compact('categories'));
     }
 }

@@ -33,8 +33,12 @@ Route::get('/markdown', function () {
 Route::get('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
 Route::post('/getHtml', 'MarkdownController@markdownToHtml')->name('getHtml');
 
+Route::get('/myNews', 'NewsController@myNews')->name('myNews');
+
+Route::get('/fileCatalog', 'FileController@fileCatalog')->name('fileCatalog');
+Route::get('/getFiles', 'FileController@getFiles')->name('getFiles');
+
 Route::resources([
-    
     'catalog' => 'CatalogController',
     'advertising' => 'AdvertisingController',
     'category' => 'CategoryController',

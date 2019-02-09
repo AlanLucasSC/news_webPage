@@ -50,5 +50,6 @@
         
         </div>
     </div>
+    {{ $pagination->links() }}
 </div>
 @endmain

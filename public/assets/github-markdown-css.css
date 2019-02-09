@@ -167,7 +167,11 @@
 }
 
 .markdown-body img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   border-style: none;
+  margin-top: 5px;
 }
 
 .markdown-body code,

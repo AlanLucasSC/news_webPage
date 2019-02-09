@@ -66,6 +66,16 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr class="d-flex justify-content-center">
+                        <td>
+                            <a class="btn btn-sm btn-success" href="{{ route('news.create') }}" role="button">Nova notícia</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-success" href="{{ route('myNews') }}" role="button">Minhas notícias</a>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
                     @foreach($newsList as $news)
                         <tr id="{{ $news->id }}">
                             <td>
@@ -97,11 +107,6 @@
                             <td>
                         </tr>
                     @endforeach
-                    <tr>
-                        <td colspan='3' class="d-flex  justify-content-center">
-                            <a class="btn btn-sm btn-success" href="{{ route('news.create') }}" role="button">Nova notícia</a>
-                        </td>
-                    </tr>
                    
                 
             </table>

@@ -71,15 +71,15 @@
                         rows="3"
                     >{{ $news->subtitle ?? '' }}</textarea>
                 </div>
-                @if( isset($id) )
-                    <textarea name="text" id="inputText" cols="30" rows="10" hidden></textarea>
-                @endif
+                
+                <textarea name="text" id="inputText" cols="30" rows="10" hidden></textarea>
+                
                 <div class="form-group col-md-12 pt-3 pb-3 text-right">
                     <input class="btn btn-success" type="Submit" value="Salvar">
                 </div>
             </form>
         </div>
-        @if( isset($id) )
+        
         <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 pb-3">
             <div class="col-md-6 w-md-50 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden" style="display:inline-block;">
                 <div class="text-center">
@@ -102,13 +102,24 @@
                     <form enctype="multipart/form-data" id="upload_form" role="form" method="POST" action="" >
                         {{ csrf_field() }}
                         <input type="file" name='file' id="newImage" hidden>
-                        <input type="number" name='newsId' value="{{ $id ?? '' }}" hidden>
+                        <input type="number" name='newsId' value="{{ $id ?? -1 }}" hidden>
                     </form>
                 </div>
                 <div class="text-center d-none" id="load">
                     Fazendo o upload do arquivo. Espera um pouco...
                 </div>
                 <div class="row pt-2" id="images">
+                </div>
+                <div>
+                    <div class="form-group">
+                        <label for="search">Nome do Arquivo</label>
+                        <input type="text" class="form-control" id="search" aria-describedby="fileHelp" placeholder="Nome do arquivo">
+                        <small id="emailHelp" class="form-text text-muted">Insira o nome de um arquivo para poder ser pesquisado.</small>
+                    </div>
+
+                    <input class="btn btn-success" id="searchButton" type="button" value="Pesquisar">
+                </div>
+                <div class="row pt-2" id="listImage">
                     @foreach($files as $file)
                         @if( $file->type === 'IMAGE' )
                             <div class="card col-md-4 bg-white border-0">
@@ -147,10 +158,10 @@
                     style="width: 100%; min-height: 50vh; border-width: 5px;"
                 >
                     @newsTitle([
-                        'title' => $news->title,
-                        'subtitle' => $news->subtitle,
-                        'date' => $news->date,
-                        'time' => $news->time,
+                        'title' => isset($news) ? $news->title : '',
+                        'subtitle' => isset($news)  ? $news->subtitle  : '',
+                        'date' => isset($news)  ? $news->date : '',
+                        'time' => isset($news)  ? $news->time : '',
                         'lastUpdated' => "Atualizado há uma hora"
                     ])
                     @endnewsTitle
@@ -163,7 +174,7 @@
                 <br>
             </div>
         </div>
-        @endif
+        
     </div>
     <script type="text/javascript">
         window.onload = function () {
@@ -380,13 +391,59 @@
                     clearTimeout(typingTimer)
                     typingTimer = setTimeout( pasteHtmlToMarkdown, getMarkdownInterval);
                 })
+                $('#searchButton').on('click', function (){
+
+                    request = $.ajax({
+                        url: "{{ route('getFiles') }}?search="+$('#search').val(),
+                        method: "GET",
+                        dataType: "json",
+                        complete: function(response) {
+                            var jsonList = JSON.parse(response.responseText)
+                            $( '#listImage' ).html( '' );
+                            for(let i = 0; i < jsonList.length; i++){
+                                json = jsonList[i]
+                                switch(json.type){
+                                    case 'IMAGE':
+                                        $('#listImage').append(`
+                                            <div class="card col-md-4 bg-white border-0">
+                                                <img src="`+window.location.origin+`/files/`+json.name+`" class="mt-1 card-img-top" alt="...">
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Importar</h5>
+                                                    <p class="card-text">
+                                                        ![`+json.originalName+`](`+window.location.origin+`/files/`+json.name+`)
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        `)
+                                        break;
+                                    case 'VIDEO':
+                                        $('#listImage').append(`
+                                            <div class="card col-md-4 bg-white border-0">
+                                                <video width="100%" controls="">
+                                                    <source src="`+window.location.origin+`/files/`+json.uploaded_file+`" type="video/mp4">
+                                                    Your browser does not support the video tag.
+                                                </video>
+                                                <div class="card-body">
+                                                    <h5 class="card-title">Importar</h5>
+                                                    <p class="card-text">
+                                                        ?[`+window.location.origin+`/files/`+json.uploaded_file+`]?
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        `)
+                                        break;
+                                }
+                            }
+                        }
+                    })
+                })
                 $("body").on("keydown", "#text", (e) => {
                     clearTimeout(typingTimer)
                     typingTimer = setTimeout( getMarkdown, getMarkdownInterval);
                 })
                 $('#inputTitle').on('keyup', function (){
                     var title = $( this ).val()
-                    $('#title').text( title )
+                    $('h1#title').text( title )
                 })
                 $('#inputSubtitle').on('keyup', function (){
                     var title = $( this ).val()

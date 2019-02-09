@@ -12,7 +12,11 @@ class DashboardController extends Controller
 {
     public function index(){
         $categories = Category::all();
-        $newsList = News::where('user_id', Auth::user()->id)->orderBy('date', 'desc')->orderBy('time', 'desc')->get();
+        $newsList = News::where('user_id', Auth::user()->id)
+                    ->skip(0)
+                    ->take(5)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
         foreach($newsList as $news){
             $file = File::find($news->file_id);
             $news->nameImage = $file ? $file->name : 'noimage.png';

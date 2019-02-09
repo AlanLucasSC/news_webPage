@@ -223,24 +223,26 @@
             @endisset
         </div>
         <div>
-            @isset($catalog)
-                @catalog
-                    @foreach($catalog as $catItem)
-                        @php
-                            $image = App\File::find($catItem->file_id);
-                        @endphp
-                        @catItems([
-                            'columnLenght' => 3,
-                            'url' => $catItem->url,
-                            'name' => $catItem->name,
-                            'description' => $catItem->description,
-                            'contact' => $catItem->contact,
-                            'imageName' => $image->name ?? ''
-                        ])
-                        @endcatItems
-                    @endforeach
-                @endcatalog
-            @endisset
+            @if(false)
+                @isset($catalog)
+                    @catalog
+                        @foreach($catalog as $catItem)
+                            @php
+                                $image = App\File::find($catItem->file_id);
+                            @endphp
+                            @catItems([
+                                'columnLenght' => 3,
+                                'url' => $catItem->url,
+                                'name' => $catItem->name,
+                                'description' => $catItem->description,
+                                'contact' => $catItem->contact,
+                                'imageName' => $image->name ?? ''
+                            ])
+                            @endcatItems
+                        @endforeach
+                    @endcatalog
+                @endisset
+            @endif
         </div>
     </div>
 @endmain

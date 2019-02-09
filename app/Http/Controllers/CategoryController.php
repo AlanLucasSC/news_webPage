@@ -92,13 +92,12 @@ class CategoryController extends Controller
                 $category->color = 'success';
                 break;
         }
-        $newsForPage = 16;
+        $newsForPage = 6;
         $news_list = News::where('category_id', $id)
-                        ->skip($newsForPage * $page)
-                        ->take($newsForPage)
-                        ->orderBy('date', 'desc')
-                        ->orderBy('time', 'desc')
-                        ->get();
+                    ->skip($newsForPage * $page)
+                    ->take($newsForPage)
+                    ->orderBy('created_at', 'desc')
+                    ->get();
 
         foreach($news_list as $news){
             $file = File::find($news->file_id);
@@ -106,17 +105,17 @@ class CategoryController extends Controller
         }
 
         $spotlight = News::where('category_id', $id)
-                        ->orderBy('date', 'desc')
-                        ->orderBy('time', 'desc')
-                        ->first();
+                    ->orderBy('created_at', 'desc')
+                    ->first();
 
         $moreViews = News::where('category_id', $id)
-                        ->skip(0)
-                        ->take(3)
-                        ->orderBy('views', 'desc')
-                        ->get();
+                    ->skip(0)
+                    ->take(3)
+                    ->orderBy('views', 'desc')
+                    ->get();
         
-        $pagination = News::paginate($newsForPage);
+        //$pagination = News::where('category_id', $id)->paginate($newsForPage);
+        $pagination = News::where('category_id', $id)->paginate($newsForPage);
 
         return view('categoria', compact('news_list', 'spotlight', 'category', 'moreViews', 'pagination'));   
     }

@@ -130,8 +130,12 @@
                     Categorias
                 @endlinkMenu
 
-                @linkMenu(['route' => 'news.index'])
+                @linkMenu(['route' => 'myNews'])
                     Minhas noticias
+                @endlinkMenu
+
+                @linkMenu(['route' => 'fileCatalog'])
+                    Arquivos
                 @endlinkMenu
 
                 @if( Auth::user()->role === 'admin' )
@@ -139,13 +143,13 @@
                         Cadastrar novo jornalista
                     @endlinkMenu
                 @endif
-                
-                @if( Auth::user()->role === 'admin' ||  Auth::user()->role === 'anunciante' )
-                    @linkMenu(['route' => 'catalog.create'])
-                        Cadastrar Anuncio
-                    @endlinkMenu
-                @endif
                 @if( false )
+                    @if( Auth::user()->role === 'admin' ||  Auth::user()->role === 'anunciante' )
+                        @linkMenu(['route' => 'catalog.create'])
+                            Cadastrar Anuncio
+                        @endlinkMenu
+                    @endif
+                
                     @linkMenu(['route' => 'password.edit'])
                         Trocar senha
                     @endlinkMenu

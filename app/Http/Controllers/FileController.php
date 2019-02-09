@@ -17,7 +17,7 @@ class FileController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['show','index']);
+        $this->middleware('auth');
     }
 
     /**s
@@ -27,7 +27,61 @@ class FileController extends Controller
      */
     public function index()
     {
-        //
+        $newsForPage = 6;
+        $files = File::skip($newsForPage * $page)
+                    ->take($newsForPage)
+                    ->get();
+        return view('file');   
+    }
+
+    public function fileCatalog(Request $request)
+    {
+        $page = 0;
+        $search = '';
+        $newsForPage = 12;
+
+        if(isset($request->page)){
+            $page = $request->page - 1;
+        }
+        
+        if(isset($request->search)){
+            $search = $request->search;
+            $files = File::skip($newsForPage * $page)
+                        ->take($newsForPage)
+                        ->whereRaw("originalName REGEXP '". $search . "'")
+                        ->get();
+        
+            $pagination = File::whereRaw("originalName REGEXP '". $search . "'")
+                            ->paginate($newsForPage);
+        } else {
+            $files = File::skip($newsForPage * $page)
+                    ->take($newsForPage)
+                    ->get();
+        
+            $pagination = File::paginate($newsForPage);
+        }
+        
+        
+        return view('file', compact('files', 'pagination', 'search'));   
+    }
+
+    public function getFiles(Request $request){
+        $page = 0;
+        $search = '';
+        if(isset($request->page)){
+            $page = $request->page - 1;
+        }
+        if(isset($request->search)){
+            $search = $request->search;
+        }
+
+        $newsForPage = 6;
+        $files = File::skip($newsForPage * $page)
+                    ->take($newsForPage)
+                    ->whereRaw("originalName REGEXP '". $search . "'")
+                    ->get();
+        
+        return response()->json($files);
     }
 
     /**
@@ -72,10 +126,12 @@ class FileController extends Controller
             $file->type = $type;
             $file->save();
 
-            $news_files = new News_Files;
-            $news_files->news_id = $request->newsId;
-            $news_files->file_id = $file->id;
-            $news_files->save();
+            /*
+                $news_files = new News_Files;
+                $news_files->news_id = $request->newsId;
+                $news_files->file_id = $file->id;
+                $news_files->save();
+            */
 
             return response()->json([
                 'message' => 'File Uploaded Successfully',
