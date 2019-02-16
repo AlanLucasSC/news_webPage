@@ -126,7 +126,7 @@ class AdvertisingController extends Controller
         $advertising = Advertising::find($id);
         if($advertising->file_id){
             $advertising_file = File::find($advertising->file_id);
-            unlink(public_path('files').'\\'.$advertising_file->name);
+            unlink(public_path('files').'/'.$advertising_file->name);
         }
         $advertising->delete();
         if($advertising->file_id){
