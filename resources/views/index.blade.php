@@ -3,7 +3,7 @@
     <div class="container mb-4 mt-3">
         @php 
             $category = App\AdvertisingCategory::where('name', 'Super banner 940px100px')->first();
-            $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+            $advertising = App\Advertising::where('category_id', $category->id)->inRandomOrder()->first();
             $image = null;
             if( isset($advertising->file_id) ){
                 $image = App\File::findOrFail($advertising->file_id);
@@ -69,7 +69,7 @@
         <!-- advertising -->
         @php 
             $category = App\AdvertisingCategory::where('name', 'Full banner 728px90px')->first();
-            $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+            $advertising = App\Advertising::where('category_id', $category->id)->inRandomOrder()->first();
             $image = null;
             if( isset($advertising->file_id) ){
                 $image = App\File::findOrFail($advertising->file_id);
@@ -180,7 +180,7 @@
                         @endforeach
                         @php 
                             $category = App\AdvertisingCategory::where('name', 'Suquarw banner 300px250px')->first();
-                            $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+                            $advertising = App\Advertising::where('category_id', $category->id)->inRandomOrder()->first();
                             $image = null;
                             if( isset($advertising->file_id) ){
                                 $image = App\File::findOrFail($advertising->file_id);
@@ -203,7 +203,7 @@
         </div>
         @php 
             $category = App\AdvertisingCategory::where('name', 'Full banner 460px60px')->first();
-            $advertising = App\Advertising::where('category_id', $category->id)->orderBy('created_at', 'desc')->first();
+            $advertising = App\Advertising::where('category_id', $category->id)->inRandomOrder()->first();
             $image = null;
             if( isset($advertising->file_id) ){
                 $image = App\File::findOrFail($advertising->file_id);
